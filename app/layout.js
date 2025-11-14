@@ -1,23 +1,29 @@
-import "./globals.css";
-import { Inter } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Lato, Playfair_Display } from 'next/font/google'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] });
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-lato',
+})
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-playfair-display',
+})
 
 export const metadata = {
-  title: "Cosmetic 3D",
-  description: "A 3D cosmetic product viewer.",
-};
+  title: 'Aura Cosmetics',
+  description: 'Discover the essence of beauty.',
+}
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${lato.variable} ${playfairDisplay.variable} font-sans`}>
+        {children}
       </body>
     </html>
-  );
-}
+  )
+};

@@ -1,3 +1,9 @@
-@tailwind base;
+@import "tailwindcss";
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+body {
+  background-color: #FDF6F3; /* brand-beige */
+  color: #2F2F2F; /* brand-dark */
+}
