@@ -1,22 +1,17 @@
-import Link from 'next/link'
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => (
-  <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm border-b border-white/10">
-    <div className="flex items-center justify-between px-6 md:px-8 py-4 md:py-6">
+  <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm">
+    <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 py-4 md:py-6">
       <Link href="/" className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition">
-        <div className="w-8 md:w-10 h-8 md:h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center">
-          <span className="text-white font-bold text-sm md:text-lg">C</span>
-        </div>
-        <div className="text-white">
-          <p className="font-bold text-xs md:text-base">COSMETIC</p>
-          <p className="text-[10px] md:text-xs text-white/60">CHEMIST</p>
-        </div>
+        <Image width={100} height={40} src="/full-logo.png" alt="Cosmetic Chemist Logo" />
       </Link>
       <nav className="hidden md:flex gap-8 text-white/80 text-sm">
-        <a href="/" className="hover:text-white transition">Home</a>
-        <a href="#" className="hover:text-white transition">About</a>
-        <a href="#" className="hover:text-white transition">Service</a>
-        <a href="#" className="hover:text-white transition">Contact</a>
+        <Link href="/" className="hover:text-white transition">Home</Link>
+        <Link href="#about" className="hover:text-white transition">About</Link>
+        <Link href="#services" className="hover:text-white transition">Service</Link>
+        <Link href="#contact" className="hover:text-white transition">Contact</Link>
       </nav>
       <button className="text-white/60 hover:text-white transition">
         <svg className="w-5 md:w-6 h-5 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,6 +20,6 @@ const Header = () => (
       </button>
     </div>
   </header>
-)
+);
 
 export default Header;
