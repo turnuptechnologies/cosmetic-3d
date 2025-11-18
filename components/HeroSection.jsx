@@ -1,13 +1,27 @@
 'use client';
 
-
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stage } from '@react-three/drei';
+import { useRef } from 'react';
 import Model from './model';
 
-
 export function HeroSection() {
+  const h1Ref = useRef(null);
+
+  const textAnimation = {
+    initial: { '--x': '50%', '--y': '50%' },
+    animate: {
+      '--x': ['40%', '60%', '40%'],
+      '--y': ['40%', '60%', '40%'],
+    },
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      repeatType: 'reverse',
+      ease: 'easeInOut',
+    },
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,46 +43,110 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative z-10 h-screen w-full flex items-center justify-between px-8 md:px-16 lg:px-24 overflow-hidden">
-      {/* Left Content */}
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+      {/* Background Video */}
+      <video
+       style={{ transform: 'rotate(90deg) scale(1.2)' }}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-contain z-0 opacity-40"
+      >
+        <source src="/videos/hero-bg.mp4" type="video/mp4" />
+      </video>
+
+      {/* Background Text - White Outline */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center w-full">
+        <motion.h1
+          ref={h1Ref}
+          className="text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
+          initial={textAnimation.initial}
+          animate={textAnimation.animate}
+          transition={textAnimation.transition}
+          style={{
+            background: 'transparent',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'white',
+            WebkitTextFillColor: 'white',
+            WebkitTextStroke: '3px white',
+            lineHeight: '0.9',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          <div className="flex justify-center items-center">
+            <span>Cosmetic</span>
+          </div>
+        </motion.h1>
+      </div>
+
+      {/* 3D Model */}
       <motion.div
-        className="flex-1 max-w-2xl space-y-8"
+        className="absolute inset-0 z-20 flex items-center justify-center"
+        initial={textAnimation.initial}
+        animate={textAnimation.animate}
+        transition={textAnimation.transition}
+      >
+        <div className="w-[16rem] h-[26rem] md:w-[22rem] md:h-[36rem] lg:w-[28rem] lg:h-[44rem] xl:w-[34rem] xl:h-[54rem]">
+          <Canvas
+           style={{ transform: 'rotate(-10deg) scale(1.2)' }}
+            shadows
+            camera={{ position: [0, 0, 25], fov: 22 }}
+          >
+            <ambientLight intensity={1.6} />
+            <directionalLight
+              position={[2, 2, 5]}
+              intensity={2.2}
+              castShadow
+            />
+            <pointLight position={[10, 10, 10]} intensity={0.7} />
+
+            <Model modelPath="/images/3d-one.glb" position={[-1.6, 9/7, -0.2]} />
+          </Canvas>
+        </div>
+      </motion.div>
+
+      {/* Foreground Text Outline */}
+      <div className="absolute inset-0 z-30 flex items-center justify-center w-full">
+        <motion.h1
+          className="text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
+          initial={textAnimation.initial}
+          animate={textAnimation.animate}
+          transition={textAnimation.transition}
+          style={{
+            background: 'transparent',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'transparent',
+            WebkitTextFillColor: 'transparent',
+            WebkitTextStroke: '2px white',
+            lineHeight: '0.9',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          <div className="flex justify-center items-center">
+            <span>Cosmetic</span>
+          </div>
+        </motion.h1>
+      </div>
+
+      {/* Bottom Left Content */}
+      <motion.div
+        className="absolute bottom-12 left-8 md:left-16 lg:left-24 max-w-md space-y-6 z-40"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Main Title */}
-        <div className="space-y-4">
-          <motion.h1
-            className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-tight tracking-tighter"
-            variants={itemVariants}
-          >
-            <span>Cosmetic</span>
-          </motion.h1>
-
-          {/* Subtitle with outline effect */}
-          <motion.h2
-            className="text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FF4F7A] to-[#C8FF3B] leading-tight tracking-tighter"
-            variants={itemVariants}
-            style={{
-              WebkitTextStroke: '2px rgba(255, 255, 255, 0.3)',
-            }}
-          >
-            Chemist
-          </motion.h2>
-        </div>
-
-        {/* Description */}
         <motion.p
-          className="text-base md:text-lg text-gray-300 max-w-md leading-relaxed"
+          className="text-sm md:text-base text-gray-300 leading-relaxed"
           variants={itemVariants}
         >
           Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products
         </motion.p>
 
-        {/* CTA Button */}
         <motion.button
-          className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg transition-all duration-300 glow-pulse"
+          className="group flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -92,35 +170,19 @@ export function HeroSection() {
         </motion.button>
       </motion.div>
 
-      {/* Center 3D Model Space */}
-      <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center w-full h-full pointer-events-none">
-        <div className="w-96 h-screen flex items-center justify-center" >
-           <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
-                {/* 3D Model in the center */}
-                <div className="absolute z-10 w-full h-full flex items-center justify-center">
-                  <motion.div
-                    // className="w-64 h-64 md:w-96 md:h-96"
-                  >
-                    <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>
-                      <ambientLight intensity={1.5} />
-                      <pointLight position={[10, 10, 10]} intensity={1} />
-                      <Model modelPath="/images/3d-one.glb" />
-                      <OrbitControls enableZoom={false} autoRotate  />
-                    </Canvas>
-                  </motion.div>
-                </div>
-          
-                {/* Inverted Text */}
-                <div className="relative z-20 w-full max-w-7xl mx-auto px-8">
-                  <h2 className="text-6xl md:text-9xl lg:text-9xl font-black text-white mix-blend-difference text-center select-none flex flex-col justify-between">
-                
-                    <span>Cosmetic</span>
-                    <span>Chemist</span>
-                
-                  </h2>
-                </div>
-              </section>
-        </div>
+      {/* Bottom Right Chemist Text */}
+      <div className="absolute bottom-12 right-8 md:right-16 lg:right-24 z-40">
+        <motion.h2
+          className="text-6xl md:text-8xl lg:text-9xl font-black text-white"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          // style={{
+          //   textShadow: '0 0 30px rgba(255, 255, 255, 0.5)',
+          // }}
+        >
+          Chemist
+        </motion.h2>
       </div>
     </section>
   );

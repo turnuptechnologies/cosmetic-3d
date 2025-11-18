@@ -29,10 +29,10 @@ export function SectionThree() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>
+          <Canvas camera={{ position: [0, 0, 15], fov: 20 }}>
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
-            <Model modelPath="/images/3d-two.glb" position={[-2, 0, 0]} rotation={[0, Math.PI / 4, 0]} />
+            <Model modelPath="/images/3d-two.glb" position={[-0.2, -0.2, -0.2]} />
             <OrbitControls enableZoom={false} autoRotate />
           </Canvas>
         </motion.div>

@@ -24,8 +24,9 @@ export function FinalSection() {
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
-      {/* Background Text - White Outline */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center w-full">
+
+      {/* BACKGROUND TEXT */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center w-full pointer-events-none">
         <motion.h1
           ref={h1Ref}
           className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
@@ -33,27 +34,20 @@ export function FinalSection() {
           animate={textAnimation.animate}
           transition={textAnimation.transition}
           style={{
-            background: 'transparent',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
             color: 'white',
             WebkitTextFillColor: 'white',
             WebkitTextStroke: '3px white',
             lineHeight: '1.1',
           }}
         >
-          <div className="flex justify-center items-center">
-            <span>Cosmetic</span>
-          </div>
-          <div className="flex justify-center items-center">
-            <span>Chemist</span>
-          </div>
+          <div className="flex justify-center"><span>Cosmetic</span></div>
+          <div className="flex justify-center"><span>Chemist</span></div>
         </motion.h1>
       </div>
 
-      {/* 3D Model in the center */}
-      <motion.div 
-        className="absolute inset-0 z-20 flex items-center justify-center"
+      {/* 3D MODEL */}
+      <motion.div
+        className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
         initial={textAnimation.initial}
         animate={textAnimation.animate}
         transition={textAnimation.transition}
@@ -67,31 +61,24 @@ export function FinalSection() {
         </div>
       </motion.div>
 
-      {/* Foreground Text - Transparent with White Outline */}
-      <div className="absolute inset-0 z-30 flex items-center justify-center w-full">
+      {/* FOREGROUND TEXT */}
+      <div className="absolute inset-0 z-30 flex items-center justify-center w-full pointer-events-none">
         <motion.h1
           className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
           initial={textAnimation.initial}
           animate={textAnimation.animate}
           transition={textAnimation.transition}
           style={{
-            background: 'transparent',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
             color: 'transparent',
-            WebkitTextFillColor: 'transparent',
             WebkitTextStroke: '1px white',
             lineHeight: '1.1',
           }}
         >
-          <div className="flex justify-center items-center">
-            <span>Cosmetic</span>
-          </div>
-          <div className="flex justify-center items-center">
-            <span>Chemist</span>
-          </div>
+          <div className="flex justify-center"><span>Cosmetic</span></div>
+          <div className="flex justify-center"><span>Chemist</span></div>
         </motion.h1>
       </div>
+
     </section>
   );
 }
