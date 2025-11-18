@@ -11,7 +11,7 @@ export default function Home() {
       <HeroSection />
       <SectionTwo />
       <SectionThree />
-      {/* <ProductsSection /> */}
+      <ProductsSection />
       <TwoColumnSection />
       <FinalSection />
     </main>
