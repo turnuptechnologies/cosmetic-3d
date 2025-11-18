@@ -1,6 +1,11 @@
 'use client';
 
+
 import { motion } from 'framer-motion';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Stage } from '@react-three/drei';
+import Model from './model';
+
 
 export function HeroSection() {
   const containerVariants = {
@@ -89,7 +94,33 @@ export function HeroSection() {
 
       {/* Center 3D Model Space */}
       <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center w-full h-full pointer-events-none">
-        <div className="w-96 h-screen flex items-center justify-center" />
+        <div className="w-96 h-screen flex items-center justify-center" >
+           <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+                {/* 3D Model in the center */}
+                <div className="absolute z-10 w-full h-full flex items-center justify-center">
+                  <motion.div
+                    // className="w-64 h-64 md:w-96 md:h-96"
+                  >
+                    <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>
+                      <ambientLight intensity={1.5} />
+                      <pointLight position={[10, 10, 10]} intensity={1} />
+                      <Model modelPath="/images/3d-one.glb" />
+                      <OrbitControls enableZoom={false} autoRotate  />
+                    </Canvas>
+                  </motion.div>
+                </div>
+          
+                {/* Inverted Text */}
+                <div className="relative z-20 w-full max-w-7xl mx-auto px-8">
+                  <h2 className="text-6xl md:text-9xl lg:text-9xl font-black text-white mix-blend-difference text-center select-none flex flex-col justify-between">
+                
+                    <span>Cosmetic</span>
+                    <span>Chemist</span>
+                
+                  </h2>
+                </div>
+              </section>
+        </div>
       </div>
     </section>
   );

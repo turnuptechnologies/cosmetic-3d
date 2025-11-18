@@ -5,7 +5,7 @@ import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 
-export default function Model({ modelPath }) {
+export default function Model({ modelPath, position = [0, 0, 0], rotation = [0, 0, 0] }) {
   console.log('Model component received modelPath:', modelPath);
   const groupRef = useRef(null)
 
@@ -33,7 +33,7 @@ export default function Model({ modelPath }) {
   })
 
   return (
-    <group ref={groupRef} scale={10}> {/* Adjust scale here for uniform size */}
+    <group ref={groupRef} scale={5} position={position} rotation={rotation}> {/* Adjust scale here for uniform size */}
       <primitive object={scene} />
     </group>
   )

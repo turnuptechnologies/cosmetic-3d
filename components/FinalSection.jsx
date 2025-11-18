@@ -2,34 +2,95 @@
 
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stage } from '@react-three/drei';
+import { useRef } from 'react';
 import Model from './model';
 
 export function FinalSection() {
+  const h1Ref = useRef(null);
+
+  const textAnimation = {
+    initial: { '--x': '50%', '--y': '50%' },
+    animate: {
+      '--x': ['40%', '60%', '40%'],
+      '--y': ['40%', '60%', '40%'],
+    },
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      repeatType: 'reverse',
+      ease: 'easeInOut',
+    },
+  };
+
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
-      {/* 3D Model in the center */}
-      <div className="absolute z-10 w-full h-full flex items-center justify-center">
-        <motion.div
-          className="w-64 h-64 md:w-96 md:h-96"
+      {/* Background Text - White Outline */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center w-full">
+        <motion.h1
+          ref={h1Ref}
+          className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
+          initial={textAnimation.initial}
+          animate={textAnimation.animate}
+          transition={textAnimation.transition}
+          style={{
+            background: 'transparent',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'white',
+            WebkitTextFillColor: 'white',
+            WebkitTextStroke: '3px white',
+            lineHeight: '1.1',
+          }}
         >
-          <Canvas>
-            <Stage environment="city" intensity={0.6}>
-              <Model modelPath="/images/3d-three.glb" />
-            </Stage>
-            <OrbitControls enableZoom={false} autoRotate />
-          </Canvas>
-        </motion.div>
+          <div className="flex justify-center items-center">
+            <span>Cosmetic</span>
+          </div>
+          <div className="flex justify-center items-center">
+            <span>Chemist</span>
+          </div>
+        </motion.h1>
       </div>
 
-      {/* Inverted Text */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-8">
-        <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-white mix-blend-difference text-center select-none flex justify-between">
-          <span>&lt;</span>
-          <span>Cosmetic</span>
-          <span>Chemist</span>
-          <span>&gt;</span>
-        </h2>
+      {/* 3D Model in the center */}
+      <motion.div 
+        className="absolute inset-0 z-20 flex items-center justify-center"
+        initial={textAnimation.initial}
+        animate={textAnimation.animate}
+        transition={textAnimation.transition}
+      >
+        <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] lg:w-[36rem] lg:h-[36rem] xl:w-[44rem] xl:h-[44rem]">
+          <Canvas camera={{ position: [0, 0, 10], fov: 10 }} style={{ transform: 'rotate(8deg) scale(1.2)' }}>
+            <ambientLight intensity={1.5} />
+            <pointLight position={[10, 10, 10]} intensity={1} />
+            <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
+          </Canvas>
+        </div>
+      </motion.div>
+
+      {/* Foreground Text - Transparent with White Outline */}
+      <div className="absolute inset-0 z-30 flex items-center justify-center w-full">
+        <motion.h1
+          className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
+          initial={textAnimation.initial}
+          animate={textAnimation.animate}
+          transition={textAnimation.transition}
+          style={{
+            background: 'transparent',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'transparent',
+            WebkitTextFillColor: 'transparent',
+            WebkitTextStroke: '1px white',
+            lineHeight: '1.1',
+          }}
+        >
+          <div className="flex justify-center items-center">
+            <span>Cosmetic</span>
+          </div>
+          <div className="flex justify-center items-center">
+            <span>Chemist</span>
+          </div>
+        </motion.h1>
       </div>
     </section>
   );

@@ -79,10 +79,10 @@ export function ProductsSection() {
             variants={itemVariants}
           >
             <div className="h-48 w-full mb-4">
-              <Canvas>
-                <Stage environment="city" intensity={0.6}>
-                  <Model modelPath={product.modelPath} />
-                </Stage>
+              <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>
+                <ambientLight intensity={1.5} />
+                <pointLight position={[10, 10, 10]} intensity={1} />
+                <Model modelPath={product.modelPath} position={[-2, 0, 0]} rotation={[0, Math.PI / 4, 0]} />
                 <OrbitControls enableZoom={false} autoRotate />
               </Canvas>
             </div>
