@@ -1,19 +1,19 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import gsap from 'gsap'
-import Link from 'next/link'
-import Model from '../components/model'
-import { products } from '../lib/products'
+import { useEffect, useRef } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import gsap from 'gsap';
+import Link from 'next/link';
+import Model from '../components/model';
+import { products } from '../lib/products';
 
 const ProductCard = ({ product, index }) => {
-  const cardRef = useRef(null)
+  const cardRef = useRef(null);
 
   useEffect(() => {
-    const card = cardRef.current
-    if (!card) return
+    const card = cardRef.current;
+    if (!card) return;
 
     gsap.from(card, {
       opacity: 0,
@@ -21,16 +21,16 @@ const ProductCard = ({ product, index }) => {
       duration: 0.6,
       delay: index * 0.1,
       ease: 'power2.out',
-    })
-  }, [index])
+    });
+  }, [index]);
 
   return (
     <Link href={`/products/${product.slug}`}>
       <div ref={cardRef} className="group cursor-pointer">
-        <div className="relative h-80 md:h-96 rounded-2xl overflow-hidden bg-black border border-white/10 hover:border-white/30 transition-all duration-300">
+        <div className="relative min-h-[48px] md:min-h-[120px] lg:min-h-[150px] rounded-2xl overflow-hidden bg-black  hover:border-white/30 transition-all duration-300">
 
           {/* 3D Model Canvas */}
-          <Canvas camera={{ position: [0, 0, 3], fov: 50 }} className="w-full h-full">
+          <Canvas camera={{ position: [0, 0, 4], fov: 50 }} className="w-full h-full">
             <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
             <pointLight position={[-10, -10, 10]} intensity={0.5} />
@@ -57,13 +57,12 @@ const ProductCard = ({ product, index }) => {
         </div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
 export default function Home() {
   return (
     <main className="w-full bg-black overflow-x-hidden">
-
       {/* Hero Section */}
       <section className="w-full min-h-screen flex items-center justify-center pt-24 md:pt-32 px-4 md:px-8">
         <div className="max-w-7xl mx-auto text-center space-y-8 md:space-y-12">
@@ -95,5 +94,5 @@ export default function Home() {
         </div>
       </section>
     </main>
-  )
+  );
 }

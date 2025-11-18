@@ -25,7 +25,7 @@ export default function Model({ modelPath }) {
     })
   }, [])
 
-  // Optional auto animation
+  // Optional auto animation (soft idle rotation)
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.003 // soft idle rotation
@@ -33,7 +33,7 @@ export default function Model({ modelPath }) {
   })
 
   return (
-    <group ref={groupRef} scale={1.5}>
+    <group ref={groupRef} scale={10}> {/* Adjust scale here for uniform size */}
       <primitive object={scene} />
     </group>
   )
