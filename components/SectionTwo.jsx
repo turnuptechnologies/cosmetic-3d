@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stage } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
+import { FlaskConical, Lightbulb } from 'lucide-react'; // ⬅️ Icons
 import Model from './model';
 
 export function SectionTwo() {
@@ -16,55 +17,95 @@ export function SectionTwo() {
   };
 
   return (
-    <section 
-      className="relative h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24"
-      style={{ backgroundImage: "url('/images/background.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+    <section
+      className="relative min-h-screen w-full flex items-center justify-center px-6 md:px-12 lg:px-20 py-24"
+      style={{
+        backgroundImage: "url('/images/11.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
     >
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl">
-        {/* Left Content */}
-        <motion.div 
-          className="space-y-6 text-white"
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/60"></div>
+
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center w-full max-w-7xl">
+
+        {/* LEFT CONTENT */}
+        <motion.div
+          className="space-y-8 text-white"
           initial="hidden"
           animate="visible"
           variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
         >
-          <motion.h2 
-            className="text-4xl md:text-5xl font-black leading-tight"
+          <motion.h2
+            className="text-4xl md:text-5xl font-black leading-tight tracking-tight"
             variants={itemVariants}
           >
-            Discover Our Signature Product
+            What We Do
           </motion.h2>
-          <motion.p 
-            className="text-lg text-gray-300"
+
+          <motion.p
+            className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl"
             variants={itemVariants}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            We are a leading platform that connects top-tier Cosmetic Chemists and Formulators 
+            with brands and organizations. Our mission is to elevate your product offerings by 
+            pairing you with the best in the industry.
           </motion.p>
-          <motion.button 
-            className="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-semibold hover:shadow-lg transition-all duration-300"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Learn More
-          </motion.button>
+
+          {/* FEATURE LIST */}
+          <motion.div className="space-y-6" variants={itemVariants}>
+            
+            {/* Feature 01 */}
+            <div className="flex items-start gap-4">
+              <FlaskConical className="text-yellow-300 w-7 h-7 mt-1" />
+              <div>
+                <h4 className="text-lg font-semibold">Expert Network</h4>
+                <p className="text-gray-400 text-sm">
+                  Access to industry-leading professionals
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 02 */}
+            <div className="flex items-start gap-4">
+              <Lightbulb className="text-green-400 w-7 h-7 mt-1" />
+              <div>
+                <h4 className="text-lg font-semibold">Innovation Focus</h4>
+                <p className="text-gray-400 text-sm">
+                  Driving product excellence through chemistry
+                </p>
+              </div>
+            </div>
+
+          </motion.div>
         </motion.div>
 
-        {/* Right 3D Model */}
-        <motion.div 
-          className="h-full w-full flex items-center justify-center"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>
-            <ambientLight intensity={1.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} />
-            <Model modelPath="/images/3d-one.glb" position={[-2, 0, 0]} rotation={[0, Math.PI / 4, 0]} />
-            <OrbitControls enableZoom={false} autoRotate />
-          </Canvas>
-        </motion.div>
+        {/* RIGHT 3D MODEL */}
+       <motion.div
+  className="w-full flex items-center justify-center h-[520px] md:h-[650px] lg:h-[820px]"
+  initial={{ opacity: 0, scale: 0.85 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 1, delay: 0.4 }}
+>
+  <Canvas camera={{ position: [0, 0, 15], fov: 22 }}>
+    <ambientLight intensity={1.5} />
+    <directionalLight position={[5, 5, 8]} intensity={2} />
+    <directionalLight position={[-4, -4, -6]} intensity={0.7} />
+
+    {/* Bigger model without cropping */}
+    <Model
+      modelPath="/images/3d-one2.glb"
+      scale={[1.6, 1.6, 1.6]}
+      position={[0.1, 0.2, 0]}
+      rotation={[0, 0.4, 0]}
+    />
+
+    <OrbitControls enableZoom={false} />
+  </Canvas>
+</motion.div>
+
+
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stage } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import Model from './model';
 
 export function SectionThree() {
@@ -16,11 +16,18 @@ export function SectionThree() {
   };
 
   return (
-    <section 
-      className="relative h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24"
-      style={{ backgroundImage: "url('/images/background2.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}
-    >
+    <section className="relative h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24 overflow-hidden">
+      {/* Full-size background image aligned to the left */}
+      <img
+        src="/images/35.png"
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-contain object-left"
+      />
+      
+      {/* Optional overlay */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
+
+      {/* Main content */}
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl">
         {/* Left 3D Model */}
         <motion.div 
@@ -29,17 +36,17 @@ export function SectionThree() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          <Canvas camera={{ position: [0, 0, 15], fov: 20 }}>
+          <Canvas camera={{ position: [0, 0, 10], fov: 10 }}>
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
-            <Model modelPath="/images/3d-two.glb" position={[-0.2, -0.2, -0.2]} />
+            <Model modelPath="/images/3d-two.glb" position={[0.1, 0, 0]} />
             <OrbitControls enableZoom={false} autoRotate />
           </Canvas>
         </motion.div>
 
         {/* Right Content */}
         <motion.div 
-          className="space-y-6 text-white lg:order-last"
+          className="space-y-6 text-white lg:order-last text-right"
           initial="hidden"
           animate="visible"
           variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
@@ -48,21 +55,21 @@ export function SectionThree() {
             className="text-4xl md:text-5xl font-black leading-tight"
             variants={itemVariants}
           >
-            Experience the Difference
+            Why Choose Us
           </motion.h2>
           <motion.p 
             className="text-lg text-gray-300"
             variants={itemVariants}
           >
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            At CosmeticChemist.com, we bridge the gap between innovative brands and expert cosmetic chemists. With a vast network of highly skilled formulators, we ensure that your products are developed with the latest scientific advancements and adhere to the highest industry standards.
           </motion.p>
           <motion.button 
-            className="px-8 py-4 bg-gradient-to-r from-teal-400 to-blue-500 text-white rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+            className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Explore Features
+            Join Our Network
           </motion.button>
         </motion.div>
       </div>

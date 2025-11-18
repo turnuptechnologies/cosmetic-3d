@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className="w-full bg-black overflow-x-hidden">
       <HeroSection />
-      {/* <SectionTwo /> */}
+      <SectionTwo />
       <SectionThree />
       {/* <ProductsSection /> */}
       <TwoColumnSection />

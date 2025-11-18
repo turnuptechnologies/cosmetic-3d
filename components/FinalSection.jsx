@@ -56,7 +56,9 @@ export function FinalSection() {
           <Canvas camera={{ position: [0, 0, 10], fov: 10 }} style={{ transform: 'rotate(8deg) scale(1.2)' }}>
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
-            <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
+            <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]}  
+            // rotation={[0, 0, 0.4]}
+             />
           </Canvas>
         </div>
       </motion.div>
