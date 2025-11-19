@@ -43,7 +43,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black mb-10">
       {/* Background Video */}
       <video
        style={{ transform: 'rotate(90deg) scale(1.2)' }}
@@ -94,7 +94,7 @@ export function HeroSection() {
             shadows
             camera={{ position: [0, 0, 25], fov: 22 }}
           >
-            <ambientLight intensity={1.6} />
+            <ambientLight intensity={0.6} />
             <directionalLight
               position={[2, 2, 5]}
               intensity={2.2}

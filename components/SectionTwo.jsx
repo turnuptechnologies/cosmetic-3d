@@ -18,7 +18,7 @@ export function SectionTwo() {
 
   return (
     <section
-      className="relative min-h-screen w-full flex items-center justify-center px-6 md:px-12 lg:px-20 py-24"
+      className="relative min-h-screen w-full flex items-center justify-center px-6 md:px-12 lg:px-20 py-24 my-10"
       style={{
         backgroundImage: "url('/images/11.png')",
         backgroundSize: 'cover',
@@ -89,7 +89,7 @@ export function SectionTwo() {
   transition={{ duration: 1, delay: 0.4 }}
 >
   <Canvas camera={{ position: [0, 0, 15], fov: 22 }}>
-    <ambientLight intensity={1.5} />
+    <ambientLight intensity={0.5} />
     <directionalLight position={[5, 5, 8]} intensity={2} />
     <directionalLight position={[-4, -4, -6]} intensity={0.7} />
 

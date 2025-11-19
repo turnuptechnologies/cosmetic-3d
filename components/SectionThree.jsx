@@ -16,7 +16,7 @@ export function SectionThree() {
   };
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24 overflow-hidden">
+    <section className="relative my-10 h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24 overflow-hidden">
       {/* Full-size background image aligned to the left */}
       <img
         src="/images/35.png"

@@ -17,8 +17,8 @@ const playfairDisplay = Playfair_Display({
 })
 
 export const metadata = {
-  title: 'QLEAR - Cosmetic Ingredients',
-  description: 'Discover the premium ingredients in our cosmetic products',
+  title: 'Cosmetic Chemistry',
+  description: 'Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products',
   
   icons: {
     icon: [
@@ -31,7 +31,7 @@ export const metadata = {
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: 'fav.svg',
+        url: 'fav.png',
         type: 'image/svg+xml',
       },
     ],
