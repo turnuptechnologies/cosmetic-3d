@@ -1,28 +1,29 @@
+'use client'; // This page needs to be a client component to use hooks
+
+import { useRef } from 'react';
 import { HeroSection } from '../components/HeroSection';
 import { SectionTwo } from '../components/SectionTwo';
 import { SectionThree } from '../components/SectionThree';
 import { ProductsSection } from '../components/ProductsSection';
 import { TwoColumnSection } from '../components/TwoColumnSection';
 import { FinalSection } from '../components/FinalSection';
+import { useSnapScroll } from '../lib/useSnapScroll';
+import { ScrollerContext } from '../lib/ScrollerContext';
 
 export default function Home() {
-  return (
-    // <main className="w-full bg-black overflow-x-hidden">
-    //   <HeroSection />
-    //   <SectionTwo />
-    //   <SectionThree />
-    //   <ProductsSection />
-    //   <TwoColumnSection />
-    //   <FinalSection />
-    // </main>
-    <main className="w-full bg-black overflow-x-hidden">
-  <HeroSection />
-  <SectionTwo />
-  <SectionThree />
-  <ProductsSection />
-  <TwoColumnSection />
-  <FinalSection />
-</main>
+  const mainRef = useRef(null);
+  useSnapScroll(mainRef);
 
+  return (
+    <ScrollerContext.Provider value={mainRef}>
+      <main ref={mainRef} className="w-full bg-black overflow-x-hidden h-screen snap-y snap-mandatory overflow-scroll no-scrollbar">
+        <HeroSection />
+        <SectionTwo />
+        <SectionThree />
+        <ProductsSection />
+        <TwoColumnSection />
+        <FinalSection />
+      </main>
+    </ScrollerContext.Provider>
   );
 }

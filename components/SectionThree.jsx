@@ -1,23 +1,27 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import Model from './model';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollerContext } from '../lib/ScrollerContext';
 
 export function SectionThree() {
   const sectionRef = useRef(null);
   const leftContentRef = useRef(null);
   const rightContentRef = useRef(null);
+  const scrollerRef = useContext(ScrollerContext);
 
   useEffect(() => {
+    if (!scrollerRef?.current) return;
     gsap.registerPlugin(ScrollTrigger);
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
+        scroller: scrollerRef.current,
         start: 'top center',
         toggleActions: 'play none none none',
       },
@@ -49,53 +53,48 @@ export function SectionThree() {
       tl.kill();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [scrollerRef]);
 
   return (
-    <section ref={sectionRef} className="relative my-10 h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24 overflow-hidden">
-      {/* Full-size background image aligned to the left */}
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center px-12 md:px-16 lg:px-24 py-24 snap-start overflow-hidden"
+    >
+      {/* Background Image */}
       <img
         src="/images/35.png"
         alt="Background"
-        className="absolute inset-0 w-full h-full object-contain object-left"
+        className="absolute inset-0 w-full h-full object-cover"
       />
-      
-      {/* Optional overlay */}
-      <div className="absolute inset-0 bg-black opacity-50"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* Main content */}
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl">
-        {/* Left 3D Model */}
-        <div 
+        {/* Left Content - 3D Model */}
+        <div
           ref={leftContentRef}
-          className="h-full w-full flex items-center justify-center lg:order-first"
+          className="w-full flex items-center justify-center h-[450px] md:h-[600px] lg:h-[750px]"
         >
-          <Canvas camera={{ position: [0, 0, 10], fov: 10 }}>
+          <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
-            <Model modelPath="/images/3d-two.glb" position={[0.1, 0, 0]} />
+            <Model modelPath="/images/3d-two.glb" position={[0, 0, 0]} />
             <OrbitControls enableZoom={false} autoRotate />
           </Canvas>
         </div>
 
-        {/* Right Content */}
-        <div 
+        {/* Right Content - Text */}
+        <div
           ref={rightContentRef}
-          className="space-y-6 text-white lg:order-last text-right"
+          className="space-y-6 text-white text-left lg:text-right"
         >
-          <h2 
-            className="text-4xl md:text-5xl font-black leading-tight"
-          >
+          <h2 className="text-4xl md:text-5xl font-black leading-tight">
             Why Choose Us
           </h2>
-          <p 
-            className="text-lg text-gray-300"
-          >
+          <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
             At CosmeticChemist.com, we bridge the gap between innovative brands and expert cosmetic chemists. With a vast network of highly skilled formulators, we ensure that your products are developed with the latest scientific advancements and adhere to the highest industry standards.
           </p>
-          <button 
-            className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
-          >
+          <button className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
             Join Our Network
           </button>
         </div>

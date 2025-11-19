@@ -1,39 +1,55 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useRef } from 'react';
 import Model from './model';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollerContext } from '../lib/ScrollerContext';
 
 export function FinalSection() {
-  const h1Ref = useRef(null);
+  const sectionRef = useRef(null);
+  const scrollerRef = useContext(ScrollerContext);
 
+  useEffect(() => {
+    if (!scrollerRef?.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo(
+      sectionRef.current,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          scroller: scrollerRef.current,
+          start: 'top center',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+      gsap.killTweensOf(sectionRef.current);
+    };
+  }, [scrollerRef]);
+
+  // The continuous animation can be done with GSAP as well, but for simplicity, I'll leave the CSS-like animation for now.
+  // The framer-motion textAnimation can be converted to a GSAP timeline.
   const textAnimation = {
-    initial: { '--x': '50%', '--y': '50%' },
-    animate: {
-      '--x': ['40%', '60%', '40%'],
-      '--y': ['40%', '60%', '40%'],
-    },
-    transition: {
-      duration: 8,
-      repeat: Infinity,
-      repeatType: 'reverse',
-      ease: 'easeInOut',
-    },
+    '--x': '50%',
+    '--y': '50%',
   };
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
-
-      {/* BACKGROUND TEXT */}
+    <section ref={sectionRef} className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black">
       <div className="absolute inset-0 z-10 flex items-center justify-center w-full pointer-events-none">
-        <motion.h1
-          ref={h1Ref}
+        <h1
           className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
-          initial={textAnimation.initial}
-          animate={textAnimation.animate}
-          transition={textAnimation.transition}
           style={{
+            ...textAnimation,
             color: 'white',
             WebkitTextFillColor: 'white',
             WebkitTextStroke: '3px white',
@@ -42,35 +58,25 @@ export function FinalSection() {
         >
           <div className="flex justify-center"><span>Cosmetic</span></div>
           <div className="flex justify-center"><span>Chemist</span></div>
-        </motion.h1>
+        </h1>
       </div>
-
-      {/* 3D MODEL */}
-      <motion.div
+      <div
         className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
-        initial={textAnimation.initial}
-        animate={textAnimation.animate}
-        transition={textAnimation.transition}
+        style={textAnimation}
       >
         <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] lg:w-[36rem] lg:h-[36rem] xl:w-[44rem] xl:h-[44rem]">
           <Canvas camera={{ position: [0, 0, 10], fov: 10 }} style={{ transform: 'rotate(8deg) scale(1.2)' }}>
             <ambientLight intensity={1.5} />
             <pointLight position={[10, 10, 10]} intensity={1} />
-            <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]}  
-            // rotation={[0, 0, 0.4]}
-             />
+            <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
           </Canvas>
         </div>
-      </motion.div>
-
-      {/* FOREGROUND TEXT */}
+      </div>
       <div className="absolute inset-0 z-30 flex items-center justify-center w-full pointer-events-none">
-        <motion.h1
+        <h1
           className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
-          initial={textAnimation.initial}
-          animate={textAnimation.animate}
-          transition={textAnimation.transition}
           style={{
+            ...textAnimation,
             color: 'transparent',
             WebkitTextStroke: '1px white',
             lineHeight: '1.1',
@@ -78,9 +84,8 @@ export function FinalSection() {
         >
           <div className="flex justify-center"><span>Cosmetic</span></div>
           <div className="flex justify-center"><span>Chemist</span></div>
-        </motion.h1>
+        </h1>
       </div>
-
     </section>
   );
 }

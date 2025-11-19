@@ -5,7 +5,7 @@ const Header = () => (
   <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm">
     <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 py-4 md:py-6">
       <Link href="/" className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition">
-        <Image width={100} height={40} src="/full-logo.png" alt="Cosmetic Chemist Logo" />
+        <Image width={100} height={100} src="/full-logo.png" alt="Cosmetic Chemist Logo" />
       </Link>
       <nav className="hidden md:flex gap-8 text-white/80 text-sm">
         <Link href="/" className="hover:text-white transition">Home</Link>
