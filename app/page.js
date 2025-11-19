@@ -7,13 +7,22 @@ import { FinalSection } from '../components/FinalSection';
 
 export default function Home() {
   return (
+    // <main className="w-full bg-black overflow-x-hidden">
+    //   <HeroSection />
+    //   <SectionTwo />
+    //   <SectionThree />
+    //   <ProductsSection />
+    //   <TwoColumnSection />
+    //   <FinalSection />
+    // </main>
     <main className="w-full bg-black overflow-x-hidden">
-      <HeroSection />
-      <SectionTwo />
-      <SectionThree />
-      <ProductsSection />
-      <TwoColumnSection />
-      <FinalSection />
-    </main>
+  <HeroSection />
+  <SectionTwo />
+  <SectionThree />
+  <ProductsSection />
+  <TwoColumnSection />
+  <FinalSection />
+</main>
+
   );
 }

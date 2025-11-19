@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { SmoothScroll } from '../components/SmoothScroll'
 
 const lato = Lato({
   subsets: ['latin'],
@@ -43,12 +44,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${lato.variable} ${playfairDisplay.variable} font-sans bg-black`}>
-        <Header />
-        <div className="flex flex-col min-h-screen">
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
-        <Analytics />
+        <SmoothScroll>
+          <Header />
+          <div className="flex flex-col min-h-screen">
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+          <Analytics />
+        </SmoothScroll>
       </body>
     </html>
   )

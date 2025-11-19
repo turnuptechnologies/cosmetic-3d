@@ -1,22 +1,58 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import Model from './model';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function SectionThree() {
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
+  const sectionRef = useRef(null);
+  const leftContentRef = useRef(null);
+  const rightContentRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top center',
+        toggleActions: 'play none none none',
+      },
+    });
+
+    tl.fromTo(
+      leftContentRef.current,
+      { opacity: 0, scale: 0.8 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: 'power3.out',
+      }
+    ).fromTo(
+      rightContentRef.current.children,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power3.out',
+      },
+      '-=0.5'
+    );
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   return (
-    <section className="relative my-10 h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24 overflow-hidden">
+    <section ref={sectionRef} className="relative my-10 h-screen w-full flex items-center justify-center px-8 md:px-16 lg:px-24 overflow-hidden">
       {/* Full-size background image aligned to the left */}
       <img
         src="/images/35.png"
@@ -30,11 +66,9 @@ export function SectionThree() {
       {/* Main content */}
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl">
         {/* Left 3D Model */}
-        <motion.div 
+        <div 
+          ref={leftContentRef}
           className="h-full w-full flex items-center justify-center lg:order-first"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
         >
           <Canvas camera={{ position: [0, 0, 10], fov: 10 }}>
             <ambientLight intensity={1.5} />
@@ -42,36 +76,29 @@ export function SectionThree() {
             <Model modelPath="/images/3d-two.glb" position={[0.1, 0, 0]} />
             <OrbitControls enableZoom={false} autoRotate />
           </Canvas>
-        </motion.div>
+        </div>
 
         {/* Right Content */}
-        <motion.div 
+        <div 
+          ref={rightContentRef}
           className="space-y-6 text-white lg:order-last text-right"
-          initial="hidden"
-          animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
         >
-          <motion.h2 
+          <h2 
             className="text-4xl md:text-5xl font-black leading-tight"
-            variants={itemVariants}
           >
             Why Choose Us
-          </motion.h2>
-          <motion.p 
+          </h2>
+          <p 
             className="text-lg text-gray-300"
-            variants={itemVariants}
           >
             At CosmeticChemist.com, we bridge the gap between innovative brands and expert cosmetic chemists. With a vast network of highly skilled formulators, we ensure that your products are developed with the latest scientific advancements and adhere to the highest industry standards.
-          </motion.p>
-          <motion.button 
+          </p>
+          <button 
             className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             Join Our Network
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     </section>
   );

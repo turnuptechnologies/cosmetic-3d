@@ -51,7 +51,7 @@ export function HeroSection() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-contain z-0 opacity-40"
+        className="absolute inset-0 w-full h-full object-contain z-0 opacity-100  blur-[5px]"
       >
         <source src="/videos/hero-bg.mp4" type="video/mp4" />
       </video>
