@@ -2,7 +2,7 @@ import { Lato, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Header from '../components/Header'
-import Footer from '../components/Footer'
+import LayoutWrapper from '../components/LayoutWrapper'
 
 const lato = Lato({
   subsets: ['latin'],
@@ -18,22 +18,13 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata = {
   title: 'Cosmetic Chemistry',
-  description: 'Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products',
-  
+  description:
+    'Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products',
   icons: {
     icon: [
-      {
-        url: 'fav.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: 'fav.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: 'fav.png',
-        type: 'image/svg+xml',
-      },
+      { url: 'fav.png', media: '(prefers-color-scheme: light)' },
+      { url: 'fav.png', media: '(prefers-color-scheme: dark)' },
+      { url: 'fav.png', type: 'image/svg+xml' },
     ],
     apple: 'fav.png',
   },
@@ -42,12 +33,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${lato.variable} ${playfairDisplay.variable} font-sans bg-black`}>
+      <body
+        className={`${lato.variable} ${playfairDisplay.variable} font-sans bg-black`}
+      >
         <Header />
+
+        {/* Wrapper determines when to show footer */}
         <div className="flex flex-col min-h-screen">
-          <main className="flex-grow">{children}</main>
-          {/* <Footer /> */}
+          <LayoutWrapper>{children}</LayoutWrapper>
         </div>
+
         <Analytics />
       </body>
     </html>

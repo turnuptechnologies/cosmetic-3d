@@ -169,7 +169,8 @@ export function HeroSection() {
         <p
           className="text-sm md:text-base text-gray-300 leading-relaxed"
         >
-          Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products
+          Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products.
+          
         </p>
         <button
           className="group flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"

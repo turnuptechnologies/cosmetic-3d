@@ -9,6 +9,8 @@ import { TwoColumnSection } from '../components/TwoColumnSection';
 import { FinalSection } from '../components/FinalSection';
 import { useSnapScroll } from '../lib/useSnapScroll';
 import { ScrollerContext } from '../lib/ScrollerContext';
+import { BrandsChemistsSection } from '../components/BrandsChemistsSection';
+import { ContactSection } from '../components/ContactSection';
 
 export default function Home() {
   const mainRef = useRef(null);
@@ -22,6 +24,8 @@ export default function Home() {
         <SectionThree />
         <ProductsSection />
         <TwoColumnSection />
+        <BrandsChemistsSection />
+        <ContactSection />
         <FinalSection />
       </main>
     </ScrollerContext.Provider>

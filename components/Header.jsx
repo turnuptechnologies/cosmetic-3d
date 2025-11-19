@@ -9,9 +9,10 @@ const Header = () => (
       </Link>
       <nav className="hidden md:flex gap-8 text-white/80 text-sm">
         <Link href="/" className="hover:text-white transition">Home</Link>
-        <Link href="#about" className="hover:text-white transition">About</Link>
-        <Link href="#services" className="hover:text-white transition">Service</Link>
-        <Link href="#contact" className="hover:text-white transition">Contact</Link>
+        <Link href="about" className="hover:text-white transition">About</Link>
+        <Link href="service" className="hover:text-white transition">Service</Link>
+        <Link href="faq" className="hover:text-white transition">FAQ's</Link>
+        <Link href="contact" className="hover:text-white transition">Contact</Link>
       </nav>
       <button className="text-white/60 hover:text-white transition">
         <svg className="w-5 md:w-6 h-5 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
