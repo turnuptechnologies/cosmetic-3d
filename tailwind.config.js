@@ -15,8 +15,8 @@ module.exports = {
         'brand-light': '#FBFBFB',
       },
       fontFamily: {
-        sans: ['var(--font-lato)', 'sans-serif'],
-        serif: ['var(--font-playfair-display)', 'serif'],
+          sans: ['Brooklyn', 'sans-serif'],
+        brooklyn: ['Brooklyn', 'sans-serif'],
       },
     },
   },

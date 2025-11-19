@@ -1,7 +1,83 @@
 @import "tailwindcss";
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
+
+/* globals.css */
+
+/* Normal */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn Normal 1.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* 
+/* Italic */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* SemiBold */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SemiBold Italic */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn Bold 1.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Heavy */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn Heavy 1.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Heavy Italic */
+@font-face {
+  font-family: 'Brooklyn';
+  src: url('/fonts/Brooklyn/Brooklyn HeavyItalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+} 
+/* Apply globally to all text */
+html, body, h1, h2, h3, h4, h5, h6, p, span, a, li, button {
+  font-family: 'Brooklyn', sans-serif;
+}
+
 
 body {
   background-color: #000000; /* brand-beige */

@@ -51,7 +51,7 @@ export function FinalSection() {
         {/* Main Text */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <h1
-            className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
+            className="text-5xl md:text-[6rem] lg:text-[10rem] xl:text-[13rem] font-black text-center select-none w-full px-4"
             style={{
               ...textAnimation,
               color: 'white',
@@ -60,29 +60,60 @@ export function FinalSection() {
               lineHeight: '1.1',
             }}
           >
-            <div className="flex justify-center"><span>Cosmetic</span></div>
-            <div className="flex justify-center"><span>Chemist</span></div>
+            <div className="flex justify-center"><span className='mb-[-30] tracking-widest font-light'>Cosmetic</span></div>
+            <div className="flex justify-center"><span className='mt-[-30] tracking-widest font-light'>Chemist</span></div>
           </h1>
         </div>
 
         {/* 3D Model */}
         <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-          <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] lg:w-[36rem] lg:h-[36rem] xl:w-[44rem] xl:h-[44rem]">
-            <Canvas
-              camera={{ position: [0, 0, 10], fov: 10 }}
-              style={{ transform: 'rotate(8deg) scale(1.2)' }}
-            >
-              <ambientLight intensity={1.5} />
-              <pointLight position={[10, 10, 10]} intensity={1} />
-              <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
-            </Canvas>
-          </div>
-        </div>
+  <div className="w-60 h-60 mt-20 md:w-[22rem] md:h-[22rem] lg:w-[28rem] lg:h-[28rem] xl:w-[34rem] xl:h-[34rem]">
+    <Canvas
+  camera={{ position: [0, 0, 10], fov: 10 }}
+  style={{ transform: 'rotate(8deg) scale(1.15)' }}
+>
+  {/* Soft global light */}
+  <ambientLight intensity={0.8} />
+
+  {/* Main key light */}
+  <directionalLight
+    position={[5, 5, 10]}
+    intensity={1.6}
+    castShadow={false}
+  />
+
+  {/* Fill light (softens shadows) */}
+  <directionalLight
+    position={[-5, 2, 8]}
+    intensity={0.9}
+    castShadow={false}
+  />
+
+  {/* Back rim light (gives premium edges) */}
+  <directionalLight
+    position={[0, -3, -10]}
+    intensity={1.2}
+    color="#ffffff"
+  />
+
+  {/* A soft hemisphere light for smooth gradients */}
+  <hemisphereLight
+    skyColor={"#ffffff"}
+    groundColor={"#666666"}
+    intensity={0.5}
+  />
+
+  <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
+</Canvas>
+
+  </div>
+</div>
+
 
         {/* Outline Text */}
         <div className="absolute inset-0 z-30 flex items-center justify-center w-full pointer-events-none">
           <h1
-            className="text-8xl md:text-[10rem] lg:text-[14rem] xl:text-[18rem] font-black text-center select-none w-full px-4"
+            className="text-5xl md:text-[6rem] lg:text-[10rem] xl:text-[13rem] font-black text-center select-none w-full px-4"
             style={{
               ...textAnimation,
               color: 'transparent',
@@ -90,8 +121,8 @@ export function FinalSection() {
               lineHeight: '1.1',
             }}
           >
-            <div className="flex justify-center"><span>Cosmetic</span></div>
-            <div className="flex justify-center"><span>Chemist</span></div>
+            <div className="flex justify-center"><span className='mb-[-30] tracking-widest font-light'>Cosmetic</span></div>
+            <div className="flex justify-center"><span className='mt-[-30] tracking-widest font-light'>Chemist</span></div>
           </h1>
         </div>
       </section>

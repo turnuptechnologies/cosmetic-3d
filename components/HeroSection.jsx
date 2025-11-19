@@ -52,7 +52,7 @@ export function HeroSection() {
   return (
     <section className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black mb-10">
       <video
-       style={{ transform: 'rotate(90deg) scale(1.2)' }}
+        style={{ transform: 'rotate(90deg) scale(1.2)' }}
         autoPlay
         loop
         muted
@@ -79,7 +79,7 @@ export function HeroSection() {
           }}
         >
           <div className="flex justify-center items-center">
-            <span>Cosmetic</span>
+            <span className='tracking-wide font-light'>Cosmetic</span>
           </div>
         </motion.h1>
       </div>
@@ -91,19 +91,53 @@ export function HeroSection() {
       >
         <div className="w-[16rem] h-[26rem] md:w-[22rem] md:h-[36rem] lg:w-[28rem] lg:h-[44rem] xl:w-[34rem] xl:h-[54rem]">
           <Canvas
-           style={{ transform: 'rotate(-10deg) scale(1.2)' }}
+            style={{ transform: 'rotate(-10deg) scale(1.2)' }}
             shadows
             camera={{ position: [0, 0, 25], fov: 22 }}
           >
-            <ambientLight intensity={0.6} />
+            {/* Soft overall environmental light */}
+            <ambientLight intensity={0.55} />
+
+            {/* Key Light — main highlight */}
             <directionalLight
-              position={[2, 2, 5]}
-              intensity={2.2}
-              castShadow
+              position={[6, 6, 12]}
+              intensity={2.0}
+              castShadow={true}
+              shadow-mapSize-width={2048}
+              shadow-mapSize-height={2048}
             />
-            <pointLight position={[10, 10, 10]} intensity={0.7} />
-            <Model modelPath="/images/3d-one.glb" position={[-1.6, 9/7, -0.2]} />
+
+            {/* Fill Light — softens shadows on left */}
+            <directionalLight
+              position={[-6, 2, 10]}
+              intensity={1.0}
+              castShadow={false}
+            />
+
+            {/* Rim Light — adds beautiful outline */}
+            <directionalLight
+              position={[0, -3, -10]}
+              intensity={1.4}
+              color={"#ffffff"}
+            />
+
+            {/* Soft top light for premium shine */}
+            <directionalLight
+              position={[0, 10, 5]}
+              intensity={0.8}
+              castShadow={false}
+            />
+
+            {/* Hemisphere for gentle color blend */}
+            <hemisphereLight
+              skyColor={"#ffffff"}
+              groundColor={"#666666"}
+              intensity={0.5}
+            />
+
+            <Model modelPath="/images/3d-one.glb" position={[-1.6, 9 / 7, -0.2]} />
           </Canvas>
+
         </div>
       </motion.div>
       <div className="absolute inset-0 z-30 flex items-center justify-center w-full">
@@ -124,13 +158,13 @@ export function HeroSection() {
           }}
         >
           <div className="flex justify-center items-center">
-            <span>Cosmetic</span>
+            <span className='tracking-wide font-light'>Cosmetic</span>
           </div>
         </motion.h1>
       </div>
       <div
         ref={bottomLeftRef}
-        className="absolute bottom-12 left-8 md:left-16 lg:left-24 max-w-md space-y-6 z-40"
+        className="absolute bottom-25 left-8 md:left-16 lg:left-24 max-w-md space-y-6 z-40"
       >
         <p
           className="text-sm md:text-base text-gray-300 leading-relaxed"
@@ -158,9 +192,9 @@ export function HeroSection() {
           </motion.svg>
         </button>
       </div>
-      <div ref={bottomRightRef} className="absolute bottom-12 right-8 md:right-16 lg:right-24 z-40">
+      <div ref={bottomRightRef} className="absolute bottom-60 right-8 md:right-10 lg:right-20 z-40">
         <h2
-          className="text-6xl md:text-8xl lg:text-9xl font-black text-white"
+          className="text-xl md:text-2xl lg:text-4xl font-black text-white font-light tracking-wide"
         >
           Chemist
         </h2>

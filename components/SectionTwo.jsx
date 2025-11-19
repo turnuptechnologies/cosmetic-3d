@@ -72,12 +72,12 @@ export function SectionTwo() {
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center w-full max-w-7xl">
         {/* Left Content */}
         <div ref={leftContentRef} className="space-y-8 text-white">
-          <h2 className="text-4xl md:text-5xl font-black leading-tight tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-black leading-tight tracking-tight font-brooklyn ">
             What We Do
           </h2>
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl">
-            We are a leading platform that connects top-tier Cosmetic Chemists and Formulators 
-            with brands and organizations. Our mission is to elevate your product offerings by 
+            We are a leading platform that connects top-tier Cosmetic Chemists and Formulators
+            with brands and organizations. Our mission is to elevate your product offerings by
             pairing you with the best in the industry.
           </p>
           <div className="space-y-6">
@@ -108,9 +108,46 @@ export function SectionTwo() {
           className="w-full flex items-center justify-center h-[500px] md:h-[650px] lg:h-[800px]"
         >
           <Canvas camera={{ position: [0, 0, 15], fov: 22 }}>
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[5, 5, 8]} intensity={2} />
-            <directionalLight position={[-4, -4, -6]} intensity={0.7} />
+            {/* Soft overall environmental light */}
+            <ambientLight intensity={0.55} />
+
+            {/* Key Light — main highlight */}
+            <directionalLight
+              position={[6, 6, 12]}
+              intensity={2.0}
+              castShadow={true}
+              shadow-mapSize-width={2048}
+              shadow-mapSize-height={2048}
+            />
+
+            {/* Fill Light — softens shadows on left */}
+            <directionalLight
+              position={[-6, 2, 10]}
+              intensity={1.0}
+              castShadow={false}
+            />
+
+            {/* Rim Light — adds beautiful outline */}
+            <directionalLight
+              position={[0, -3, -10]}
+              intensity={1.4}
+              color={"#ffffff"}
+            />
+
+            {/* Soft top light for premium shine */}
+            <directionalLight
+              position={[0, 10, 5]}
+              intensity={0.8}
+              castShadow={false}
+            />
+
+            {/* Hemisphere for gentle color blend */}
+            <hemisphereLight
+              skyColor={"#ffffff"}
+              groundColor={"#666666"}
+              intensity={0.5}
+            />
+
             <Model
               modelPath="/images/3d-one2.glb"
               scale={[1.6, 1.6, 1.6]}
