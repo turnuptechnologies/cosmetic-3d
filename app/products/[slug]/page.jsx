@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useContext } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import gsap from 'gsap'
@@ -13,6 +13,8 @@ import { products } from '../../../lib/products.js'
 import Model from '../../../components/model.jsx'
 import Header from '../../../components/Header.jsx'
 import IngredientLabel from '../../../components/ingredient-label.jsx'
+
+import { ScrollerContext } from '../../../lib/ScrollerContext';
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -131,7 +133,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '75%',
             top: '50%',
-          width: 550,
+            width: 550,
             height: 550,
             opacity: 1,
             zIndex: 30,
@@ -268,60 +270,14 @@ export default function ProductDetailPage() {
           zIndex: 30,
         })
       }
-      const handleGridSection2 = () => {
-        const cardEl = activeCardRef.current
-        if (!cardEl || !modalRef.current) {
-          // Fallback: center medium
-          animateModal({
-            left: '50%',
-            top: '50%',
-            width: 320,
-            height: 320,
-            opacity: 1,
-            zIndex: 30,
-          })
-          return
-        }
 
-        const rect = cardEl.getBoundingClientRect()
-        const vw = window.innerWidth
-        const vh = window.innerHeight
-
-        // Center of the card in viewport coords
-        const centerX = rect.left + rect.width / 2
-        const centerY = rect.top + rect.height / 2
-
-        // Convert to percentage so xPercent/yPercent -50 still works
-        const leftPercent = (centerX / vw) * 100
-        const topPercent = (centerY / vh) * 100
-
-        const size = rect.width // matching card width; square modal
-        // ${topPercent}
-        animateModal({
-          left: `${leftPercent}%`,
-          top: `50%`,
-          width: size,
-          height: size,
-          opacity: 1,
-          zIndex: 30,
-        })
-      }
 
       ScrollTrigger.create({
         trigger: section5Ref.current,
         scroller: mainRef.current,
         start: 'top center',
         onEnter: handleGridSection,
-        onEnterBack: () => {
-          animateModal({
-            left: '50%',
-            top: '50%',
-            width: 260,
-            height: 260,
-            opacity: 1,
-            zIndex: 30,
-          })
-        },
+        onEnterBack: handleGridSection,
       })
 
       // ----------------------------------
@@ -335,7 +291,7 @@ export default function ProductDetailPage() {
         onEnter: () => {
           animateModal({
             left: '50%',
-            top: '50%',
+            top: '30%',
             width: 420,
             height: 420,
             opacity: 1,
@@ -343,7 +299,14 @@ export default function ProductDetailPage() {
           })
         },
         onEnterBack: () => {
-          handleGridSection2();
+          animateModal({
+            left: '50%',
+            top: '30%',
+            width: 420,
+            height: 420,
+            opacity: 1,
+            zIndex: 30,
+          })
         },
       })
     })
@@ -364,6 +327,41 @@ export default function ProductDetailPage() {
       { top: '80%', right: '12%' },
     ][idx],
   }))
+
+
+  const sectionRef = useRef(null);
+  const scrollerRef = useContext(ScrollerContext);
+
+  useEffect(() => {
+    if (!scrollerRef?.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo(
+      sectionRef.current,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          scroller: scrollerRef.current,
+          start: 'top center',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+      gsap.killTweensOf(sectionRef.current);
+    };
+  }, [scrollerRef]);
+
+  const textAnimation = {
+    '--x': '50%',
+    '--y': '50%',
+  };
+
   return (
     <>
       <Header />
@@ -377,11 +375,11 @@ export default function ProductDetailPage() {
         <div
           ref={modalRef}
           className="fixed z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-  
+
         >
           <Canvas
             shadows
-      
+
             camera={{ position: [15, 0, 0], fov: 20 }}
           >
             {/* Ambient Light */}
@@ -450,17 +448,7 @@ export default function ProductDetailPage() {
               {product.description}
             </p>
             <p className="text-sm font-mono mt-2 text-white/60 ">{product.volume}</p>
-            {/* <h2 className="text-4xl font-bold">Key Benefits</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-              {product.benefits.map((benefit, index) => (
-                <div key={index} className="bg-white/5 p-6 rounded-lg">
-                  <div className="text-4xl">{benefit.icon}</div>
-                  <h3 className="font-bold text-lg mt-4">{benefit.title}</h3>
-                  <p className="text-white/70 text-sm mt-2">{benefit.description}</p>
-                </div>
-              ))}
-            </div> */}
+    
           </section>
 
           {/* ---------------------- */}
@@ -577,13 +565,14 @@ export default function ProductDetailPage() {
                   <Link href={`/products/${item.slug}`}>
                     <div className="product-content relative z-[5]">
                       <div className="w-full h-56 flex items-center justify-center mb-10">
-                        <Image
-                          src={item.imagePath}
-                          alt={item.name}
-                          width={240}
-                          height={240}
-                          className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300"
-                        />
+                        {product.imagePath === item.imagePath ? '' :
+                          <Image
+                            src={item.imagePath}
+                            alt={item.name}
+                            width={240}
+                            height={240}
+                            className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300"
+                          />}
                       </div>
 
                       <h3 className="text-2xl font-bold mb-2">{item.name}</h3>
@@ -600,17 +589,135 @@ export default function ProductDetailPage() {
           {/* ---------------------- */}
           {/* SECTION 6 — FINAL CTA */}
           {/* ---------------------- */}
-          <section
-            ref={section6Ref}
-            className="snap-start h-screen flex flex-col items-center justify-center text-center px-10 md:px-20 text-white"
-          >
-            <h2 className="text-5xl md:text-7xl font-black uppercase">{product.name}</h2>
-            <p className="text-xl text-white/80 mt-4">Experience the transformation.</p>
 
-            <button className="mt-8 bg-gradient-to-br from-pink-500 to-pink-600 text-white font-bold py-4 px-10 rounded-full hover:scale-105 transition">
-              Buy Now
-            </button>
-          </section>
+
+          <div className="relative flex flex-col min-h-screen">
+            {/* Full-screen Section */}
+            <section
+              ref={sectionRef}
+              className="relative flex-1 flex items-center justify-center bg-black snap-start"
+            >
+              {/* Main Text */}
+              <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+                <h1
+                  className="text-5xl md:text-[6rem] lg:text-[10rem] xl:text-[13rem] font-black text-center select-none w-full px-4"
+                  style={{
+                    ...textAnimation,
+                    color: 'white',
+                    WebkitTextFillColor: 'white',
+                    WebkitTextStroke: '3px white',
+                    lineHeight: '1.1',
+                  }}
+                >
+                  <div className="flex justify-center"><span className='mb-[-30] tracking-widest font-light'>Cosmetic</span></div>
+                  <div className="flex justify-center"><span className='mt-[-30] tracking-widest font-light'>Chemist</span></div>
+                </h1>
+              </div>
+
+              {/* 3D Model */}
+              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                <div ref={section6Ref} className="w-60 h-60 mt-20 md:w-[22rem] md:h-[22rem] lg:w-[28rem] lg:h-[28rem] xl:w-[34rem] xl:h-[34rem]">
+
+
+                </div>
+              </div>
+
+
+              {/* Outline Text */}
+              <div className="absolute inset-0 z-30 flex items-center justify-center w-full pointer-events-none">
+                <h1
+                  className="text-5xl md:text-[6rem] lg:text-[10rem] xl:text-[13rem] font-black text-center select-none w-full px-4"
+                  style={{
+                    ...textAnimation,
+                    color: 'transparent',
+                    WebkitTextStroke: '1px white',
+                    lineHeight: '1.1',
+                  }}
+                >
+                  <div className="flex justify-center"><span className='mb-[-30] tracking-widest font-light'>Cosmetic</span></div>
+                  <div className="flex justify-center"><span className='mt-[-30] tracking-widest font-light'>Chemist</span></div>
+                </h1>
+              </div>
+            </section>
+
+            {/* Footer with Glassy Effect */}
+            <footer className="w-full relative py-12 z-40">
+              {/* Glassy / frosted background */}
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-white/20 via-transparent "></div>
+
+              {/* Bottom Gradient */}
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-transparent to-transparent -z-20"></div>
+
+              <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 px-8">
+                {/* Left Section */}
+                <div className="flex flex-col items-center md:items-start mb-6 md:mb-0 w-full md:w-1/4">
+                  <img src="../full-logo.png" alt="Cosmetic Chemist Logo" className="w-32 mb-4" />
+                  <p className="text-md text-center text-white md:text-left max-w-md mb-4 font-light">
+                    Your premier platform connecting cosmetic chemists with innovative brands.
+                  </p>
+                  <div className="flex justify-center md:justify-start gap-6">
+                    <a href="#" className="text-white hover:text-pink-500">
+                      <i className="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" className="text-white hover:text-pink-500">
+                      <i className="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" className="text-white hover:text-pink-500">
+                      <i className="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" className="text-white hover:text-pink-500">
+                      <i className="fab fa-instagram"></i>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Quick Links */}
+                <div className="w-full md:w-1/4 mb-6 md:mb-0">
+                  <h4 className="text-lg font-semibold mb-4 font-light text-white">Quick Links</h4>
+                  <ul className="space-y-2 font-light">
+                    <li><a href="#" className="text-white hover:text-pink-500">Home</a></li>
+                    <li><a href="#" className="text-white hover:text-pink-500">About Us</a></li>
+                    <li><a href="#" className="text-white hover:text-pink-500">Services</a></li>
+                    <li><a href="#" className="text-white hover:text-pink-500">Database</a></li>
+                    <li><a href="#" className="text-white hover:text-pink-500">Blog</a></li>
+                  </ul>
+                </div>
+
+                {/* Resources */}
+                <div className="w-full md:w-1/4">
+                  <h4 className="text-lg font-semibold mb-4 font-light text-white">Resources</h4>
+                  <ul className="space-y-2 font-light">
+                    <li><a href="#" className="text-white hover:text-pink-500">Chemical Database</a></li>
+                    <li><a href="#" className="text-white hover:text-pink-500">Formula Library</a></li>
+                    <li><a href="#" className="text-white hover:text-pink-500">Regulatory Guides</a></li>
+                    <li><a href="#" className="text-white hover:text-pink-500">FAQ</a></li>
+                  </ul>
+                </div>
+
+                {/* Contact */}
+                <div className="w-full md:w-1/4">
+                  <h4 className="text-lg font-semibold mb-4 font-light text-white">Contact</h4>
+                  <p className="mb-2 font-light">
+                    <a href="mailto:info@cosmeticchemist.com" className="text-white hover:text-pink-500">info@cosmeticchemist.com</a>
+                  </p>
+                  <p className="mb-2 font-light">
+                    <a href="tel:+18005551234" className="text-white hover:text-pink-500">+1 (800) 555-1234</a>
+                  </p>
+                  <p className="mb-2 text-white">123 Innovation Way, New York, NY 10001</p>
+                </div>
+              </div>
+
+              {/* Footer Bottom */}
+              <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 px-8 border-t border-white/10 text-white/40 pt-6 mt-8">
+                <p className="text-sm font-light">&copy; {new Date().getFullYear()} Cosmetic Chemist. All Rights Reserved.</p>
+                <div className="flex gap-6">
+                  <a href="#" className="hover:text-white transition text-sm font-light">Privacy Policy</a>
+                  <a href="#" className="hover:text-white transition text-sm font-light">Terms of Service</a>
+                  <a href="#" className="hover:text-white transition text-sm font-light">Cookie Policy</a>
+                </div>
+              </div>
+            </footer>
+          </div>
         </div>
       </main>
     </>
