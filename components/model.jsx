@@ -28,7 +28,7 @@ export default function Model({ modelPath, position = [0, 0, 0], rotation = [0, 
   // Optional auto animation (soft idle rotation)
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.003 // soft idle rotation
+      groupRef.current.rotation.y += 0.013 // soft idle rotation
     }
   })
 
