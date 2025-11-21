@@ -135,7 +135,7 @@ export function HeroSection() {
               intensity={0.5}
             />
 
-            <Model modelPath="/images/3d-one.glb" position={[-1.6, 9 / 7, -0.2]} />
+            <Model scale={0.5} modelPath="/images/3d-one.glb" position={[-1.6, 9 / 7, -0.2]} />
           </Canvas>
 
         </div>
@@ -170,7 +170,7 @@ export function HeroSection() {
           className="text-sm md:text-base text-gray-300 leading-relaxed"
         >
           Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products.
-          
+
         </p>
         <button
           className="group flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"

@@ -149,8 +149,8 @@ export function SectionTwo() {
             />
 
             <Model
+              scale={0.5}
               modelPath="/images/3d-one2.glb"
-              scale={[1.6, 1.6, 1.6]}
               position={[0.1, 0.2, 0]}
               rotation={[0, 0.4, 0]}
             />

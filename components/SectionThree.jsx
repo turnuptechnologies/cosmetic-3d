@@ -77,46 +77,46 @@ export function SectionThree() {
         >
           <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
             {/* Soft overall environmental light */}
-  <ambientLight intensity={0.55} />
+            <ambientLight intensity={0.55} />
 
-  {/* Key Light — main highlight */}
-  <directionalLight
-    position={[6, 6, 12]}
-    intensity={2.0}
-    castShadow={true}
-    shadow-mapSize-width={2048}
-    shadow-mapSize-height={2048}
-  />
+            {/* Key Light — main highlight */}
+            <directionalLight
+              position={[6, 6, 12]}
+              intensity={2.0}
+              castShadow={true}
+              shadow-mapSize-width={2048}
+              shadow-mapSize-height={2048}
+            />
 
-  {/* Fill Light — softens shadows on left */}
-  <directionalLight
-    position={[-6, 2, 10]}
-    intensity={1.0}
-    castShadow={false}
-  />
+            {/* Fill Light — softens shadows on left */}
+            <directionalLight
+              position={[-6, 2, 10]}
+              intensity={1.0}
+              castShadow={false}
+            />
 
-  {/* Rim Light — adds beautiful outline */}
-  <directionalLight
-    position={[0, -3, -10]}
-    intensity={1.4}
-    color={"#ffffff"}
-  />
+            {/* Rim Light — adds beautiful outline */}
+            <directionalLight
+              position={[0, -3, -10]}
+              intensity={1.4}
+              color={"#ffffff"}
+            />
 
-  {/* Soft top light for premium shine */}
-  <directionalLight
-    position={[0, 10, 5]}
-    intensity={0.8}
-    castShadow={false}
-  />
+            {/* Soft top light for premium shine */}
+            <directionalLight
+              position={[0, 10, 5]}
+              intensity={0.8}
+              castShadow={false}
+            />
 
-  {/* Hemisphere for gentle color blend */}
-  <hemisphereLight
-    skyColor={"#ffffff"}
-    groundColor={"#666666"}
-    intensity={0.5}
-  />
+            {/* Hemisphere for gentle color blend */}
+            <hemisphereLight
+              skyColor={"#ffffff"}
+              groundColor={"#666666"}
+              intensity={0.5}
+            />
 
-            <Model modelPath="/images/3d-two.glb" position={[0, 0, 0]} />
+            <Model scale={0.5} modelPath="/images/3d-two.glb" position={[0, 0, 0]} />
             <OrbitControls enableZoom={false} autoRotate />
           </Canvas>
         </div>

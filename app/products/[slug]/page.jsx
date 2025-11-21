@@ -20,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function ProductDetailPage() {
 
-  
+
 
 
 
@@ -182,21 +182,23 @@ export default function ProductDetailPage() {
         onEnter: () => {
           animateModal({
             left: '50%',
-            top: '45%',
-            width: 380,
-            height: 380,
+            top: '50%',
+            // width: 550,
+            // height: 550,
             opacity: 1,
             zIndex: 30,
+            scale: 0.8,
           })
         },
         onEnterBack: () => {
           animateModal({
             left: '50%',
-            top: '45%',
-            width: 380,
-            height: 380,
+            top: '50%',
+            // width: 550,
+            // height: 550,
             opacity: 1,
             zIndex: 30,
+            scale: 0.8,
           })
         },
       })
@@ -212,20 +214,22 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '50%',
-            width: 560,
-            height: 560,
+            // width: 560,
+            // height: 560,
             opacity: 1,
             zIndex: 30,
+            scale: 1,
           })
         },
         onEnterBack: () => {
           animateModal({
             left: '50%',
             top: '50%',
-            width: 560,
-            height: 560,
+            // width: 560,
+            // height: 560,
             opacity: 1,
             zIndex: 30,
+            scale: 1,
           })
         },
       })
@@ -235,43 +239,56 @@ export default function ProductDetailPage() {
       // on top of the active product card
       // ----------------------------------
       const handleGridSection = () => {
-        const cardEl = activeCardRef.current
+        const cardEl = activeCardRef.current;
         if (!cardEl || !modalRef.current) {
-          // Fallback: center medium
+          // Fallback centered modal (medium size)
           animateModal({
-            left: '50%',
-            top: '50%',
-            width: 320,
-            height: 320,
+            left: "50%",
+            top: "50%",
+            xPercent: -50,
+            yPercent: -50,
+            scale: 1,          // medium default
             opacity: 1,
             zIndex: 30,
-          })
-          return
+            duration: 0.8,
+            ease: "power3.out",
+          });
+          return;
         }
 
-        const rect = cardEl.getBoundingClientRect()
-        const vw = window.innerWidth
-        const vh = window.innerHeight
+        const rect = cardEl.getBoundingClientRect();
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
 
-        // Center of the card in viewport coords
-        const centerX = rect.left + rect.width / 2
-        const centerY = rect.top + rect.height / 2
+        // Card center position
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
 
-        // Convert to percentage so xPercent/yPercent -50 still works
-        const leftPercent = (centerX / vw) * 100
-        const topPercent = (centerY / vh) * 100
+        // Convert to viewport %
+        const leftPercent = (centerX / vw) * 100;
+        const topPercent = (centerY / vh) * 100;
 
-        const size = rect.width // matching card width; square modal
-        // ${topPercent}
+        /**
+         * SCALE CALCULATION:
+         * - Card width determines modal scale
+         * - You can tweak the divisor (300 → 350 → 400)
+         * - Bigger divisor = smaller modal
+         */
+        const scaleValue = rect.width / 400; // adjust to taste
+
         animateModal({
-          left: `${leftPercent}%`,
+          left: `${leftPercent + 3}%`,
           top: `50%`,
-          width: size,
-          height: size,
+          xPercent: -50,
+          yPercent: -50,
+          scale: scaleValue,   // ⭐ THIS controls modal size smoothly
           opacity: 1,
           zIndex: 30,
-        })
-      }
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      };
+
 
 
       ScrollTrigger.create({
@@ -294,20 +311,22 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '30%',
-            width: 420,
-            height: 420,
+            width: 560,
+            height: 560,
             opacity: 1,
             zIndex: 30,
+            scale: 1,
           })
         },
         onEnterBack: () => {
           animateModal({
             left: '50%',
             top: '30%',
-            width: 420,
-            height: 420,
+            width: 560,
+            height: 560,
             opacity: 1,
             zIndex: 30,
+            scale: 1,
           })
         },
       })
@@ -590,31 +609,31 @@ export default function ProductDetailPage() {
 
               {/* Mobile Layout */}
               <div className="lg:hidden flex-1 flex flex-col justify-between">
-      <div className="flex justify-center mb-8">
-        <div ref={section3Ref} className="w-48 h-48 relative">
-      
-        </div>
-      </div>
+                <div className="flex justify-center mb-8">
+                  <div ref={section3Ref} className="w-48 h-48 relative">
 
-      <div className="space-y-8 max-w-2xl mx-auto">
-        {processSteps.map((step) => (
-          <div
-            key={step.id}
-            className="bg-gray-950 rounded-lg p-6 border border-gray-800"
-          >
-            <h3 className="text-lg font-bold text-white mb-2">
-              <span className="text-pink-500 text-2xl">{step.number}</span>{" "}
-              {step.title}
-            </h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              {step.description}
-            </p>
+                  </div>
+                </div>
 
-            <div className="mt-4 h-1 w-8 bg-gradient-to-r from-pink-500 to-transparent rounded"></div>
-          </div>
-        ))}
-      </div>
-            </div>
+                <div className="space-y-8 max-w-2xl mx-auto">
+                  {processSteps.map((step) => (
+                    <div
+                      key={step.id}
+                      className="bg-gray-950 rounded-lg p-6 border border-gray-800"
+                    >
+                      <h3 className="text-lg font-bold text-white mb-2">
+                        <span className="text-pink-500 text-2xl">{step.number}</span>{" "}
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-300 text-sm leading-relaxed">
+                        {step.description}
+                      </p>
+
+                      <div className="mt-4 h-1 w-8 bg-gradient-to-r from-pink-500 to-transparent rounded"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 

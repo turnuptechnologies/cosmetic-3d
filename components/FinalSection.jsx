@@ -67,47 +67,47 @@ export function FinalSection() {
 
         {/* 3D Model */}
         <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-  <div className="w-60 h-60 mt-20 md:w-[22rem] md:h-[22rem] lg:w-[28rem] lg:h-[28rem] xl:w-[34rem] xl:h-[34rem]">
-    <Canvas
-  camera={{ position: [0, 0, 10], fov: 10 }}
-  style={{ transform: 'rotate(8deg) scale(1.15)' }}
->
-  {/* Soft global light */}
-  <ambientLight intensity={0.8} />
+          <div className="w-60 h-60 mt-20 md:w-[22rem] md:h-[22rem] lg:w-[28rem] lg:h-[28rem] xl:w-[34rem] xl:h-[34rem]">
+            <Canvas
+              camera={{ position: [0, 0, 10], fov: 10 }}
+              style={{ transform: 'rotate(8deg) scale(1.15)' }}
+            >
+              {/* Soft global light */}
+              <ambientLight intensity={0.8} />
 
-  {/* Main key light */}
-  <directionalLight
-    position={[5, 5, 10]}
-    intensity={1.6}
-    castShadow={false}
-  />
+              {/* Main key light */}
+              <directionalLight
+                position={[5, 5, 10]}
+                intensity={1.6}
+                castShadow={false}
+              />
 
-  {/* Fill light (softens shadows) */}
-  <directionalLight
-    position={[-5, 2, 8]}
-    intensity={0.9}
-    castShadow={false}
-  />
+              {/* Fill light (softens shadows) */}
+              <directionalLight
+                position={[-5, 2, 8]}
+                intensity={0.9}
+                castShadow={false}
+              />
 
-  {/* Back rim light (gives premium edges) */}
-  <directionalLight
-    position={[0, -3, -10]}
-    intensity={1.2}
-    color="#ffffff"
-  />
+              {/* Back rim light (gives premium edges) */}
+              <directionalLight
+                position={[0, -3, -10]}
+                intensity={1.2}
+                color="#ffffff"
+              />
 
-  {/* A soft hemisphere light for smooth gradients */}
-  <hemisphereLight
-    skyColor={"#ffffff"}
-    groundColor={"#666666"}
-    intensity={0.5}
-  />
+              {/* A soft hemisphere light for smooth gradients */}
+              <hemisphereLight
+                skyColor={"#ffffff"}
+                groundColor={"#666666"}
+                intensity={0.5}
+              />
 
-  <Model modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
-</Canvas>
+              <Model scale={0.5} modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
+            </Canvas>
 
-  </div>
-</div>
+          </div>
+        </div>
 
 
         {/* Outline Text */}

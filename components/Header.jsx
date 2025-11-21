@@ -9,16 +9,17 @@ const Header = () => (
       </Link>
       <nav className="hidden md:flex gap-8 text-white/80 text-sm">
         <Link href="/" className="hover:text-white transition">Home</Link>
-        <Link href="about" className="hover:text-white transition">About</Link>
-        <Link href="service" className="hover:text-white transition">Service</Link>
-        <Link href="faq" className="hover:text-white transition">FAQ's</Link>
-        <Link href="contact" className="hover:text-white transition">Contact</Link>
+        <Link href="/about" className="hover:text-white transition">About</Link>
+        <Link href="/service" className="hover:text-white transition">Service</Link>
+        <Link href="/faq" className="hover:text-white transition">FAQ's</Link>
+        <Link href="/contact" className="hover:text-white transition">Contact</Link>
       </nav>
-      <button className="text-white/60 hover:text-white transition">
+       <Link href="/blogs" className="text-white/60 hover:text-white transition">Blogs</Link>
+      {/* <button className="text-white/60 hover:text-white transition">
         <svg className="w-5 md:w-6 h-5 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
         </svg>
-      </button>
+      </button> */}
     </div>
   </header>
 );

@@ -5,35 +5,50 @@ import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
 
-export default function Model({ modelPath, position = [0, 0, 0], rotation = [0, 0, 0] }) {
-  console.log('Model component received modelPath:', modelPath);
+export default function Model({ modelPath, scale = 0.5, position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const groupRef = useRef(null)
 
-  // Load GLB model
   const { scene } = useGLTF(modelPath)
 
+  // Initial pop-in animation
   useEffect(() => {
     if (!groupRef.current) return
 
-    // Beautiful pop-in animation
-    gsap.from(groupRef.current.scale, {
-      x: 0,
-      y: 0,
-      z: 0,
-      duration: 0.8,
-      // ease: 'back.out(1.7)',
-    })
-  }, [])
+    gsap.fromTo(
+      groupRef.current.scale,
+      { x: 0, y: 0, z: 0 },
+      {
+        x: scale,
+        y: scale,
+        z: scale,
+        duration: 0.9,
+        ease: 'power3.out'
+      }
+    )
+  }, [scale])
 
-  // Optional auto animation (soft idle rotation)
+  // Smooth scale updates when parent changes size
+  useEffect(() => {
+    if (!groupRef.current) return
+
+    gsap.to(groupRef.current.scale, {
+      x: scale,
+      y: scale,
+      z: scale,
+      duration: 0.6,
+      ease: "power2.out"
+    })
+  }, [scale])
+
+  // Idle rotation
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.013 // soft idle rotation
+      groupRef.current.rotation.y += 0.013
     }
   })
 
   return (
-    <group ref={groupRef} scale={5} position={position} rotation={rotation}> {/* Adjust scale here for uniform size */}
+    <group ref={groupRef} scale={scale} position={position} rotation={rotation}>
       <primitive object={scene} />
     </group>
   )
