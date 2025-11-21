@@ -21,7 +21,7 @@ export default function Model({ modelPath, position = [0, 0, 0], rotation = [0, 
       y: 0,
       z: 0,
       duration: 0.8,
-      ease: 'back.out(1.7)',
+      // ease: 'back.out(1.7)',
     })
   }, [])
 

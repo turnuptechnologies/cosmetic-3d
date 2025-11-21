@@ -12,7 +12,7 @@ import { Users, Lightbulb, Clock } from "lucide-react"
 import { products } from '../../../lib/products.js'
 import Model from '../../../components/model.jsx'
 import Header from '../../../components/Header.jsx'
-import IngredientLabel from '../../../components/ingredient-label.jsx'
+
 
 import { ScrollerContext } from '../../../lib/ScrollerContext';
 
@@ -20,11 +20,13 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function ProductDetailPage() {
 
+  
 
 
 
   const params = useParams()
   const product = products.find(p => p.slug === params.slug)
+
 
   if (!product) {
     return (
@@ -315,19 +317,7 @@ export default function ProductDetailPage() {
       mm.revert()
     }
   }, [])
-  const ingredientsWithPositions = product.ingredients.map((ing, idx) => ({
-    ...ing,
-    angle: ['top-left', 'middle-left', 'bottom-left', 'top-right', 'middle-right', 'bottom-right'][idx],
-    position: [
-      { top: '12%', left: '8%' },
-      { top: '48%', left: '2%' },
-      { top: '80%', left: '12%' },
-      { top: '12%', right: '8%' },
-      { top: '48%', right: '2%' },
-      { top: '80%', right: '12%' },
-    ][idx],
-  }))
-
+  const processSteps = product.ingredients;
 
   const sectionRef = useRef(null);
   const scrollerRef = useContext(ScrollerContext);
@@ -369,7 +359,7 @@ export default function ProductDetailPage() {
       {/* MAIN SCROLL + SNAP CONTAINER */}
       <main
         ref={mainRef}
-        className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black"
+        className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black no-scrollbar"
       >
         {/* FIXED MODAL */}
         <div
@@ -417,8 +407,6 @@ export default function ProductDetailPage() {
         </div>
 
 
-
-
         {/* INNER WRAPPER FOR SNAP */}
         <div className="snap-y snap-mandatory">
 
@@ -448,7 +436,7 @@ export default function ProductDetailPage() {
               {product.description}
             </p>
             <p className="text-sm font-mono mt-2 text-white/60 ">{product.volume}</p>
-    
+
           </section>
 
           {/* ---------------------- */}
@@ -456,43 +444,185 @@ export default function ProductDetailPage() {
           {/* ---------------------- */}
           <section
             ref={section3Ref}
-            className="snap-start h-screen flex flex-col items-center justify-center px-10 md:px-20 text-white"
+            className="snap-start h-screen w-full flex items-center justify-center "
           >
-            <h2 className="text-3xl md:text-4xl font-bold">Core Ingredients</h2>
-            <p className="text-white/70 mt-4 max-w-md">{product.chemicalComponents}</p>
-            <div ref={labelsRef} className="absolute inset-0 opacity-0 pointer-events-none">
-              {ingredientsWithPositions.map((ing) => (
-                <IngredientLabel key={ing.id} ingredient={ing} />
-              ))}
+            <div className="max-w-7xl mx-auto w-full flex flex-col items-center justify-center">
+
+              {/* Heading */}
+              <h2 style={{ marginBottom: '-7%', marginTop: '10%' }} className="text-4xl lg:text-5xl font-bold text-center text-white text-balance">
+                Process
+              </h2>
+
+              {/* Desktop Layout */}
+              <div className="hidden  w-full lg:block flex-1 flex items-center justify-center">
+                <div className="relative  min-h-[800px] w-full flex items-center justify-center">
+
+                  {/* Center Image */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                    <div ref={labelsRef} className="w-54 h-54 relative"></div>
+                  </div>
+
+                  {/* Top Left */}
+                  <div className="absolute top-30 left-30 w-80">
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      <span className="text-pink-500">{processSteps[0].number}</span> {processSteps[0].title}
+                    </h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {processSteps[0].description}
+                    </p>
+                    <div className="mt-4 flex items-start">
+                      <img
+                        src="/images/line1.png"
+                        alt='line'
+                        width={240}
+                        height={240}
+                        className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300 ml-10"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Top Right */}
+                  <div className="absolute top-30 right-30 w-80 text-right">
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      <span className="text-pink-500">{processSteps[1].number}</span> {processSteps[1].title}
+                    </h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {processSteps[1].description}
+                    </p>
+                    <div className="mt-4 flex items-start justify-end">
+                      <img
+                        src="/images/line2.png"
+                        alt='line'
+                        width={240}
+                        height={240}
+                        className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300 mr-10"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Middle Left */}
+                  <div className="absolute top-1/2 left-12 -translate-y-1/2 w-80 flex items-center gap-6">
+
+                    {/* Text Block */}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-white mb-2">
+                        <span className="text-pink-500">{processSteps[2].number}</span> {processSteps[2].title}
+                      </h3>
+                      <p className="text-gray-300 text-sm leading-relaxed">
+                        {processSteps[2].description}
+                      </p>
+                    </div>
+
+                    {/* Line Image */}
+                    <div className="w-20 flex justify-center">
+                      <img
+                        src="/images/line3-4.png"
+                        alt="line"
+                        width={100}
+                        height={100}
+                        className="drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+
+                  </div>
+
+                  {/* Middle Right */}
+                  <div className="absolute top-1/2 right-12 transform -translate-y-1/2 w-80 text-right flex items-center gap-6">
+                    <div className="w-20 flex justify-center">
+                      <img
+                        src="/images/line3-4.png"
+                        alt="line"
+                        width={100}
+                        height={100}
+                        className="drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-white mb-2">
+                        <span className="text-pink-500">{processSteps[3].number}</span> {processSteps[3].title}
+                      </h3>
+                      <p className="text-gray-300 text-sm leading-relaxed">
+                        {processSteps[3].description}
+                      </p>
+                    </div>
+
+                  </div>
+
+                  {/* Bottom Left */}
+                  <div className="absolute bottom-30 left-30 w-80">
+                    <div className="mt-4 flex items-start">
+                      <img
+                        src="/images/line5.png"
+                        alt='line'
+                        width={240}
+                        height={240}
+                        className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300 ml-10"
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      <span className="text-pink-500">{processSteps[4].number}</span> {processSteps[4].title}
+                    </h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {processSteps[4].description}
+                    </p>
+                  </div>
+
+                  {/* Bottom Right */}
+                  <div className="absolute bottom-30 right-30 w-80 text-right">
+                    <div className="mt-4 flex items-start justify-end">
+                      <img
+                        src="/images/line6.png"
+                        alt='line'
+                        width={240}
+                        height={240}
+                        className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300 mr-10"
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      <span className="text-pink-500">{processSteps[5].number}</span> {processSteps[5].title}
+                    </h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      {processSteps[5].description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Layout */}
+              <div className="lg:hidden flex-1 flex flex-col justify-between">
+      <div className="flex justify-center mb-8">
+        <div ref={section3Ref} className="w-48 h-48 relative">
+      
+        </div>
+      </div>
+
+      <div className="space-y-8 max-w-2xl mx-auto">
+        {processSteps.map((step) => (
+          <div
+            key={step.id}
+            className="bg-gray-950 rounded-lg p-6 border border-gray-800"
+          >
+            <h3 className="text-lg font-bold text-white mb-2">
+              <span className="text-pink-500 text-2xl">{step.number}</span>{" "}
+              {step.title}
+            </h3>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              {step.description}
+            </p>
+
+            <div className="mt-4 h-1 w-8 bg-gradient-to-r from-pink-500 to-transparent rounded"></div>
+          </div>
+        ))}
+      </div>
+            </div>
             </div>
           </section>
+
 
           {/* ---------------------- */}
           {/* SECTION 4 — CLINICAL  */}
           {/* ---------------------- */}
-          {/* <section
-            
-            className="snap-start h-screen flex flex-col justify-center px-10 md:px-20 text-white"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold">Clinical Results</h2>
 
-            <div className="mt-10 space-y-6 max-w-xl">
-              {product.clinicalResults.map((result, index) => (
-                <div key={index}>
-                  <div className="flex justify-between">
-                    <p>{result.label}</p>
-                    <p className="font-bold text-2xl text-pink-400">{result.percentage}</p>
-                  </div>
-                  <div className="w-full bg-white/10 h-1 rounded-full mt-2">
-                    <div
-                      className="h-1 bg-pink-400 rounded-full"
-                      style={{ width: result.percentage }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section> */}
           <section ref={section4Ref} className="snap-start h-screen  bg-black py-12 md:py-24 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               {/* Title */}
@@ -589,7 +719,6 @@ export default function ProductDetailPage() {
           {/* ---------------------- */}
           {/* SECTION 6 — FINAL CTA */}
           {/* ---------------------- */}
-
 
           <div className="relative flex flex-col min-h-screen">
             {/* Full-screen Section */}
