@@ -1,4 +1,4 @@
-import { getBlogPost, STRAPI_URL, getAllBlogPostSlugs } from '../../../lib/strapi';
+import { getBlogPost, getAllBlogPostSlugs } from '../../../lib/strapi';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';

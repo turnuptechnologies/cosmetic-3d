@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getPaginatedBlogPosts, STRAPI_URL } from '../../lib/strapi';
+import { getPaginatedBlogPosts } from '../../lib/strapi';
 import { Suspense } from 'react';
 import Pagination from '../../components/Pagination';
 

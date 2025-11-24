@@ -3,9 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, X } from 'lucide-react';
 import Link from 'next/link';
-import { searchArticles } from '../lib/actions'; // Adjust path as needed
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://1c5ddc963c93.ngrok-free.app';
+import { searchArticles } from '../lib/actions';
 
 export default function BlogSearch() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,15 +13,14 @@ export default function BlogSearch() {
   const [loading, setLoading] = useState(false);
 
   const inputRef = useRef(null);
-  const abortRef = useRef(null);
 
-  // Debounce search
+  /* Debounce user input */
   useEffect(() => {
     const t = setTimeout(() => setDebounced(query.trim()), 300);
     return () => clearTimeout(t);
   }, [query]);
 
-  // Auto-focus input when opening
+  /* Auto-focus search input */
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -33,76 +30,80 @@ export default function BlogSearch() {
     }
   }, [isOpen]);
 
-  // Close on ESC
+  /* Close on ESC */
   useEffect(() => {
     const close = (e) => e.key === 'Escape' && setIsOpen(false);
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
   }, []);
 
-  // Fetch using Server Action
+  /* Fetch search */
   useEffect(() => {
     if (debounced.length < 2) {
       setResults([]);
-      setLoading(false);
       return;
     }
 
-    const fetchSearch = async () => {
-      setLoading(true);
+   const fetchSearch = async () => {
+  setLoading(true);
+  try {
+    const json = await searchArticles(debounced);
 
-      try {
-        console.log('🔍 Searching for:', debounced);
-        
-        const json = await searchArticles(debounced);
+    let articles = [];
 
-        if (json.error) {
-          console.error('Search error:', json.error);
-          setResults([]);
-        } else {
-          const mapped =
-            json?.data?.map((item) => ({
-              id: item.id,
-              slug: item.attributes.slug,
-              title: item.attributes.title,
-              description: item.attributes.description,
-              createdAt: item.attributes.createdAt,
-              publishedAt: item.attributes.publishedAt,
-              cover: item.attributes.cover
-            })) ?? [];
+    // Handle both plain array and { data: [...] } structure
+    if (Array.isArray(json)) {
+      articles = json;
+    } else if (Array.isArray(json?.data)) {
+      articles = json.data;
+    }
 
-          setResults(mapped);
-          console.log('✅ Found', mapped.length, 'results');
-        }
-      } catch (err) {
-        console.error('Search error:', err);
-        setResults([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!articles.length) {
+      setResults([]);
+    } else {
+      const mapped = articles.map((item) => ({
+        id: item.id,
+        slug: item.slug,
+        title: item.title,
+        description: item.description,
+        createdAt: item.createdAt,
+        publishedAt: item.publishedAt,
+        cover: item.cover || null,
+        content: item.blocks?.[0]?.body || '',
+      }));
+
+      setResults(mapped);
+    }
+  } catch (err) {
+    console.error(err);
+    setResults([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
     fetchSearch();
   }, [debounced]);
 
+  /* Close popup */
   const closePopup = () => {
     setIsOpen(false);
     setQuery('');
     setResults([]);
   };
 
+  /* Fix image handling */
   const getImageUrl = (cover) => {
     if (!cover) return '/fav.png';
-    if (cover.data?.attributes?.formats?.small?.url)
-      return `${STRAPI_URL}${cover.data.attributes.formats.small.url}`;
-    if (cover.data?.attributes?.url)
-      return `${STRAPI_URL}${cover.data.attributes.url}`;
+    if (cover.formats?.small?.url) return cover.formats.small.url;
+    if (cover.url) return cover.url;
     return '/fav.png';
   };
 
   return (
     <>
-      {/* Button */}
+      {/* Search Button */}
       <button
         onClick={() => setIsOpen(true)}
         className="p-2 rounded-full hover:bg-gray-800 transition-colors"
@@ -111,7 +112,7 @@ export default function BlogSearch() {
         <Search className="w-5 h-5 text-white" />
       </button>
 
-      {/* Popup */}
+      {/* Search Popup */}
       {isOpen && (
         <div
           className="fixed inset-0 h-screen bg-black bg-opacity-50 backdrop-blur-sm z-50 flex flex-col"
@@ -124,16 +125,16 @@ export default function BlogSearch() {
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-white text-3xl font-semibold">Search Articles</h2>
+
               <button
                 onClick={closePopup}
                 className="p-2 rounded-full hover:bg-gray-800 transition-colors"
-                aria-label="Close search"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
             </div>
 
-            {/* Search Bar */}
+            {/* Search Input */}
             <div className="relative mb-8">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-6 h-6" />
 
@@ -150,14 +151,13 @@ export default function BlogSearch() {
                 <button
                   onClick={() => setQuery('')}
                   className="absolute right-4 top-1/2 -translate-y-1/2"
-                  aria-label="Clear search"
                 >
                   <X className="w-5 h-5 text-gray-400" />
                 </button>
               )}
             </div>
 
-            {/* Results Area */}
+            {/* Results Container */}
             <div className="max-h-[65vh] overflow-y-auto">
               {/* Loader */}
               {loading && (
@@ -166,26 +166,29 @@ export default function BlogSearch() {
                 </div>
               )}
 
-              {/* Empty state */}
+              {/* No results */}
               {!loading && debounced.length > 1 && results.length === 0 && (
                 <p className="text-gray-400 text-center py-12">
                   No results found for "{debounced}"
                 </p>
               )}
 
-              {/* Default state */}
+              {/* Start typing */}
               {!loading && debounced.length < 2 && (
                 <p className="text-gray-500 text-center py-12">Start typing to search...</p>
               )}
 
-              {/* Results */}
+              {/* SEARCH RESULTS */}
               {!loading &&
                 results.map((post) => {
                   const image = getImageUrl(post.cover);
-                  const date = new Date(post.publishedAt || post.createdAt).toLocaleDateString(
-                    'en-US',
-                    { month: 'short', day: 'numeric', year: 'numeric' }
-                  );
+                  const date = new Date(
+                    post.publishedAt || post.createdAt
+                  ).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  });
 
                   return (
                     <Link
@@ -204,9 +207,11 @@ export default function BlogSearch() {
                           <h3 className="text-white text-lg font-semibold line-clamp-2">
                             {post.title}
                           </h3>
+
                           <p className="text-gray-400 text-sm mt-1 line-clamp-2">
-                            {post.description}
+                            {post.description || post.content}
                           </p>
+
                           <span className="text-gray-500 text-xs mt-2 block">{date}</span>
                         </div>
                       </div>
