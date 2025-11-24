@@ -100,8 +100,8 @@ export default function ProductDetailPage() {
         yPercent: -50,
         left: '75%',
         top: '50%',
-        width: 350,
-        height: 350,
+        width: 550,
+        height: 550,
         zIndex: 30,
         opacity: 1,
       })
@@ -109,8 +109,10 @@ export default function ProductDetailPage() {
       const animateModal = (config) => {
         gsap.to(modalRef.current, {
           ...config,
+          width: 560,
+          height: 560,
           duration: 1,
-          ease: 'power3.out',
+          ease: 'power2.out',
         })
       }
 
@@ -125,8 +127,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '75%',
             top: '50%',
-            width: 550,
-            height: 550,
+ 
             opacity: 1,
             zIndex: 30,
           })
@@ -135,8 +136,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '75%',
             top: '50%',
-            width: 550,
-            height: 550,
+   
             opacity: 1,
             zIndex: 30,
           })
@@ -154,8 +154,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '25%',
             top: '50%',
-            width: 560,
-            height: 560,
+         
             opacity: 1,
             zIndex: 30,
           })
@@ -164,8 +163,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '25%',
             top: '50%',
-            width: 560,
-            height: 560,
+   
             opacity: 1,
             zIndex: 30,
           })
@@ -183,8 +181,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '50%',
-            // width: 550,
-            // height: 550,
+ 
             opacity: 1,
             zIndex: 30,
             scale: 0.8,
@@ -194,8 +191,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '50%',
-            // width: 550,
-            // height: 550,
+
             opacity: 1,
             zIndex: 30,
             scale: 0.8,
@@ -214,8 +210,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '50%',
-            // width: 560,
-            // height: 560,
+  
             opacity: 1,
             zIndex: 30,
             scale: 1,
@@ -225,8 +220,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '50%',
-            // width: 560,
-            // height: 560,
+ 
             opacity: 1,
             zIndex: 30,
             scale: 1,
@@ -311,8 +305,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '30%',
-            width: 560,
-            height: 560,
+           
             opacity: 1,
             zIndex: 30,
             scale: 1,
@@ -322,8 +315,7 @@ export default function ProductDetailPage() {
           animateModal({
             left: '50%',
             top: '30%',
-            width: 560,
-            height: 560,
+           
             opacity: 1,
             zIndex: 30,
             scale: 1,
@@ -388,7 +380,7 @@ export default function ProductDetailPage() {
         >
           <Canvas
             shadows
-
+    
             camera={{ position: [15, 0, 0], fov: 20 }}
           >
             {/* Ambient Light */}
@@ -419,7 +411,7 @@ export default function ProductDetailPage() {
             {/* CLEAN, CENTERED MODEL */}
             <Model
               modelPath={product.modelPath}
-              position={[0, 0.4, 0.2]}     // true center
+              position={[0, 0.3, -0.2]}     // true center
               rotation={[0, 0.4, 0.4]}   // subtle natural rotation
             />
           </Canvas>
