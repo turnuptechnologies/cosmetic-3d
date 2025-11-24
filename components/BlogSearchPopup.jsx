@@ -108,7 +108,7 @@ export default function BlogSearch() {
         className="p-2 rounded-full hover:bg-gray-800 transition-colors"
         aria-label="Search articles"
       >
-        <Search className="w-6 h-6 text-white" />
+        <Search className="w-5 h-5 text-white" />
       </button>
 
       {/* Popup */}

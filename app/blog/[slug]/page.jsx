@@ -36,9 +36,9 @@ export default async function BlogPostPage({ params }) {
 
   // Get cover image
   const imageUrl = cover?.formats?.large?.url
-    ? `${STRAPI_URL}${cover.formats.large.url}`
+    ? `${cover.formats.large.url}`
     : cover?.url
-    ? `${STRAPI_URL}${cover.url}`
+    ? `${cover.url}`
     : '/images/product1.png';
 
   // Format date
@@ -61,6 +61,8 @@ export default async function BlogPostPage({ params }) {
         <img
           src={imageUrl}
           alt={title}
+          height={100}
+          width={100}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>

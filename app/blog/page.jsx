@@ -26,9 +26,9 @@ async function BlogList({ currentPage }) {
           {posts.map((post) => {
             // Get cover image URL
             const coverImage = post.cover?.formats?.medium?.url 
-              ? `${STRAPI_URL}${post.cover.formats.medium.url}`
+              ? `${post.cover.formats.medium.url}`
               : post.cover?.url 
-              ? `${STRAPI_URL}${post.cover.url}`
+              ? `${post.cover.url}`
               : '/fav.png';
 
             // Format date
