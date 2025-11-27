@@ -1,0 +1,80 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
+const stats = [
+  {
+    value: '30+',
+    title: 'Years Combined Experience',
+    description: 'Decades of industry expertise'
+  },
+  {
+    value: '500+',
+    title: 'Products Formulated',
+    description: 'Innovative formulations created'
+  },
+  {
+    value: '100+',
+    title: 'Expert Chemists',
+    description: 'In our curated network'
+  },
+  {
+    value: '50+',
+    title: 'Partner Brands',
+    description: 'From indie to global leaders'
+  },
+  {
+    value: '250K',
+    title: 'Document Library',
+    description: 'Comprehensive resources'
+  },
+  {
+    value: '100%',
+    title: 'Regulatory Compliance',
+    description: 'Global standards met'
+  }
+];
+
+export default function ByTheNumbers() {
+  return (
+    <section className="relative w-full py-16 md:py-24 bg-black overflow-hidden">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">By the Numbers</h2>
+          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+            Our track record speaks volumes. These numbers represent our commitment to excellence and innovation in cosmetic chemistry.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              className="bg-gradient-to-br from-gray-900 to-black p-6 md:p-8 rounded-xl border border-gray-800/50 shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <div className="text-4xl md:text-5xl font-bold text-pink-500 mb-2">
+                {stat.value}
+              </div>
+              <h3 className="text-xl md:text-2xl font-semibold text-white mb-2">
+                {stat.title}
+              </h3>
+              <p className="text-gray-400 text-sm md:text-base">
+                {stat.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

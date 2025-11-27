@@ -7,11 +7,11 @@ import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 import gsap from 'gsap';
 
-export default function ProductShowcase() {
+export default function ProductShowcase({imageSide = 'left', label, title, description, modal, modalScale}) {
     return (
         <section className="relative w-full py-16 md:py-24 bg-black overflow-hidden">
             <div className="container mx-auto px-4">
-                <div className="flex flex-col lg:flex-row items-center">
+                <div className={`flex flex-col lg:flex-row items-center ${imageSide === 'left' ? '' : 'lg:flex-row-reverse'}`}>
                     {/* Left side - Product Image */}
                     <motion.div
                         className="w-full lg:w-1/2 relative z-10 mb-12 lg:mb-0"
@@ -66,7 +66,7 @@ export default function ProductShowcase() {
                                     intensity={0.5}
                                 />
 
-                                <Model scale={0.9} modelPath="/images/3d-three.glb" position={[-1.6, 9 / 7, -0.2]} />
+                                <Model scale={modalScale} modelPath={`/images/3d-${modal}.glb`} position={[-1.6, 9 / 7, -0.2]} />
                             </Canvas>
                         </div>
                     </motion.div>
@@ -80,15 +80,13 @@ export default function ProductShowcase() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
                             <h3 className="text-pink-500 text-sm font-semibold tracking-widest uppercase mb-4">
-                                SCIENCE MEETS BEAUTY
+                                {label}
                             </h3>
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                                Skincare
+                                {title}
                             </h2>
                             <p className="text-gray-300 text-base md:text-lg mb-8 max-w-2xl">
-                                Developing skincare products that deliver real results requires a deep understanding of cosmetic chemistry.
-                                Our team of experts combines scientific innovation with premium ingredients to create formulas that nourish,
-                                protect, and enhance your skin's natural beauty.
+                                {description}
                             </p>
                             <motion.button
                                 whileHover={{ scale: 1.05 }}

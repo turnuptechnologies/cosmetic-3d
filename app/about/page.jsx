@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import AnimatedSection from "../../components/about/AnimatedSection";
 import CallToAction from "../../components/about/CallToAction";
 import ProductShowcase from "../../components/about/ProductShowcase";
+import ByTheNumbers from "../../components/about/ByTheNumbers";
 
 const sections = [
   {
@@ -85,7 +86,39 @@ export default function AboutPage() {
           Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces.
         </p>
       </motion.div>
-      <ProductShowcase />
+      <ProductShowcase
+        imageSide="left"
+        label="Science Meets Beauty"
+        title="Skincare"
+        modal='three'
+        modalScale={1}
+        description="Developing skincare products begins with a deep dive into skin science, where our chemists curate sophisticated blends of bioactive ingredients, cutting-edge peptides, and advanced delivery systems that penetrate barriers to nourish, protect, and rejuvenate at the cellular level."
+      />
+      <ProductShowcase
+        imageSide="right"
+        label="Follicular Innovation"
+        title="Hair Care"
+        modal='one'
+        modalScale={0.7}
+        description="Developing hair care products harnesses the intricacies of follicular biology and emulsion technology, where our chemists curate customized blends of quaternary ammonium compounds, hydrolyzed proteins, and plant-derived actives that repair, strengthen, and transform from root to tip."
+      />
+      <ProductShowcase
+        imageSide="left"
+        label="Artistry & Precision"
+        title="Cosmetics"
+        modal='two'
+        modalScale={0.9}
+        description="Developing cosmetics demands a fusion of artistry and precision, where our chemists harness vibrant pigments, emollients, and film-formers to create flawless finishes that enhance natural beauty while prioritizing skin compatibility and wearability."
+      />
+      <ProductShowcase
+        imageSide="right"
+        label="Biochemistry Excellence"
+        title="Oral Care"
+        modal='four'
+        modalScale={0.9}
+        description="Developing oral care products requires a precise fusion of biochemistry and sensory science, where our chemists integrate antimicrobial agents, remineralizing compounds, and natural extracts to fortify enamel, freshen breath, and promote optimal oral health."
+      />
+      <ByTheNumbers />
     </div>
   )
 }
