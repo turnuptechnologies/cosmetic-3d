@@ -1,6 +1,6 @@
 export function ContactSection() {
   return (
-    <section className="w-full bg-black text-white h-screen snap-start flex flex-col justify-center py-20 px-6">
+    <section className="w-full bg-black text-white snap-start flex flex-col justify-center py-20 px-6">
       
       {/* Top Heading Section */}
       <div className="max-w-6xl mx-auto text-center mb-4 mt-10">
@@ -24,7 +24,7 @@ export function ContactSection() {
         </p>
 
         {/* Form Grid */}
-        <form className="grid md:grid-cols-3 gap-3">
+        <form className="grid md:grid-cols-2 gap-3">
           
           <div>
             <label className="text-xs mb-2 block">Full Name *</label>

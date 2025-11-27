@@ -5,6 +5,7 @@ import AnimatedSection from "../../components/about/AnimatedSection";
 import CallToAction from "../../components/about/CallToAction";
 import ProductShowcase from "../../components/about/ProductShowcase";
 import ByTheNumbers from "../../components/about/ByTheNumbers";
+import { ContactSection } from "../../components/ContactSection";
 
 const sections = [
   {
@@ -119,6 +120,7 @@ export default function AboutPage() {
         description="Developing oral care products requires a precise fusion of biochemistry and sensory science, where our chemists integrate antimicrobial agents, remineralizing compounds, and natural extracts to fortify enamel, freshen breath, and promote optimal oral health."
       />
       <ByTheNumbers />
+      <ContactSection />
     </div>
   )
 }
