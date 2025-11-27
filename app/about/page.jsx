@@ -1,7 +1,9 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
+import { motion } from 'framer-motion';
 import AnimatedSection from "../../components/about/AnimatedSection";
 import CallToAction from "../../components/about/CallToAction";
+import ProductShowcase from "../../components/about/ProductShowcase";
 
 const sections = [
   {
@@ -69,6 +71,21 @@ export default function AboutPage() {
         />
       ))}
       <CallToAction />
+      <motion.div
+        className='text-center mb-16 md:mb-24 px-4 md:px-0'
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className='text-4xl md:text-5xl lg:text-[56px] font-bold text-white mb-4 md:mb-6 leading-tight'>
+          Cosmetic Chemistry Excellence
+        </h2>
+        <p className='text-gray-300 text-base md:text-lg max-w-4xl mx-auto leading-relaxed'>
+          Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces.
+        </p>
+      </motion.div>
+      <ProductShowcase />
     </div>
   )
 }
