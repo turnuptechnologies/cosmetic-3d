@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 import AnimatedSection from "../../components/about/AnimatedSection";
+import CallToAction from "../../components/about/CallToAction";
 
 const sections = [
   {
@@ -67,6 +68,7 @@ export default function AboutPage() {
           swapLayout={index % 2 === 1}
         />
       ))}
+      <CallToAction />
     </div>
   )
 }

@@ -26,8 +26,8 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
             </div>
 
-            {/* Vertical timeline divider */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-pink-500 to-transparent opacity-30 transform -translate-x-1/2" />
+            {/* Vertical timeline divider */}            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent bg-gray-600" />
+
 
             {/* Timeline dots */}
             <motion.div
@@ -57,6 +57,15 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                             {section.icon}
                         </motion.div>
 
+                        <motion.h2
+                            className="text-3xl md:text-4xl font-bold mb-6 text-white leading-tight"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                        >
+                            {section.title}
+                        </motion.h2>
+
                         <motion.h3
                             className="text-sm font-semibold text-pink-500 tracking-widest mb-3 uppercase"
                             initial={{ opacity: 0, y: 20 }}
@@ -66,14 +75,6 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                             {section.subtitle}
                         </motion.h3>
 
-                        <motion.h2
-                            className="text-3xl md:text-4xl font-bold mb-6 text-white leading-tight"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                            transition={{ duration: 0.6, delay: 0.4 }}
-                        >
-                            {section.title}
-                        </motion.h2>
 
                         <motion.p
                             className="text-gray-300 text-sm md:text-base leading-relaxed max-w-lg"
