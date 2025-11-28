@@ -56,7 +56,7 @@ function JarModel() {
     );
 }
 
-export function ProductDetailSection() {
+export function ProductDetailSection({ side, model }) {
     const stats = [
         { value: '40%', label: 'Reduction in fine lines' },
         { value: '65%', label: 'Improved skin firmness' },
@@ -66,7 +66,9 @@ export function ProductDetailSection() {
     return (
         <section className="w-full min-h-screen bg-black text-white py-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col lg:flex-row gap-12 items-center">
+                <div className={`flex flex-col lg:flex-row gap-12 items-center 
+                               ${side === "left" ? "flex-col-reverse lg:flex-row-reverse" : ""}`}
+                >
                     {/* Left Column - Text Content */}
                     <div className="w-full lg:w-1/2 space-y-8">
                         <div>
@@ -153,7 +155,7 @@ export function ProductDetailSection() {
                                 intensity={0.5}
                             />
 
-                            <Model scale={1} modelPath={`/images/3d-three.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            <Model scale={1} modelPath={`/images/3d-three-${model}.glb`} position={[-1.6, 9 / 7, -0.2]} />
                         </Canvas>
                     </div>
                 </div>

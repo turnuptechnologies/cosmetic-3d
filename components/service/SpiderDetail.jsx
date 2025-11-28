@@ -66,7 +66,7 @@ export default function SpiderDetail() {
                     intensity={0.5}
                   />
 
-                  <Model scale={1.5} modelPath={`/images/3d-three.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                  <Model scale={1.5} modelPath={`/images/3d-three-2.glb`} position={[-1.6, 9 / 7, -0.2]} />
                 </Canvas>
               </div>
             </div>
@@ -207,7 +207,7 @@ export default function SpiderDetail() {
             </div>
           </div>
 
-          <div className="space-y-8 max-w-2xl mx-auto">
+          <div className="space-y-8 max-w-2xl mx-auto px-4">
             {[1, 2, 3, 4, 5, 6].map((step) => (
               <div
                 key={`step-${step}`}

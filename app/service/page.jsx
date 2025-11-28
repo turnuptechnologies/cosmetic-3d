@@ -9,9 +9,10 @@ import { FinalSection } from "../../components/FinalSection";
 export default function ServicePage() {
   return (
     <main className="w-full bg-black overflow-x-hidden pt-20" style={{ scrollBehavior: "smooth" }}>
-      <ProductDetailSection />
+      <ProductDetailSection side="right" model="1"/>
+      <ProductDetailSection side="left" model="4"/>
       <SpiderDetail />
-      {/* <WhyProduct /> */}
+      <WhyProduct />
       <ProductsSection />
       <FinalSection />
     </main>
