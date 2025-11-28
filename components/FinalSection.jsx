@@ -43,10 +43,11 @@ export function FinalSection() {
 
   return (
     <div className="relative flex flex-col min-h-screen">
-      {/* Full-screen Section */}
+
+      {/* Full-screen Section (hidden on mobile) */}
       <section
         ref={sectionRef}
-        className="relative flex-1 flex items-center justify-center bg-black snap-start"
+        className="relative flex-1 items-center justify-center bg-black snap-start hidden md:flex"
       >
         {/* Main Text */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
