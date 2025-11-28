@@ -3,24 +3,20 @@ import Model from '../../components/model';
 
 export default function SpiderDetail() {
   return (
-    <section
-      // ref={section3Ref}
-      className="snap-start h-screen w-full flex items-center justify-center "
-    >
-      <div className="max-w-7xl mx-auto w-full flex flex-col items-center justify-center">
-
+    <section className="w-full py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto w-full">
         {/* Heading */}
-        <h2 style={{ marginBottom: '-7%', marginTop: '10%' }} className="text-4xl lg:text-5xl font-bold text-center text-white text-balance">
-          Ingrediants
+        <h2 className="text-4xl lg:text-5xl font-bold text-center text-white mb-12 md:mb-16">
+          Ingredients
         </h2>
 
-        {/* Desktop Layout */}
-        <div className="hidden  w-full lg:block flex-1 flex items-center justify-center">
-          <div className="relative  min-h-[800px] w-full flex items-center justify-center">
+        {/* Desktop Layout - Hidden on mobile */}
+        <div className="hidden lg:block relative w-full">
+          <div className="relative w-full min-h-[600px] md:min-h-[800px] flex items-center justify-center">
 
             {/* Center Image */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-54 h-54 relative">
+              <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 relative">
                 <Canvas
                   style={{ transform: 'rotate(-10deg) scale(1.2)' }}
                   shadows
@@ -72,7 +68,7 @@ export default function SpiderDetail() {
             </div>
 
             {/* Top Left */}
-            <div className="absolute top-30 left-30 w-80">
+            <div className="absolute top-0 left-0 md:top-8 md:left-8 lg:top-16 lg:left-16 xl:top-24 xl:left-24 w-48 sm:w-64 md:w-72 lg:w-80">
               <h3 className="text-xl font-bold text-white mb-2">
                 <span className="text-pink-500">Step</span> One
               </h3>
@@ -91,7 +87,7 @@ export default function SpiderDetail() {
             </div>
 
             {/* Top Right */}
-            <div className="absolute top-30 right-30 w-80 text-right">
+            <div className="absolute top-0 right-0 md:top-8 md:right-8 lg:top-16 lg:right-16 xl:top-24 xl:right-24 w-48 sm:w-64 md:w-72 lg:w-80 text-right">
               <h3 className="text-xl font-bold text-white mb-2">
                 <span className="text-pink-500">Step</span> Two
               </h3>
@@ -110,7 +106,7 @@ export default function SpiderDetail() {
             </div>
 
             {/* Middle Left */}
-            <div className="absolute top-1/2 left-12 -translate-y-1/2 w-80 flex items-center gap-6">
+            <div className="absolute top-1/2 left-0 md:left-4 lg:left-12 -translate-y-1/2 w-48 sm:w-64 md:w-72 lg:w-80 flex items-center gap-2 sm:gap-4 md:gap-6">
 
               {/* Text Block */}
               <div className="flex-1">
@@ -136,7 +132,7 @@ export default function SpiderDetail() {
             </div>
 
             {/* Middle Right */}
-            <div className="absolute top-1/2 right-12 transform -translate-y-1/2 w-80 text-right flex items-center gap-6">
+            <div className="absolute top-1/2 right-0 md:right-4 lg:right-12 transform -translate-y-1/2 w-48 sm:w-64 md:w-72 lg:w-80 text-right flex items-center gap-2 sm:gap-4 md:gap-6">
               <div className="w-20 flex justify-center">
                 <img
                   src="/images/line3-4.png"
@@ -158,7 +154,7 @@ export default function SpiderDetail() {
             </div>
 
             {/* Bottom Left */}
-            <div className="absolute bottom-30 left-30 w-80">
+            <div className="absolute bottom-0 left-0 md:bottom-8 md:left-8 lg:bottom-16 lg:left-16 xl:bottom-24 xl:left-24 w-48 sm:w-64 md:w-72 lg:w-80">
               <div className="mt-4 flex items-start">
                 <img
                   src="/images/line5.png"
@@ -177,7 +173,7 @@ export default function SpiderDetail() {
             </div>
 
             {/* Bottom Right */}
-            <div className="absolute bottom-30 right-30 w-80 text-right">
+            <div className="absolute bottom-0 right-0 md:bottom-8 md:right-8 lg:bottom-16 lg:right-16 xl:bottom-24 xl:right-24 w-48 sm:w-64 md:w-72 lg:w-80 text-right">
               <div className="mt-4 flex items-start justify-end">
                 <img
                   src="/images/line6.png"
@@ -197,34 +193,22 @@ export default function SpiderDetail() {
           </div>
         </div>
 
-        {/* Mobile Layout */}
-        <div className="lg:hidden flex-1 flex flex-col justify-between">
-          <div className="flex justify-center mb-8">
-            <div
-              // ref={section3Ref}
-              className="w-48 h-48 relative">
-
+        {/* Mobile Layout - Vertical Steps */}
+        <div className="lg:hidden mt-12 space-y-12">
+          {[1, 2, 3, 4, 5, 6].map((step) => (
+            <div key={`mobile-step-${step}`} className="bg-gray-900 bg-opacity-50 rounded-2xl p-6 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white mb-3">
+                <span className="text-pink-500">Step</span> {step === 1 ? 'One' : 
+                  step === 2 ? 'Two' : 
+                  step === 3 ? 'Three' : 
+                  step === 4 ? 'Four' : 
+                  step === 5 ? 'Five' : 'Six'}
+              </h3>
+              <p className="text-gray-300 text-base leading-relaxed">
+                This is a sample description for process step {step}. Replace this with your actual content.
+              </p>
             </div>
-          </div>
-
-          <div className="space-y-8 max-w-2xl mx-auto px-4">
-            {[1, 2, 3, 4, 5, 6].map((step) => (
-              <div
-                key={`step-${step}`}
-                className="bg-gray-950 rounded-lg p-6 border border-gray-800"
-              >
-                <h3 className="text-lg font-bold text-white mb-2">
-                  <span className="text-pink-500 text-2xl">{step}</span>{" "}
-                  Step {step} Title
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  This is a sample description for step {step}. Replace this with your actual content.
-                </p>
-
-                <div className="mt-4 h-1 w-8 bg-gradient-to-r from-pink-500 to-transparent rounded"></div>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,8 +1,9 @@
 'use client';
 import { Canvas } from '@react-three/fiber';
-import Model from '../components/model'
+import Model from '../components/model';
 import { useRef } from 'react';
 import * as THREE from 'three';
+import { motion, useInView } from 'framer-motion';
 
 function JarModel() {
     const jarRef = useRef();
@@ -109,7 +110,18 @@ export function ProductDetailSection({ side, model }) {
                     </div>
 
                     {/* Right Column - 3D Model */}
-                    <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px] relative">
+                    <motion.div 
+                        className="w-full lg:w-1/2 h-[400px] lg:h-[600px] relative"
+                        initial={{ x: side === 'right' ? 200 : -200, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ 
+                            type: 'spring',
+                            stiffness: 60,
+                            damping: 15,
+                            duration: 0.5
+                        }}
+                    >
                         <Canvas
                             style={{ transform: 'rotate(-10deg) scale(1.2)' }}
                             shadows
@@ -157,7 +169,7 @@ export function ProductDetailSection({ side, model }) {
 
                             <Model scale={1} modelPath={`/images/3d-three-${model}.glb`} position={[-1.6, 9 / 7, -0.2]} />
                         </Canvas>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
