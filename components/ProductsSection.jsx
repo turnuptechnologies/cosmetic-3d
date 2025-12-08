@@ -57,7 +57,7 @@ export function ProductsSection() {
           Cosmetic Chemistry
         </h2>
         <p className="text-gray-400 leading-relaxed">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces. Tailored expertise that turns visions into viral sensations. Let's formulate your success.
         </p>
       </div>
 

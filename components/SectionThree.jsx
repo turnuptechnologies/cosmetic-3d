@@ -64,7 +64,7 @@ export function SectionThree() {
       <img
         src="/images/35.png"
         alt="Background"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-fill"
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
@@ -130,7 +130,10 @@ export function SectionThree() {
             Why Choose Us
           </h2>
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-            At CosmeticChemist.com, we bridge the gap between innovative brands and expert cosmetic chemists. With a vast network of highly skilled formulators, we ensure that your products are developed with the latest scientific advancements and adhere to the highest industry standards.
+            At CosmeticChemist.com, we bridge the gap between innovative brands and expert cosmetic chemists. With a vast network of highly skilled formulators and innovative cosmetic chemists, we ensure that your products are developed with the latest market trends and scientific advancements.
+          </p>
+          <p>
+            Our team is also well experienced with all regulatory and quality assurance matters. Not only that but we are also passionate about design and branding (...if you couldn’t tell) and love to help brands out with that. We guarantee you’ve never come across a more well- rounded team of experts than at CosmeticChemist.com. We want to be part of your journey! Contact us today.
           </p>
           <button className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
             Join Our Network

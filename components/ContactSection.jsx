@@ -28,7 +28,7 @@ export function ContactSection() {
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Full Name *</label>
             <input
-              className="w-full text-sm sm:text-base bg-black/30 border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
+              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
               placeholder="Your name"
             />
           </div>
@@ -37,7 +37,7 @@ export function ContactSection() {
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Email Address *</label>
             <input
               type="email"
-              className="w-full text-sm sm:text-base bg-black/30 border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
+              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
               placeholder="your.email@example.com"
             />
           </div>
@@ -45,7 +45,7 @@ export function ContactSection() {
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Company Name</label>
             <input
-              className="w-full text-sm sm:text-base bg-black/30 border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
+              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
               placeholder="Your company (optional)"
             />
           </div>
@@ -54,7 +54,7 @@ export function ContactSection() {
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Phone Number</label>
             <input
               type="tel"
-              className="w-full text-sm sm:text-base bg-black/30 border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
+              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
               placeholder="+1 (___) ___-____"
             />
           </div>
@@ -62,7 +62,7 @@ export function ContactSection() {
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Type *</label>
             <select
-              className="w-full text-sm sm:text-base bg-black/30 border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition appearance-none"
+              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition appearance-none"
               defaultValue=""
             >
               <option value="" disabled>Select project type</option>
@@ -77,7 +77,7 @@ export function ContactSection() {
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Budget Range *</label>
             <select
-              className="w-full text-sm sm:text-base bg-black/30 border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition appearance-none"
+              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition appearance-none"
               defaultValue=""
             >
               <option value="" disabled>Select budget range</option>
@@ -93,7 +93,7 @@ export function ContactSection() {
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Details *</label>
             <textarea
               rows={4}
-              className="w-full text-sm sm:text-base bg-black/30 border border-white/10 rounded-2xl px-4 py-3 outline-none focus:border-pink-500 transition resize-none"
+              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-2xl px-4 py-3 outline-none focus:border-pink-500 transition resize-none"
               placeholder="Tell us about your project..."
             />
           </div>

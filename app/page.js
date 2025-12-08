@@ -24,7 +24,7 @@ export default function Home() {
         <SectionThree />
         <ProductsSection />
         <TwoColumnSection />
-        <BrandsChemistsSection />
+        {/* <BrandsChemistsSection /> */}
         <ContactSection />
         <FinalSection />
       </main>
