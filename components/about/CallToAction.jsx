@@ -11,46 +11,38 @@ export default function CallToAction() {
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      {/* Glowing border effect */}
-      <div className="absolute inset-0 rounded-2xl p-[1px] border-[1px] border-pink-500" style={{
-        background: 'linear-gradient(45deg, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3))',
-        zIndex: -1
-      }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black rounded-2xl"></div>
+    <div className="w-full">
+      <div
+        className="w-full  rounded-3xl border-2 border-transparent bg-gradient-to-b from-black to-black p-8 relative shadow-2xl"
+        style={{
+          backgroundImage: "linear-gradient(black, black), linear-gradient(135deg, #ec4899, #f43f5e)",
+          backgroundOrigin: "border-box",
+          backgroundClip: "padding-box, border-box",
+          boxShadow: "0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(244, 63, 94, 0.3)",
+        }}
+      >
+        <div className="text-center space-y-4">
+          {/* Main heading */}
+          <h1 className="text-white text-2xl font-light leading-relaxed">Join the elite cadre shaping the future.</h1>
+
+          {/* Brand name with gradient effect */}
+          <p
+            className="text-lg font-medium"
+            style={{
+              background: "linear-gradient(135deg, #ec4899, #f43f5e)",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            CosmeticChemist.com
+          </p>
+
+          {/* Tagline */}
+          <p className="text-gray-300 text-sm font-light">Where chemistry meets destiny.</p>
+        </div>
       </div>
-      
-      {/* Content */}
-      <div className="text-center">
-        <motion.h2 
-          className="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6 leading-tight"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Join the elite cadre shaping the future.
-        </motion.h2>
-        
-        <motion.div 
-          className="text-pink-500 text-xl md:text-2xl font-medium mb-3 md:mb-4"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          CosmeticChemist.com
-        </motion.div>
-        
-        <motion.p 
-          className="text-gray-300 text-base md:text-lg"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          Where chemistry meets destiny.
-        </motion.p>
-      </div>
+    </div>
     </motion.div>
   );
 }

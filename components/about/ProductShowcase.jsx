@@ -79,7 +79,9 @@ export default function ProductShowcase({imageSide = 'left', label, title, descr
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <h3 className="text-pink-500 text-sm font-semibold tracking-widest uppercase mb-4">
+                            <h3 
+                            style={{color: imageSide == "right" ? "#CBFF00" : "#FF4D8A"}}
+                            className="text-sm font-semibold tracking-widest uppercase mb-4">
                                 {label}
                             </h3>
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
