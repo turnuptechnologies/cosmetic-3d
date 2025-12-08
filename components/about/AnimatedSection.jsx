@@ -32,10 +32,11 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
 
             {/* Timeline dots */}
             <motion.div
-                className="absolute left-1/2 top-1/2 w-3 h-3 bg-pink-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 w-3 h-3 rounded-full transform -translate-x-1/2 -translate-y-1/2"
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : { scale: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
+                style={{backgroundColor: section.color}}
             />
 
             <div className="relative w-full h-full flex items-center">
@@ -81,10 +82,11 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         </motion.h2>
 
                         <motion.h3
-                            className="text-sm font-semibold text-pink-500 tracking-widest mb-3 uppercase"
+                            className="text-sm font-semibold tracking-widest mb-3 uppercase"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
+                            style={{color: section.color}}
                         >
                             {section.subtitle}
                         </motion.h3>
@@ -129,8 +131,8 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                             />
 
                             {/* Number */}
-                            <div class="text-9xl md:text-[200px] font-bold text-transparent bg-clip-text
-                                        bg-gradient-to-r from-[#1a1a1a] via-[#3a3a3a] to-[#e5e5e5]">
+                            <div class="text-9xl md:text-[250px] font-bold text-transparent bg-clip-text
+                                        bg-gradient-to-r from-[#1a1a1a] via-[#1a1a1a] to-[#e5e5e5]">
                                 {section.number}
                             </div>
                         </motion.div>
