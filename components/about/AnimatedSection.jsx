@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
+import Image from "next/image"
 
 
 export default function AnimatedSection({ section, index, swapLayout = false }) {
@@ -49,12 +50,25 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         className="order-2 md:order-1 text-white md:[direction:ltr] bg-black/30 backdrop-blur-sm border border-gray-600/30 rounded-xl p-8 max-w-lg mx-auto"
                     >
                         <motion.div
-                            className="inline-block mb-4 text-4xl"
+                            className="relative w-16 h-16 mb-4 overflow-hidden rounded-lg"
                             initial={{ scale: 0, rotate: -20 }}
                             animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -20 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            {section.icon}
+                            {section.image ? (
+                                <Image
+                                    src={section.image}
+                                    alt={section.title || 'Section image'}
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    style={{marginLeft: "-12px"}}
+                                />
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center text-4xl">
+                                    {section.icon}
+                                </div>
+                            )}
                         </motion.div>
 
                         <motion.h2

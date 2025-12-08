@@ -16,6 +16,7 @@ const sections = [
     description:
       "At CosmeticChemist.com, we stand as the unparalleled vanguard of cosmetic innovation and scientific network and directory that redefines excellence in the global cosmetics landscape. Founded with over three decades of unsurpassable expertise in contract manufacturing, product development, quality & regulatory, and cosmetic formulation, our platform is not merely a resource, it is the indispensable nexus for trailblazers who demand precision, innovation, and supremacy.",
     icon: "✨",
+    image: "/images/about-1.png"
   },
   {
     number: "02",
@@ -24,6 +25,7 @@ const sections = [
     description:
       "Our founders's illustrious careers span the full spectrum of cosmetic and drug mastery, pioneering R&D that births groundbreaking actives, orchestrating seamless manufacturing and operations at scale, and infusing creative branding with an artist's touch. From the laboratory to the marketplace, from regulatory frameworks to SEO, we have engineered this digital citadel to command every whisper of inquiry in cosmetic chemistry, fueling the world's foremost intellects and aspirations straight to our threshold.",
     icon: "🧪",
+    image: "/images/about-2.png"
   },
   {
     number: "03",
@@ -32,6 +34,7 @@ const sections = [
     description:
       "We are not just a service provider, we are architects of transformation. Our cutting-edge technology platform combines artificial intelligence with human expertise to deliver unprecedented solutions in the cosmetic and pharmaceutical industries.",
     icon: "🚀",
+    image: "/images/about-3.png"
   },
   {
     number: "04",
@@ -40,6 +43,7 @@ const sections = [
     description:
       "As we look ahead, we remain committed to pushing the boundaries of what's possible. Our vision extends beyond today's challenges to shape the cosmetic industry's future with innovation, integrity, and excellence.",
     icon: "🌟",
+    image: "/images/about-4.png"
   },
 ]
 
