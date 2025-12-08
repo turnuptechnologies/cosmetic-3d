@@ -52,18 +52,18 @@ export function HeroSection() {
   return (
     <section className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black mb-10">
       <video
-        style={{ transform: 'rotate(90deg) scale(1.2)' }}
+        style={{ transform: 'rotate(90deg) scale(2.2)' }}
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-contain z-0 opacity-100  blur-[5px]"
+        className="absolute inset-0 w-full h-full object-contain z-0 "
       >
         <source src="/videos/hero-bg.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 z-10 flex items-center justify-center w-full">
+      <div className="absolute inset-0 z-10 flex items-center justify-center w-full pt-16 sm:pt-0">
         <motion.h1
-          className="text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
+          className="text-[4.5rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
           initial={textAnimation.initial}
           animate={textAnimation.animate}
           transition={textAnimation.transition}
@@ -73,7 +73,7 @@ export function HeroSection() {
             backgroundClip: 'text',
             color: 'white',
             WebkitTextFillColor: 'white',
-            WebkitTextStroke: '3px white',
+            WebkitTextStroke: '2px white',
             lineHeight: '0.9',
             letterSpacing: '-0.02em',
           }}
@@ -140,9 +140,9 @@ export function HeroSection() {
 
         </div>
       </motion.div>
-      <div className="absolute inset-0 z-30 flex items-center justify-center w-full">
+      <div className="absolute inset-0 z-30 flex items-center justify-center w-full pt-16 sm:pt-0">
         <motion.h1
-          className="text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
+          className="text-[4.5rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
           initial={textAnimation.initial}
           animate={textAnimation.animate}
           transition={textAnimation.transition}
@@ -152,7 +152,7 @@ export function HeroSection() {
             backgroundClip: 'text',
             color: 'transparent',
             WebkitTextFillColor: 'transparent',
-            WebkitTextStroke: '2px white',
+            WebkitTextStroke: '1px white',
             lineHeight: '0.9',
             letterSpacing: '-0.02em',
           }}
@@ -164,38 +164,39 @@ export function HeroSection() {
       </div>
       <div
         ref={bottomLeftRef}
-        className="absolute bottom-25 left-8 md:left-16 lg:left-24 max-w-md space-y-6 z-40"
+        className="absolute bottom-16 sm:bottom-12 xl:bottom-2 left-4 right-4 sm:left-8 md:left-16 lg:left-24 max-w-md mx-auto sm:mx-0 space-y-4 sm:space-y-6 z-40 px-4 sm:px-0"
       >
         <p
-          className="text-sm md:text-base text-gray-300 leading-relaxed"
+          className="text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed text-center sm:text-left"
         >
           Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products.
-
         </p>
-        <button
-          className="group flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
-        >
-          <span>Join the Innovation</span>
-          <motion.svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            animate={{ x: [0, 4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+        <div className="flex justify-center sm:justify-start">
+          <button
+            className="group flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 7l5 5m0 0l-5 5m5-5H6"
-            />
-          </motion.svg>
-        </button>
+            <span>Join the Innovation</span>
+            <motion.svg
+              className="w-4 h-4 sm:w-5 sm:h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              animate={{ x: [0, 4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </motion.svg>
+          </button>
+        </div>
       </div>
-      <div ref={bottomRightRef} className="absolute bottom-60 right-8 md:right-10 lg:right-20 z-40">
+      <div ref={bottomRightRef} className="absolute bottom-88 sm:bottom-24 right-4 sm:right-8 md:right-10 lg:right-20 z-40">
         <h2
-          className="text-xl md:text-2xl lg:text-4xl font-black text-white font-light tracking-wide"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white font-light tracking-wide text-center sm:text-right"
         >
           Chemist
         </h2>
