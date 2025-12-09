@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 
 export default function FAQPage() {
-  const [openIndex, setOpenIndex] = useState(-1); // all closed by default
+  const [openIndex, setOpenIndex] = useState(0); // first item open by default
 
   const faqs = [
     {
@@ -36,7 +36,7 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl w-full scale-95">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12">
+        <h1 className="text-4xl font-bold text-center mb-6 mt-16 sm:mt-20 md:mt-24 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
           Frequently Asked Questions
         </h1>
 
@@ -59,11 +59,10 @@ export default function FAQPage() {
                       {faq.question}
                     </h3>
                     <div
-                      className={`overflow-hidden transition-all duration-300 ${
-                        openIndex === index
+                      className={`overflow-hidden transition-all duration-300 ${openIndex === index
                           ? 'max-h-80 opacity-100 mt-3'
                           : 'max-h-0 opacity-0'
-                      }`}
+                        }`}
                     >
                       <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
                         {faq.answer}
