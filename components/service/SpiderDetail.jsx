@@ -7,7 +7,7 @@ export default function SpiderDetail() {
       <div className="max-w-7xl mx-auto w-full">
         {/* Heading */}
         <h2 className="text-4xl lg:text-5xl font-bold text-center text-white mb-12 md:mb-16">
-          Ingredients
+          Process
         </h2>
 
         {/* Desktop Layout - Hidden on mobile */}

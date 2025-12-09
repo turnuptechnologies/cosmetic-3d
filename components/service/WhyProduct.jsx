@@ -29,54 +29,54 @@ const WhyProduct = () => {
     <section className="w-full py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Why Choose QLEAR</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Why Choose Us</h2>
         </div>
 
-                  {/* Right side - 3D Model */}
-          <div className="w-full flex justify-center relative h-96">
-            <div className="relative w-full h-full center">
-              <Canvas
-                style={{ width: '100%', height: '100%' }}
-                shadows
-                camera={{ position: [0, 0, 25], fov: 30 }}
-              >
-                <ambientLight intensity={0.5} />
-                <directionalLight
-                  position={[5, 5, 8]}
-                  intensity={1.5}
-                  castShadow
-                  shadow-mapSize-width={1024}
-                  shadow-mapSize-height={1024}
-                />
-                <directionalLight
-                  position={[-5, 5, -8]}
-                  intensity={0.5}
-                  color="#00a8ff"
-                />
-                <hemisphereLight
-                  skyColor="#ffffff"
-                  groundColor="#666666"
-                  intensity={0.5}
-                />
-                <Model 
-                  scale={1.8} 
-                  modelPath={"/images/3d-three-3.glb"} 
-                  position={[0, -1, 0]}
-                  rotation={[0, 0.5, 0]}
-                />
-              </Canvas>
-            </div>
+        {/* Right side - 3D Model */}
+        <div className="w-full flex justify-center relative h-96">
+          <div className="relative w-full h-full center">
+            <Canvas
+              style={{ width: '100%', height: '100%' }}
+              shadows
+              camera={{ position: [0, 0, 25], fov: 30 }}
+            >
+              <ambientLight intensity={0.5} />
+              <directionalLight
+                position={[5, 5, 8]}
+                intensity={1.5}
+                castShadow
+                shadow-mapSize-width={1024}
+                shadow-mapSize-height={1024}
+              />
+              <directionalLight
+                position={[-5, 5, -8]}
+                intensity={0.5}
+                color="#00a8ff"
+              />
+              <hemisphereLight
+                skyColor="#ffffff"
+                groundColor="#666666"
+                intensity={0.5}
+              />
+              <Model
+                scale={3.8}
+                modelPath={"/images/3d-three-3.glb"}
+                position={[0, -1, 0]}
+                rotation={[0, 0.5, 0]}
+              />
+            </Canvas>
           </div>
+        </div>
 
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Left side - Features */}
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             {features.map((feature, index) => (
               <div key={index} className='gap-6'>
-                <div className='flex justify-center'> 
-                <div className="text-center">
-                  <Image src={feature.path} alt="feature" width={24} height={24} />
-                </div>
+                <div className='flex justify-center'>
+                  <div className="text-center">
+                    <Image src={feature.path} alt="feature" width={24} height={24} />
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-xl text-center font-bold text-white my-6">{feature.title}</h3>

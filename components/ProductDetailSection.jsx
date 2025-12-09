@@ -57,7 +57,7 @@ function JarModel() {
     );
 }
 
-export function ProductDetailSection({ side, model }) {
+export function ProductDetailSection({ side, model, content }) {
     const stats = [
         { value: '40%', label: 'Reduction in fine lines' },
         { value: '65%', label: 'Improved skin firmness' },
@@ -73,30 +73,26 @@ export function ProductDetailSection({ side, model }) {
                     {/* Left Column - Text Content */}
                     <div className="w-full lg:w-1/2 space-y-8">
                         <div>
-                            <h1 className="text-4xl md:text-5xl font-bold mb-2">QLEAR</h1>
-                            <p className="text-gray-400 mb-6">1.5 FL OZ</p>
-                            <p className="text-gray-300 leading-relaxed mb-8">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            <h1 className="text-4xl md:text-5xl font-bold mb-2 text-[#FFFFFF]">{content?.title}</h1>
+                            {/* <p className="text-gray-400 mb-6">1.5 FL OZ</p> */}
+                            <p className="text-[#FFFFFF] text-[14px] font-normal leading-relaxed mb-8">
+                                {content?.description}
                             </p>
                         </div>
-
-                        <div className="space-y-6">
-                            <div>
-                                <h3 className="text-xl font-semibold mb-2">Chemical Components</h3>
-                                <p className="text-gray-400">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h3 className="text-xl font-semibold mb-2">Fun Fact</h3>
-                                <p className="text-gray-400">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                            </div>
+                        <div className="flex flex-wrap gap-6">
+                            {content?.tags.map((item, index) => (
+                                <span
+                                    key={index}
+                                    className="py-2 text-sm rounded-lg transition"
+                                >
+                                    {item}
+                                </span>
+                            ))}
                         </div>
-
-                        <div className="mt-12">
+                        <p className="text-[#FFFFFF] text-[14px] font-normal leading-relaxed mb-8">
+                            {content?.statement}
+                        </p>
+                        {/* <div className="mt-12">
                             <h3 className="text-2xl font-semibold mb-6 text-center lg:text-left">Clinical Study Results</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 {stats.map((stat, index) => (
@@ -106,16 +102,16 @@ export function ProductDetailSection({ side, model }) {
                                     </div>
                                 ))}
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Right Column - 3D Model */}
-                    <motion.div 
+                    <motion.div
                         className="w-full lg:w-1/2 h-[400px] lg:h-[600px] relative"
                         initial={{ x: side === 'right' ? 200 : -200, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
                         viewport={{ once: true, margin: "-100px" }}
-                        transition={{ 
+                        transition={{
                             type: 'spring',
                             stiffness: 60,
                             damping: 15,
