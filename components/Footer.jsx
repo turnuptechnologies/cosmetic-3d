@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -9,7 +10,14 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 px-8">
         {/* Left Section */}
         <div className="flex flex-col items-center md:items-start mb-6 md:mb-0 w-full md:w-1/4">
-          <img src="./full-logo.png" alt="Cosmetic Chemist Logo" className="w-32 mb-4" />
+          <Image 
+            src="/full-logo.png" 
+            alt="Cosmetic Chemist Logo" 
+            width={128} 
+            height={40}
+            className="w-32 mb-4"
+            priority
+          />
           <p className="text-md text-center md:text-left max-w-md mb-4 font-light">
             Your premier platform connecting cosmetic chemists with innovative brands.
           </p>

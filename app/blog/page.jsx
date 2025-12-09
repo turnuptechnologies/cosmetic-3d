@@ -5,7 +5,7 @@ import Pagination from '../../components/Pagination';
 
 async function BlogList({ currentPage }) {
   const { data: posts, meta } = await getPaginatedBlogPosts(currentPage);
-  
+
   if (!posts || posts.length === 0) {
     return (
       <div className="text-center p-12">
@@ -21,15 +21,15 @@ async function BlogList({ currentPage }) {
     <div className="bg-black min-h-screen py-24 px-4">
       <div className="container mx-auto max-w-7xl">
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">Blogs</h1>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => {
             // Get cover image URL
-            const coverImage = post.cover?.formats?.medium?.url 
+            const coverImage = post.cover?.formats?.medium?.url
               ? `${post.cover.formats.medium.url}`
-              : post.cover?.url 
-              ? `${post.cover.url}`
-              : '/fav.png';
+              : post.cover?.url
+                ? `${post.cover.url}`
+                : '/fav.png';
 
             // Format date
             const postDate = new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', {
@@ -38,9 +38,9 @@ async function BlogList({ currentPage }) {
             });
 
             // Extract first 150 characters from description or body
-            const description = post.description || 
-              (post.blocks && post.blocks[0]?.body 
-                ? post.blocks[0].body.substring(0, 150) + '...' 
+            const description = post.description ||
+              (post.blocks && post.blocks[0]?.body
+                ? post.blocks[0].body.substring(0, 150) + '...'
                 : '');
 
             return (
@@ -58,19 +58,19 @@ async function BlogList({ currentPage }) {
                   {/* Content */}
                   <div className="p-6">
                     {/* Date and Read Time */}
-                    <div className="flex items-center justify-between text-gray-400 text-sm mb-3">
-                      <span>{postDate}</span>
-                      {/* <span>10 Min Read</span> */}
+                    <div className="flex items-center justify-between text-gray-[#FFFFFF] mb-3">
+                      <span className='text-[12px] font-normal text-[#FFFFFF]'>{postDate}</span>
+                      <p className='text-[12px] font-normal text-[#FFFFFF]'>10 Min Read</p>
                     </div>
 
                     {/* Title */}
-                    <h2 className="text-white text-xl font-semibold mb-3 line-clamp-2 group-hover:text-gray-300 transition-colors">
+                    <h2 className="text-[#FFFFFF] text-[24px] font-[600] mb-1 line-clamp-2 transition-colors">
                       {post.title}
                     </h2>
 
                     {/* Description */}
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-3 h-full">
-                      {description}
+                    <p className="text-[#FFFFFF] text-[14px] font-[400] mb-1 line-clamp-3 h-full">
+                      {description} rao
                     </p>
 
                     {/* Read More Link */}
@@ -95,10 +95,20 @@ async function BlogList({ currentPage }) {
           </div>
         )} */}
 
-        {/* Pagination Component */}
-        {meta && meta.pagination && (
-          <Pagination pageCount={meta.pagination.pageCount} currentPage={currentPage} />
+        {true && (
+          <div className="flex justify-center mt-12">
+            <Link href={`/blog?page=${currentPage + 1}`}>
+              <button className="px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition-colors duration-300">
+                Load More
+              </button>
+            </Link>
+          </div>
         )}
+
+        {/* Pagination Component */}
+        {/* {meta && meta.pagination && (
+          <Pagination pageCount={meta.pagination.pageCount} currentPage={currentPage} />
+        )} */}
       </div>
     </div>
   );
@@ -107,7 +117,7 @@ async function BlogList({ currentPage }) {
 export default async function BlogPage({ searchParams }) {
   const { page } = await Promise.resolve(searchParams);
   const currentPage = parseInt(page) || 1;
-  
+
   return (
     <Suspense fallback={
       <div className="bg-black min-h-screen flex items-center justify-center">
