@@ -32,11 +32,19 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
 
             {/* Timeline dots */}
             <motion.div
-                className="absolute left-1/2 top-1/2 w-3 h-3 rounded-full transform -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 w-6 h-6 rounded-full transform -translate-x-1/2 -translate-y-1/2"
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : { scale: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                style={{backgroundColor: section.color}}
+                style={{
+                    backgroundColor: section.color,
+                    border: '2px solid black',
+                    boxShadow: `
+      0 0 10px ${section.color},
+      0 0 20px ${section.color}40,
+      0 0 30px ${section.color}20
+    `
+                }}
             />
 
             <div className="relative w-full h-full flex items-center">
@@ -51,7 +59,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         className="order-2 md:order-1 text-white md:[direction:ltr] bg-black/30 backdrop-blur-sm border border-gray-600/30 rounded-xl p-8 max-w-lg mx-auto"
                     >
                         <motion.div
-                            className="relative w-16 h-16 mb-4 overflow-hidden rounded-lg"
+                            className="relative w-28 h-28 mb-4 overflow-hidden rounded-lg"
                             initial={{ scale: 0, rotate: -20 }}
                             animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -20 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
@@ -63,7 +71,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                                     fill
                                     className="object-cover"
                                     priority
-                                    style={{marginLeft: "-12px"}}
+                                    style={{ marginLeft: "-24px" }}
                                 />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center text-4xl">
@@ -86,7 +94,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
-                            style={{color: section.color}}
+                            style={{ color: section.color }}
                         >
                             {section.subtitle}
                         </motion.h3>

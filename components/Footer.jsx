@@ -41,22 +41,19 @@ const Footer = () => {
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
           <h4 className="text-lg font-semibold mb-4 font-light">Quick Links</h4>
           <ul className="space-y-2 font-light">
-            <li><a href="#" className="text-white hover:text-pink-500">Home</a></li>
-            <li><a href="#" className="text-white hover:text-pink-500">About Us</a></li>
-            <li><a href="#" className="text-white hover:text-pink-500">Services</a></li>
-            <li><a href="#" className="text-white hover:text-pink-500">Database</a></li>
-            <li><a href="#" className="text-white hover:text-pink-500">Blog</a></li>
+            <li><a href="/" className="text-white hover:text-pink-500">Home</a></li>
+            <li><a href="/about" className="text-white hover:text-pink-500">About Us</a></li>
+            <li><a href="/service" className="text-white hover:text-pink-500">Services</a></li>
           </ul>
         </div>
 
         {/* Right Section (Resources) */}
         <div className="w-full md:w-1/4">
-          <h4 className="text-lg font-semibold mb-4 font-light">Resources</h4>
+          <h4 className="text-lg font-semibold mb-4 font-light">Info Links</h4>
           <ul className="space-y-2 font-light">
-            <li><a href="#" className="text-white hover:text-pink-500">Chemical Database</a></li>
-            <li><a href="#" className="text-white hover:text-pink-500">Formula Library</a></li>
-            <li><a href="#" className="text-white hover:text-pink-500">Regulatory Guides</a></li>
-            <li><a href="#" className="text-white hover:text-pink-500">FAQ</a></li>
+            <li><a href="/blog" className="text-white hover:text-pink-500">Blog</a></li>
+            <li><a href="/contact" className="text-white hover:text-pink-500">Contact</a></li>
+            <li><a href="/faq" className="text-white hover:text-pink-500">FAQ</a></li>
           </ul>
         </div>
 

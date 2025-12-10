@@ -129,7 +129,7 @@ export function SectionThree() {
           <h2 className="text-4xl md:text-5xl font-black leading-tight">
             Why Choose Us
           </h2>
-          <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+          <p className="text-[#FFFFFF]">
             At CosmeticChemist.com, we bridge the gap between innovative brands and expert cosmetic chemists. With a vast network of highly skilled formulators and innovative cosmetic chemists, we ensure that your products are developed with the latest market trends and scientific advancements.
           </p>
           <p>

@@ -52,11 +52,11 @@ export function ProductsSection() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-8 md:px-16 lg:px-24 py-20 snap-start bg-black text-white">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="text-center  mx-auto mb-16">
         <h2 className="text-5xl md:text-6xl font-black mb-6">
           Cosmetic Chemistry
         </h2>
-        <p className="text-gray-400 leading-relaxed">
+        <p className="leading-relaxed">
           Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces. Tailored expertise that turns visions into viral sensations. Let's formulate your success.
         </p>
       </div>
