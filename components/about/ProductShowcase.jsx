@@ -66,7 +66,7 @@ export default function ProductShowcase({imageSide = 'left', label, title, descr
                                     intensity={0.5}
                                 />
 
-                                <Model scale={modalScale} modelPath={`/images/3d-${modal}.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                                <Model scale={modalScale} modelPath={modal} position={[-1.6, 9 / 7, -0.2]} />
                             </Canvas>
                         </div>
                     </motion.div>

@@ -60,7 +60,7 @@ const WhyProduct = () => {
               />
               <Model
                 scale={3.8}
-                modelPath={"/images/Shampoo.glb"}
+                modelPath={"/images/etraux.glb"}
                 position={[0, -1, 0]}
                 rotation={[0, 0.5, 0]}
               />
