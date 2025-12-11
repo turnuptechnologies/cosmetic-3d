@@ -191,7 +191,7 @@ export function SectionTwo() {
 
             <Model
               scale={1.3}
-              modelPath="/images/product_1.glb"
+              modelPath="/images/ras.glb"
               position={[0.1, 0, 0]}
               rotation={[0, 0.4, 0]}
             />

@@ -1,7 +1,7 @@
 'use client';
 
 import SpiderDetail from "../../components/service/SpiderDetail";
-import { ProductDetailSection } from "../../components/ProductDetailSection";
+import { ProductDetailSection , ProductDetailSectiontwo } from "../../components/ProductDetailSection";
 import WhyProduct from "../../components/service/WhyProduct";
 import { ProductsSection } from "../../components/ProductsSection";
 import { FinalSection } from "../../components/FinalSection";
@@ -61,8 +61,8 @@ export default function ServicePage() {
 
   return (
     <main className="w-full bg-black overflow-x-hidden pt-20" style={{ scrollBehavior: "smooth" }}>
-      <ProductDetailSection side="right" model="/images/conditioner.glb" content={sectionOne}/>
-      <ProductDetailSection side="left" model="/images/shampoo.glb" content={sectionTwo}/>
+      <ProductDetailSection side="right" content={sectionOne}/>
+      <ProductDetailSectiontwo side="left"  content={sectionTwo}/>
       <SpiderDetail />
       <WhyProduct />
       <ProductsSection />
