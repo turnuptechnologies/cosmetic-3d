@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <ScrollerContext.Provider value={mainRef}>
-      <main ref={mainRef} className="w-full bg-black overflow-x-hidden h-screen snap-y snap-mandatory overflow-scroll no-scrollbar">
+      <main ref={mainRef} className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar">
         <HeroSection />
         <SectionTwo />
         <SectionThree />

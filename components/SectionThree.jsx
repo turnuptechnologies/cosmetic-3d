@@ -58,14 +58,14 @@ export function SectionThree() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center px-12 md:px-16 lg:px-24 py-24 snap-start overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-12 md:px-16 snap-start overflow-hidden"
     >
       {/* Background Image */}
-      <img
+      {/* <img
         src="/images/35.png"
         alt="Background"
         className="absolute inset-0 w-full h-full object-fill"
-      />
+      /> */}
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
@@ -74,6 +74,22 @@ export function SectionThree() {
         <div
           ref={leftContentRef}
           className="w-full flex items-center justify-center h-[450px] md:h-[600px] lg:h-[750px]"
+               style={{
+            backgroundImage: `
+              radial-gradient(
+                circle at center,
+                rgba(0,0,0,0.3) 0%,
+                rgba(0,0,0,0.5) 70%,
+                rgba(0,0,0,0.9) 100%
+              ),
+              url('/images/35.png')
+            `,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundBlendMode: 'multiply',
+            boxShadow: 'inset 0 0 30px 20px rgba(0,0,0,0.7)'
+          }}
         >
           <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
             {/* Soft overall environmental light */}

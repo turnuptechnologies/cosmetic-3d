@@ -59,12 +59,12 @@ export function SectionTwo() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center px-12 md:px-16 lg:px-24 py-24 snap-start"
-      style={{
-        backgroundImage: "url('/images/11.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+      className="relative flex items-center justify-center px-12 md:px-16 snap-start"
+    // style={{
+    //   backgroundImage: "url('/images/11.png')",
+    //   backgroundSize: 'cover',
+    //   backgroundPosition: 'center',
+    // }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
@@ -147,6 +147,12 @@ export function SectionTwo() {
         <div
           ref={rightContentRef}
           className="w-full flex items-center justify-center h-[500px] md:h-[650px] lg:h-[800px]"
+          style={{
+            backgroundImage: "url('/images/11.png')",
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
         >
           <Canvas camera={{ position: [0, 0, 15], fov: 22 }}>
             {/* Soft overall environmental light */}
