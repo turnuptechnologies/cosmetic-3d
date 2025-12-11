@@ -135,7 +135,8 @@ export function HeroSection() {
               intensity={0.5}
             />
 
-            <Model scale={0.9} modelPath="/images/conditioner.glb" position={[-1.6, -1, -0.2]} />
+            <Model scale={1.4} modelPath="/images/conditioner.glb"  position={[-1.2, 1.2, 0]}
+              rotation={[0, 0.4, 0]} />
           </Canvas>
 
         </div>

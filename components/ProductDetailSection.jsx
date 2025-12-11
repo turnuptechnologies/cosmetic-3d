@@ -163,7 +163,7 @@ export function ProductDetailSection({ side, model, content }) {
                                 intensity={0.5}
                             />
 
-                            <Model scale={1} modelPath={`/images/3d-three-${model}.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            <Model scale={1} modelPath={model} position={[-1.6, 9 / 7, -0.2]} />
                         </Canvas>
                     </motion.div>
                 </div>
