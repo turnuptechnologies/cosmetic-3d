@@ -7,20 +7,25 @@ import Image from "next/image"
 
 export default function AnimatedSection({ section, index, swapLayout = false }) {
     const ref = useRef(null)
-    const isInView = useInView(ref, { once: false, margin: "-50% 0px -50% 0px" })
     const [hasAnimated, setHasAnimated] = useState(false)
+    const isInView = useInView(ref, { 
+        once: true, 
+        margin: "-30% 0px -30% 0px",
+        amount: 0.3
+    })
 
     useEffect(() => {
         if (isInView && !hasAnimated) {
             setHasAnimated(true)
         }
     }, [isInView, hasAnimated])
+    
+    const shouldAnimate = isInView || hasAnimated
 
     return (
         <div
             ref={ref}
-            className="relative w-full h-full flex items-center justify-center overflow-hidden bg-black scroll-snap-align-start"
-            style={{ scrollSnapAlign: "start", scrollSnapStop: "always" }}
+            className="relative w-full h-full flex items-center justify-center overflow-hidden bg-black"
         >
             {/* Background grid effect */}
             <div className="absolute inset-0 opacity-10">
@@ -34,7 +39,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
             <motion.div
                 className="absolute left-1/2 top-1/2 w-6 h-6 rounded-full transform -translate-x-1/2 -translate-y-1/2"
                 initial={{ scale: 0 }}
-                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                animate={shouldAnimate ? { scale: 1 } : { scale: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 style={{
                     backgroundColor: section.color,
@@ -54,14 +59,14 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                     {/* Left side - Content */}
                     <motion.div
                         initial={{ opacity: 0, x: swapLayout ? 100 : -100 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: swapLayout ? 100 : -100 }}
+                        animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: swapLayout ? 100 : -100 }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
                         className="order-2 md:order-1 text-white md:[direction:ltr] bg-black/30 backdrop-blur-sm border border-gray-600/30 rounded-xl p-8 max-w-lg mx-auto"
                     >
                         <motion.div
                             className="relative w-28 h-28 mb-4 overflow-hidden rounded-lg"
                             initial={{ scale: 0, rotate: -20 }}
-                            animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -20 }}
+                            animate={shouldAnimate ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -20 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             {section.image ? (
@@ -83,7 +88,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         <motion.h2
                             className="text-3xl md:text-4xl font-bold mb-6 text-white leading-tight"
                             initial={{ opacity: 0, y: 20 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
                             {section.title}
@@ -92,7 +97,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         <motion.h3
                             className="text-sm font-semibold tracking-widest mb-3 uppercase"
                             initial={{ opacity: 0, y: 20 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                             style={{ color: section.color }}
                         >
@@ -103,7 +108,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         <motion.p
                             className="text-gray-300 text-sm md:text-base leading-relaxed max-w-lg"
                             initial={{ opacity: 0, y: 20 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.5 }}
                         >
                             {section.description}
@@ -113,7 +118,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         <motion.div
                             className="mt-8 h-1 w-16 bg-gradient-to-r from-pink-500 to-purple-500"
                             initial={{ width: 0 }}
-                            animate={isInView ? { width: 64 } : { width: 0 }}
+                            animate={shouldAnimate ? { width: 64 } : { width: 0 }}
                             transition={{ duration: 0.8, delay: 0.6 }}
                         />
                     </motion.div>
@@ -121,20 +126,20 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                     {/* Right side - Large number */}
                     <motion.div
                         initial={{ opacity: 0, x: swapLayout ? -100 : 100 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: swapLayout ? -100 : 100 }}
+                        animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: swapLayout ? -100 : 100 }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                         className="order-1 md:order-2 flex items-center justify-center md:[direction:ltr]"
                     >
                         <motion.div
                             className="relative"
                             initial={{ scale: 0.5, opacity: 0 }}
-                            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
+                            animate={shouldAnimate ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
                             transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
                         >
                             {/* Animated background circle */}
                             <motion.div
                                 className="absolute inset-0 rounded-full blur-3xl"
-                                animate={isInView ? { scale: [1, 1.1, 1] } : { scale: 1 }}
+                                animate={shouldAnimate ? { scale: [1, 1.1, 1] } : { scale: 1 }}
                                 transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                             />
 

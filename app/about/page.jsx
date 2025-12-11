@@ -54,20 +54,9 @@ const sections = [
 export default function AboutPage() {
   const containerRef = useRef(null)
   const [activeSection, setActiveSection] = useState(0)
-  const [isScrolling, setIsScrolling] = useState(false)
-
-  useEffect(() => {
-    const handleWheel = (e) => {
-      // Allow default scroll behavior
-      return;
-    }
-
-    window.addEventListener("wheel", handleWheel, { passive: false })
-    return () => window.removeEventListener("wheel", handleWheel)
-  }, [activeSection, isScrolling])
 
   return (
-    <div ref={containerRef} className="w-full overflow-x-hidden pt-20" style={{ scrollBehavior: "smooth" }}>
+    <div ref={containerRef} className="w-full overflow-x-hidden pt-20 min-h-screen">
       <div className="text-white text-center my-8 md:my-16 px-4">
         <h1 className="text-4xl md:text-6xl lg:text-[84px] font-[600] leading-tight mb-2 md:mb-4">Our Story</h1>
         <p className="text-[#FFFFFFCC] text-base md:text-lg font-[400] max-w-3xl mx-auto">A legacy built on innovation, expertise, and an unwavering commitment to excellence</p>
