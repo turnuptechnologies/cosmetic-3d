@@ -89,7 +89,7 @@ export default function AboutPage() {
         imageSide="left"
         label="Science Meets Beauty"
         title="Skincare"
-        modal='/images/Shampoo.glb'
+        modal='/images/shampoo.glb'
         modalScale={1}
         description="Developing skincare products begins with a deep dive into skin science, where our chemists curate sophisticated blends of bioactive ingredients, cutting-edge peptides, and advanced delivery systems that penetrate barriers to nourish, protect, and rejuvenate at the cellular level."
       />
