@@ -61,8 +61,8 @@ export default function ServicePage() {
 
   return (
     <main className="w-full bg-black overflow-x-hidden pt-20" style={{ scrollBehavior: "smooth" }}>
-      <ProductDetailSection side="right" model="1" content={sectionOne}/>
-      <ProductDetailSection side="left" model="4" content={sectionTwo}/>
+      <ProductDetailSection side="right" model="/images/conditioner.glb" content={sectionOne}/>
+      <ProductDetailSection side="left" model="/images/shampoo.glb" content={sectionTwo}/>
       <SpiderDetail />
       <WhyProduct />
       <ProductsSection />

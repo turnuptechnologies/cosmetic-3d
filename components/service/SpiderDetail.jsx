@@ -62,7 +62,7 @@ export default function SpiderDetail() {
                     intensity={0.5}
                   />
 
-                  <Model scale={1.5} modelPath={`/images/3d-three-2.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                  <Model scale={1.5} modelPath={`/images/conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} />
                 </Canvas>
               </div>
             </div>
