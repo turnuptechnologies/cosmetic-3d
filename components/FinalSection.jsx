@@ -153,7 +153,7 @@ export function FinalSection() {
           <div className="w-60 h-60 mt-20 md:w-[22rem] md:h-[22rem] lg:w-[28rem] lg:h-[28rem] xl:w-[34rem] xl:h-[34rem]">
             <Canvas
               camera={{ position: [0, 0, 10], fov: 10 }}
-              style={{ transform: 'rotate(8deg) scale(1.15)' }}
+              // style={{ transform: 'rotate(8deg) scale(1.15)' }}
             >
               {/* Soft global light */}
               <ambientLight intensity={0.8} />
@@ -186,7 +186,7 @@ export function FinalSection() {
                 intensity={0.5}
               />
 
-              <Model scale={0.5} modelPath="/images/3d-three.glb" position={[-0.2, -0.2, -0.2]} />
+              <Model scale={0.5} modelPath="/images/conditioner-footer.glb" position={[-0.2, -1, -0.2]} />
             </Canvas>
 
           </div>

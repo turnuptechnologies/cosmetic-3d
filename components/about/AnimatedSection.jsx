@@ -139,7 +139,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                             />
 
                             {/* Number */}
-                            <div class="text-9xl md:text-[250px] font-bold text-transparent bg-clip-text
+                            <div className="text-9xl md:text-[250px] font-bold text-transparent bg-clip-text
                                         bg-gradient-to-r from-[#1a1a1a] via-[#1a1a1a] to-[#e5e5e5]">
                                 {section.number}
                             </div>

@@ -60,11 +60,11 @@ export function SectionTwo() {
     <section
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center px-12 md:px-16 lg:px-24 py-24 snap-start"
-      // style={{
-      //   backgroundImage: "url('/images/11.png')",
-      //   backgroundSize: 'cover',
-      //   backgroundPosition: 'center',
-      // }}
+      style={{
+        backgroundImage: "url('/images/11.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
@@ -190,9 +190,9 @@ export function SectionTwo() {
             />
 
             <Model
-              scale={0.5}
-              modelPath="/images/3d-one2.glb"
-              position={[0.1, 0.2, 0]}
+              scale={0.9}
+              modelPath="/images/product_1.glb"
+              position={[0.1, -2, 0]}
               rotation={[0, 0.4, 0]}
             />
             <OrbitControls enableZoom={false} />

@@ -135,7 +135,7 @@ export function HeroSection() {
               intensity={0.5}
             />
 
-            <Model scale={0.5} modelPath="/images/3d-one.glb" position={[-1.6, 9 / 7, -0.2]} />
+            <Model scale={0.9} modelPath="/images/conditioner.glb" position={[-1.6, -1, -0.2]} />
           </Canvas>
 
         </div>

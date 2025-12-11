@@ -115,9 +115,8 @@ export function SectionThree() {
               groundColor={"#666666"}
               intensity={0.5}
             />
-
-            <Model scale={0.5} modelPath="/images/3d-two.glb" position={[0, 0, 0]} />
-            <OrbitControls enableZoom={false} autoRotate />
+            <Model scale={0.9} modelPath="/images/product_2.glb" position={[0, -1, 0]}  rotation={[1, 0.4, 0]} />
+            <OrbitControls enableZoom={true} autoRotate />
           </Canvas>
         </div>
 
