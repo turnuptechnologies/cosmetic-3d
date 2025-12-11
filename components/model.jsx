@@ -1,6 +1,6 @@
 'use client'
 
-import { useGLTF } from '@react-three/drei'
+import { useGLTF , Center} from '@react-three/drei'
 import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import gsap from 'gsap'
@@ -49,7 +49,9 @@ export default function Model({ modelPath, scale = 0.5, position = [0, 0, 0], ro
 
   return (
     <group ref={groupRef} scale={scale} position={position} rotation={rotation}>
-      <primitive object={scene} />
+      <Center>
+   <primitive object={scene} />
+      </Center>
     </group>
   )
 }
