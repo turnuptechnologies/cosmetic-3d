@@ -51,11 +51,11 @@ export default function FAQPage() {
                 className="w-full flex items-start justify-between gap-3 sm:gap-4 p-4 sm:p-6 text-left transition-all duration-300"
               >
                 <div className="flex items-start gap-3 sm:gap-4 flex-1">
-                  <span className="text-3xl sm:text-4xl font-bold flex-shrink-0">
+                  <span className={`text-3xl sm:text-4xl font-bold flex-shrink-0 ${openIndex === index ? 'text-[#e80076]' : 'text-white'}`}>
                     {index + 1}
                   </span>
                   <div className="flex-1 pt-1 sm:pt-2">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-medium leading-tight">
+                    <h3 className={`text-base sm:text-lg lg:text-xl font-medium leading-tight ${openIndex === index ? 'text-[#e80076]' : 'text-white'}`}>
                       {faq.question}
                     </h3>
                     <div
@@ -71,9 +71,9 @@ export default function FAQPage() {
                   </div>
                 </div>
                 <div className="flex-shrink-0 pt-1">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white flex items-center justify-center transition-transform duration-300">
+                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-transform duration-300 ${openIndex === index ? 'border-[#e80076]' : 'border-white'}`}>
                     {openIndex === index ? (
-                      <Minus className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-[#e80076]" />
                     ) : (
                       <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
                     )}

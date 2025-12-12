@@ -196,18 +196,61 @@ export default function SpiderDetail() {
         {/* Mobile Layout - Vertical Steps */}
         <div className="lg:hidden mt-12 space-y-12">
           {[1, 2, 3, 4, 5, 6].map((step) => (
-            <div key={`mobile-step-${step}`} className="bg-gray-900 bg-opacity-50 rounded-2xl p-6 backdrop-blur-sm">
-              <h3 className="text-2xl font-bold text-white mb-3">
-                <span className="text-pink-500">Step</span> {step === 1 ? 'One' : 
-                  step === 2 ? 'Two' : 
-                  step === 3 ? 'Three' : 
-                  step === 4 ? 'Four' : 
-                  step === 5 ? 'Five' : 'Six'}
-              </h3>
-              <p className="text-gray-300 text-base leading-relaxed">
-                This is a sample description for process step {step}. Replace this with your actual content.
-              </p>
-            </div>
+            <>
+              {step === 4 && (
+                <div key="mobile-model" className="w-full h-64 relative flex items-center justify-center my-8">
+                  <div className="w-48 h-48 relative">
+                    <Canvas
+                      style={{ transform: 'rotate(-10deg) scale(1.2)' }}
+                      shadows
+                      camera={{ position: [0, 0, 25], fov: 22 }}
+                    >
+                      <ambientLight intensity={0.55} />
+                      <directionalLight
+                        position={[6, 6, 12]}
+                        intensity={2.0}
+                        castShadow={true}
+                        shadow-mapSize-width={2048}
+                        shadow-mapSize-height={2048}
+                      />
+                      <directionalLight
+                        position={[-6, 2, 10]}
+                        intensity={1.0}
+                        castShadow={false}
+                      />
+                      <directionalLight
+                        position={[0, -3, -10]}
+                        intensity={1.4}
+                        color={"#ffffff"}
+                      />
+                      <directionalLight
+                        position={[0, 10, 5]}
+                        intensity={0.8}
+                        castShadow={false}
+                      />
+                      <hemisphereLight
+                        skyColor={"#ffffff"}
+                        groundColor={"#666666"}
+                        intensity={0.5}
+                      />
+                      <Model scale={3.4} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                    </Canvas>
+                  </div>
+                </div>
+              )}
+              <div key={`mobile-step-${step}`} className="bg-gray-900 bg-opacity-50 rounded-2xl p-6 backdrop-blur-sm">
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  <span className="text-pink-500">Step</span> {step === 1 ? 'One' : 
+                    step === 2 ? 'Two' : 
+                    step === 3 ? 'Three' : 
+                    step === 4 ? 'Four' : 
+                    step === 5 ? 'Five' : 'Six'}
+                </h3>
+                <p className="text-gray-300 text-base leading-relaxed">
+                  This is a sample description for process step {step}. Replace this with your actual content.
+                </p>
+              </div>
+            </>
           ))}
         </div>
       </div>

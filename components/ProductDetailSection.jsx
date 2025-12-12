@@ -67,8 +67,12 @@ export function ProductDetailSection({ side, model, content }) {
     return (
         <section className="w-full min-h-screen bg-black text-white py-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-                <div className={`flex flex-col lg:flex-row gap-12 items-center 
-                               ${side === "left" ? "flex-col-reverse lg:flex-row-reverse" : ""}`}
+                <div
+                    className={`
+    flex flex-col-reverse lg:flex-row 
+    gap-12 items-center
+    ${side === "left" ? "lg:flex-row-reverse" : ""}
+  `}
                 >
                     {/* Left Column - Text Content */}
                     <div className="w-full lg:w-1/2 space-y-8">
