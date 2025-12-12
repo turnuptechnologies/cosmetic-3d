@@ -5,6 +5,7 @@ import { ProductDetailSection , ProductDetailSectiontwo } from "../../components
 import WhyProduct from "../../components/service/WhyProduct";
 import { ProductsSection } from "../../components/ProductsSection";
 import { FinalSection } from "../../components/FinalSection";
+import Footer from "../../components/Footer";
 
 export default function ServicePage() {
   const sectionOne = {
@@ -67,6 +68,7 @@ export default function ServicePage() {
       <WhyProduct />
       <ProductsSection />
       <FinalSection />
+      <Footer />
     </main>
   );
 }

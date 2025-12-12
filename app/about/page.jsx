@@ -7,6 +7,7 @@ import ProductShowcase from "../../components/about/ProductShowcase";
 import ByTheNumbers from "../../components/about/ByTheNumbers";
 import { ContactSection } from "../../components/ContactSection";
 import { FinalSection } from "../../components/FinalSection";
+import Footer from "../../components/Footer";
 
 const sections = [
   {
@@ -120,6 +121,7 @@ export default function AboutPage() {
       <ByTheNumbers />
       <ContactSection />
       <FinalSection />
+      <Footer />
     </div>
   )
 }
