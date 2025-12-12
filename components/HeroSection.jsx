@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Model from './model';
 import gsap from 'gsap';
 import { motion } from 'framer-motion'; // Keep for continuous animation
 
 export function HeroSection() {
+  const [modelScale, setModelScale] = useState(1.4);
   const bottomLeftRef = useRef(null);
   const bottomRightRef = useRef(null);
 
@@ -49,6 +50,22 @@ export function HeroSection() {
     );
   }, []);
 
+  // Handle responsive model scale
+  useEffect(() => {
+    const handleResize = () => {
+      setModelScale(window.innerWidth < 768 ? 2.8 : 1.4);
+    };
+    
+    // Set initial scale
+    handleResize();
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black mb-10">
       <div className="relative w-full h-full">
@@ -64,7 +81,7 @@ export function HeroSection() {
         </video>
         <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent z-5"></div>
       </div>
-      <div className="absolute inset-0 z-10 flex items-center justify-center w-full pt-16 sm:pt-0">
+      <div className="absolute inset-0 z-10 flex items-center justify-center w-full pt-1 sm:pt-0">
         <motion.h1
           className="text-[4.5rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
           initial={textAnimation.initial}
@@ -138,13 +155,13 @@ export function HeroSection() {
               intensity={0.5}
             />
 
-            <Model scale={1.4} modelPath="/images/conditioner.glb"  position={[-1.2, 1.2, 0]}
+            <Model scale={modelScale} modelPath="/images/conditioner.glb"  position={[-1.2, 1.2, 0]}
               rotation={[0, 0.4, 0]} />
           </Canvas>
 
         </div>
       </motion.div>
-      <div className="absolute inset-0 z-30 flex items-center justify-center w-full pt-16 sm:pt-0">
+      <div className="absolute inset-0 z-30 flex items-center justify-center w-full pt-1 sm:pt-0">
         <motion.h1
           className="text-[4.5rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"
           initial={textAnimation.initial}
@@ -168,7 +185,7 @@ export function HeroSection() {
       </div>
       <div
         ref={bottomLeftRef}
-        className="absolute bottom-16 sm:bottom-12 xl:bottom-2 left-4 right-4 sm:left-8 md:left-16 lg:left-24 max-w-md mx-auto sm:mx-0 space-y-4 sm:space-y-6 z-40 px-4 sm:px-0"
+        className="absolute bottom-42 sm:bottom-14 xl:bottom-8 left-4 right-4 sm:left-8 md:left-16 lg:left-24 max-w-md mx-auto sm:mx-0 space-y-4 sm:space-y-6 z-40 px-4 sm:px-0"
       >
         <p
           className="text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed text-center sm:text-left"

@@ -1,4 +1,14 @@
+import { CustomDropdown } from "./CustomDropdown";
+
 export function ContactSection() {
+  const dropdownValue = [
+    { value: "web-app", label: "Web Application" },
+    { value: "mobile-app", label: "Mobile Application"},
+    { value: "api", label: "API Service" },
+    { value: "landing-page", label: "Landing Page" },
+    { value: "ecommerce", label: "E-Commerce" },
+    { value: "portfolio", label: "Portfolio" },
+  ]
   return (
     <section className="w-full bg-black text-white snap-start flex flex-col justify-center py-12 md:py-20 px-4 sm:px-6 mb-6">
       
@@ -61,31 +71,12 @@ export function ContactSection() {
 
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Type *</label>
-            <select
-              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition appearance-none"
-              defaultValue=""
-            >
-              <option value="" disabled>Select project type</option>
-              <option value="website">Website Development</option>
-              <option value="mobile">Mobile App</option>
-              <option value="branding">Branding</option>
-              <option value="marketing">Digital Marketing</option>
-              <option value="other">Other</option>
-            </select>
+            <CustomDropdown dropdownValue={dropdownValue}/>
           </div>
 
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Budget Range *</label>
-            <select
-              className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition appearance-none"
-              defaultValue=""
-            >
-              <option value="" disabled>Select budget range</option>
-              <option value="1k-5k">$1,000 - $5,000</option>
-              <option value="5k-15k">$5,000 - $15,000</option>
-              <option value="15k-50k">$15,000 - $50,000</option>
-              <option value="50k+">$50,000+</option>
-            </select>
+            <CustomDropdown dropdownValue={dropdownValue}/>
           </div>
 
           {/* Textarea */}

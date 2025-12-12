@@ -108,7 +108,7 @@ export function FinalSection() {
 };
 
   return (
-    <div className="relative flex flex-col min-h-screen">
+    <div className="relative flex flex-col h-[70%] hidden md:flex min-h-0">
 
       {/* Full-screen Section (hidden on mobile) */}
       <section
@@ -186,7 +186,7 @@ export function FinalSection() {
                 intensity={0.5}
               />
 
-              <Model scale={0.4} modelPath="/images/conditioner-footer.glb"  position={[-0.3, 0.2, 0]}
+              <Model scale={0.4} modelPath="/images/conditioner-footer.glb"  position={[-0.3, 0.4, 0]}
               rotation={[0, 0.4, 0]} />
             </Canvas>
 
@@ -218,85 +218,7 @@ export function FinalSection() {
 </motion.div>
       </section>
 
-      {/* Footer with Glassy Effect */}
-      <footer className="w-full relative py-12 z-40">
-        {/* Glassy / frosted background */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-white/20 via-transparent "></div>
 
-        {/* Bottom Gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-transparent to-transparent -z-20"></div>
-
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 px-8"
-        >
-          {/* Left Section */}
-          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start mb-6 md:mb-0 w-full md:w-1/4">
-            <img src="./full-logo.png" alt="Cosmetic Chemist Logo" className="w-32 mb-4" />
-            <p className="text-md text-center text-white md:text-left max-w-md mb-4 font-light">
-              Your premier platform connecting cosmetic chemists with innovative brands.
-            </p>
-            <div className="flex justify-center md:justify-start gap-6">
-              <a href="#" className="text-white hover:text-pink-500">
-                <i className="fab fa-facebook"></i>
-              </a>
-              <a href="#" className="text-white hover:text-pink-500">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="text-white hover:text-pink-500">
-                <i className="fab fa-linkedin"></i>
-              </a>
-              <a href="#" className="text-white hover:text-pink-500">
-                <i className="fab fa-instagram"></i>
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div variants={itemVariants} className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h4 className="text-lg font-semibold mb-4 font-light text-white">Quick Links</h4>
-            <ul className="space-y-2 font-light">
-              <li><a href="/" className="text-white hover:text-pink-500">Home</a></li>
-              <li><a href="/about" className="text-white hover:text-pink-500">About Us</a></li>
-              <li><a href="/service" className="text-white hover:text-pink-500">Services</a></li>
-            </ul>
-          </motion.div>
-
-          {/* Resources */}
-          <motion.div variants={itemVariants} className="w-full md:w-1/4">
-            <h4 className="text-lg font-semibold mb-4 font-light text-white">Info Links</h4>
-            <ul className="space-y-2 font-light">
-              <li><a href="/blog" className="text-white hover:text-pink-500">BLogs</a></li>
-              <li><a href="/contact" className="text-white hover:text-pink-500">Contact </a></li>
-              <li><a href="/faq" className="text-white hover:text-pink-500">FAQ</a></li>
-            </ul>
-          </motion.div>
-
-          {/* Contact */}
-          <motion.div variants={itemVariants} className="w-full md:w-1/4">
-            <h4 className="text-lg font-semibold mb-4 font-light text-white">Contact</h4>
-            <p className="mb-2 font-light">
-              <a href="mailto:info@cosmeticchemist.com" className="text-white hover:text-pink-500">info@cosmeticchemist.com</a>
-            </p>
-            <p className="mb-2 font-light">
-              <a href="tel:+18005551234" className="text-white hover:text-pink-500">+1 (800) 555-1234</a>
-            </p>
-            <p className="mb-2 text-white">123 Innovation Way, New York, NY 10001</p>
-          </motion.div>
-        </motion.div>
-
-        {/* Footer Bottom */}
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 px-8 border-t border-white/10 text-white/40 pt-6 mt-8">
-          <p className="text-sm font-light">&copy; {new Date().getFullYear()} Cosmetic Chemist. All Rights Reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition text-sm font-light">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition text-sm font-light">Terms of Service</a>
-            <a href="#" className="hover:text-white transition text-sm font-light">Cookie Policy</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

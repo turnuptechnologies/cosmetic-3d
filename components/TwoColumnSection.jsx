@@ -46,7 +46,7 @@ export function TwoColumnSection() {
   }, [scrollerRef]);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center px-6 md:px-16 lg:px-24 bg-black text-white overflow-hidden snap-start">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center  bg-black text-white overflow-hidden snap-start">
       <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-black pointer-events-none" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-24 max-w-6xl mx-auto w-full py-16">
         <div ref={leftColRef} className="text-center space-y-6">
@@ -74,7 +74,7 @@ export function TwoColumnSection() {
           </h2>
           <p className="text-gray-300 max-w-md mx-auto leading-relaxed">
             Gain access to a network of innovative companies looking 
-            to collaborate with you.
+            to collaborate with <br /> you.
           </p>
           <div className="space-y-3 text-gray-200">
             <p>Connect with leading brands</p>
