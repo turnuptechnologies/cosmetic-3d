@@ -87,9 +87,12 @@ export function ProductDetailSection({ side, model, content }) {
                             {content?.tags.map((item, index) => (
                                 <span
                                     key={index}
-                                    className="py-2 text-sm rounded-lg transition"
+                                    className="text-sm rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
                                 >
-                                    {item}
+                                    <span className="relative">
+                                        {item}
+                                        <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#e90077] transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
                                 </span>
                             ))}
                         </div>
@@ -200,11 +203,14 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                         </div>
                         <div className="flex flex-wrap gap-6">
                             {content?.tags.map((item, index) => (
-                                <span
+                              <span
                                     key={index}
-                                    className="py-2 text-sm rounded-lg transition"
+                                    className="text-sm rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
                                 >
-                                    {item}
+                                    <span className="relative">
+                                        {item}
+                                        <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#e90077] transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
                                 </span>
                             ))}
                         </div>
