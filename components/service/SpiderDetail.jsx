@@ -196,7 +196,7 @@ export default function SpiderDetail() {
         {/* Mobile Layout - Vertical Steps */}
         <div className="lg:hidden mt-12 space-y-12">
           {[1, 2, 3, 4, 5, 6].map((step) => (
-            <>
+            <div key={step}>
               {step === 4 && (
                 <div key="mobile-model" className="w-full h-64 relative flex items-center justify-center my-8">
                   <div className="w-48 h-48 relative">
@@ -250,7 +250,7 @@ export default function SpiderDetail() {
                   This is a sample description for process step {step}. Replace this with your actual content.
                 </p>
               </div>
-            </>
+            </div>
           ))}
         </div>
       </div>

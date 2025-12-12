@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaRegBookmark } from 'react-icons/fa';
 import { BsThreeDots } from 'react-icons/bs';
-
+import { FinalSection } from "../../../components/FinalSection"
+import Footer from "../../../components/Footer"
 export async function generateStaticParams() {
   try {
     const posts = await getAllBlogPostSlugs();
@@ -66,7 +67,7 @@ export default async function BlogPostPage({ params }) {
   const authorAvatar = author?.avatar?.url || '';
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen h-screen bg-black text-white">
       {/* Hero Image Section */}
       <div className="relative w-full h-[600px] md:h-[700px] overflow-hidden">
         <Image
@@ -139,7 +140,7 @@ export default async function BlogPostPage({ params }) {
         </div>
 
         {/* Author Section */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        {/* <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             <div className="w-20 h-20 rounded-full bg-white/10 flex-shrink-0 overflow-hidden">
               {authorAvatar ? (
@@ -175,14 +176,14 @@ export default async function BlogPostPage({ params }) {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* More Blog Posts Section */}
-        <div className="mt-16">
+        {/* <div className="mt-16">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl md:text-3xl font-bold">More Blog Posts</h2>
             <button className="flex items-center text-sm font-medium text-white/60 hover:text-white transition-colors">
-              {/* View All <BsThreeDots className="ml-1" /> */}
+              View All <BsThreeDots className="ml-1" />
             </button>
           </div>
 
@@ -205,8 +206,11 @@ export default async function BlogPostPage({ params }) {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
+        <FinalSection />
+      <Footer />
+    
     </div>
   );
 }

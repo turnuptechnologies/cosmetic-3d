@@ -11,7 +11,7 @@ export default function LayoutWrapper({ children }) {
   return (
     <>
       <main className="flex-grow">{children}</main>
-      {!hideFooter && <Footer />}
+      {/* {!hideFooter && <Footer />} */}
     </>
   )
 }

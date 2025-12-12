@@ -34,7 +34,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 py-3' : 'bg-black/40 py-4 md:py-6'}`}>
+    <header className={`fixed top-0 backdrop-blur-xs w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 py-3' : 'bg-black/40 py-4 md:py-6'}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition z-50">
           <Image
@@ -47,7 +47,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6 lg:gap-8 text-white/80 text-sm">
+        <nav className="hidden md:flex gap-6 lg:gap-8 text-white/80 text-sm ">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -59,13 +59,13 @@ const Header = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 ">
           <div className="">
             <button
               onClick={() => {
                 router.push('/contact');
               }}
-              className="group flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3  bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
+              className="group cursor-pointer flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3  bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
             >
               <span>Contact</span>
               <motion.svg

@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { getPaginatedBlogPosts } from '../../lib/strapi';
 import { Suspense } from 'react';
 import Pagination from '../../components/Pagination';
-
+import { FinalSection } from "../../components/FinalSection"
+import Footer from "../../components/Footer"
 async function BlogList({ currentPage }) {
   const { data: posts, meta } = await getPaginatedBlogPosts(currentPage);
 
@@ -119,12 +120,17 @@ export default async function BlogPage({ searchParams }) {
   const currentPage = parseInt(page) || 1;
 
   return (
-    <Suspense fallback={
-      <div className="bg-black min-h-screen flex items-center justify-center">
-        <div className="text-white text-xl">Loading posts...</div>
-      </div>
-    }>
-      <BlogList currentPage={currentPage} />
-    </Suspense>
+    <div className='h-screen'>
+
+      <Suspense fallback={
+        <div className="bg-black min-h-screen flex items-center justify-center">
+          <div className="text-white text-xl">Loading posts...</div>
+        </div>
+      }>
+        <BlogList currentPage={currentPage} />
+      </Suspense>
+      <FinalSection />
+      <Footer />
+    </div>
   );
 }

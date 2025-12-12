@@ -61,7 +61,7 @@ export default function ServicePage() {
   }
 
   return (
-    <main className="w-full bg-black overflow-x-hidden pt-20" style={{ scrollBehavior: "smooth" }}>
+    <main className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar pt-20" style={{ scrollBehavior: "smooth" }}>
       <ProductDetailSection side="right" content={sectionOne}/>
       <ProductDetailSectiontwo side="left"  content={sectionTwo}/>
       <SpiderDetail />

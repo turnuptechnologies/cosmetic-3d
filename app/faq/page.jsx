@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
-
+import { FinalSection } from '../../components/FinalSection';
+import Footer from '../../components/Footer';
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState(0); // first item open by default
 
@@ -34,8 +35,11 @@ export default function FAQPage() {
   };
 
   return (
+    <div className=' h-screen '>
+
+  
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl w-full scale-95">
+      <div className="max-w-3xl w-full scale-95 h-screen ">
         <h1 className="text-4xl font-bold text-center mb-6 mt-16 sm:mt-20 md:mt-24 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
           Frequently Asked Questions
         </h1>
@@ -82,8 +86,14 @@ export default function FAQPage() {
               </button>
             </div>
           ))}
+         
         </div>
+       
       </div>
+
     </div>
+            <FinalSection />
+            <Footer />
+      </div>
   )
 }

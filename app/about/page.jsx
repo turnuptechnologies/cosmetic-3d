@@ -57,7 +57,7 @@ export default function AboutPage() {
   const [activeSection, setActiveSection] = useState(0)
 
   return (
-    <div ref={containerRef} className="w-full overflow-x-hidden pt-20 min-h-screen">
+    <div ref={containerRef} className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar pt-20 min-h-screen">
       <div className="text-white text-center my-8 md:my-16 px-4">
         <h1 className="text-4xl md:text-6xl lg:text-[84px] font-[600] leading-tight mb-2 md:mb-4">Our Story</h1>
         <p className="text-[#FFFFFFCC] text-base md:text-lg font-[400] max-w-3xl mx-auto">A legacy built on innovation, expertise, and an unwavering commitment to excellence</p>
