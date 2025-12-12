@@ -8,19 +8,22 @@ import Image from "next/image"
 export default function AnimatedSection({ section, index, swapLayout = false }) {
     const ref = useRef(null)
     const [hasAnimated, setHasAnimated] = useState(false)
-    const isInView = useInView(ref, { 
-        once: true, 
+    const isInView = useInView(ref, {
+        once: true,
         margin: "-30% 0px -30% 0px",
         amount: 0.3
     })
 
     useEffect(() => {
-        if (isInView && !hasAnimated) {
-            setHasAnimated(true)
+        if (index === 0 && !hasAnimated) {
+            setHasAnimated(true); // auto animate first section
+        } else if (isInView && !hasAnimated) {
+            setHasAnimated(true);
         }
-    }, [isInView, hasAnimated])
-    
-    const shouldAnimate = isInView || hasAnimated
+    }, [index, isInView, hasAnimated]);
+
+    const shouldAnimate = index === 0 || isInView || hasAnimated;
+
 
     return (
         <div
@@ -128,7 +131,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         initial={{ opacity: 0, x: swapLayout ? -100 : 100 }}
                         animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 0, x: swapLayout ? -100 : 100 }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        className="order-1 md:order-2 flex items-center justify-center md:[direction:ltr]"
+                        className={`order-1 md:order-2 flex items-center ${index % 2 === 0 ? 'justify-end' : 'justify-start'} md:justify-center md:[direction:ltr]`}
                     >
                         <motion.div
                             className="relative"
@@ -145,7 +148,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
 
                             {/* Number */}
                             <div className="text-9xl md:text-[250px] font-bold text-transparent bg-clip-text
-                                        bg-gradient-to-r from-[#1a1a1a] via-[#1a1a1a] to-[#e5e5e5]">
+                                           bg-gradient-to-r from-[#1a1a1a] via-[#1a1a1a] to-[#e5e5e5]">
                                 {section.number}
                             </div>
                         </motion.div>
