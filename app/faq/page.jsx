@@ -40,7 +40,7 @@ export default function FAQPage() {
   
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl w-full scale-95 h-screen ">
-        <h1 className="text-4xl font-bold text-center mb-6 mt-16 sm:mt-20 md:mt-24 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
+        <h1 className="text-4xl font-bold text-center mb-6 mt-42 sm:mt-20 md:mt-24 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
           Frequently Asked Questions
         </h1>
 
