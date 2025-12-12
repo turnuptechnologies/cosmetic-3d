@@ -197,8 +197,8 @@ export function SectionTwo() {
 
             <Model
               scale={1.3}
-              modelPath="/images/ras.glb"
-              position={[0.1, 0, 0]}
+              modelPath="/images/shampoo.glb"
+              position={[0.5, 0, 0]}
               rotation={[0, 0.4, 0]}
             />
             <OrbitControls enableZoom={false} />

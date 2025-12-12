@@ -59,7 +59,7 @@ const WhyProduct = () => {
                 intensity={0.5}
               />
               <Model
-                scale={3.8}
+                scale={8.8}
                 modelPath={"/images/etraux.glb"}
                 position={[0, -1, 0]}
                 rotation={[0, 0.5, 0]}

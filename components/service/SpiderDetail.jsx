@@ -62,7 +62,7 @@ export default function SpiderDetail() {
                     intensity={0.5}
                   />
 
-                  <Model scale={1.5} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                  <Model scale={2.8} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
                 </Canvas>
               </div>
             </div>

@@ -51,16 +51,19 @@ export function HeroSection() {
 
   return (
     <section className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black mb-10">
-      <video
-        style={{ transform: 'rotate(90deg) scale(2.2)' }}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-contain z-0 "
-      >
-        <source src="/videos/hero-bg.mp4" type="video/mp4" />
-      </video>
+      <div className="relative w-full h-full">
+        <video
+          style={{ transform: 'rotate(90deg) scale(2.2)' }}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-contain z-0"
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent z-5"></div>
+      </div>
       <div className="absolute inset-0 z-10 flex items-center justify-center w-full pt-16 sm:pt-0">
         <motion.h1
           className="text-[4.5rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] xl:text-[15rem] font-black text-center select-none w-full px-4"

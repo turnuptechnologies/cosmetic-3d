@@ -186,7 +186,7 @@ export function FinalSection() {
                 intensity={0.5}
               />
 
-              <Model scale={0.9} modelPath="/images/conditioner-footer.glb"  position={[-0.3, 0.5, 0]}
+              <Model scale={0.4} modelPath="/images/conditioner-footer.glb"  position={[-0.3, 0.2, 0]}
               rotation={[0, 0.4, 0]} />
             </Canvas>
 

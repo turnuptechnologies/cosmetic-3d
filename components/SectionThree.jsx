@@ -60,21 +60,15 @@ export function SectionThree() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center px-12 md:px-16 snap-start overflow-hidden"
     >
-      {/* Background Image */}
-      {/* <img
-        src="/images/35.png"
-        alt="Background"
-        className="absolute inset-0 w-full h-full object-fill"
-      /> */}
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl">
-        {/* Left Content - 3D Model */}
+        {/* Left Content - 3D Model - Second on mobile, first on desktop */}
         <div
           ref={leftContentRef}
-          className="w-full flex items-center justify-center h-[450px] md:h-[600px] lg:h-[750px]"
-               style={{
+          className="w-full flex items-center justify-center h-[450px] md:h-[600px] lg:h-[750px] order-2 lg:order-1"
+          style={{
             backgroundImage: `
               radial-gradient(
                 circle at center,
@@ -92,10 +86,7 @@ export function SectionThree() {
           }}
         >
           <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
-            {/* Soft overall environmental light */}
             <ambientLight intensity={0.55} />
-
-            {/* Key Light — main highlight */}
             <directionalLight
               position={[6, 6, 12]}
               intensity={2.0}
@@ -103,53 +94,43 @@ export function SectionThree() {
               shadow-mapSize-width={2048}
               shadow-mapSize-height={2048}
             />
-
-            {/* Fill Light — softens shadows on left */}
             <directionalLight
               position={[-6, 2, 10]}
               intensity={1.0}
               castShadow={false}
             />
-
-            {/* Rim Light — adds beautiful outline */}
             <directionalLight
               position={[0, -3, -10]}
               intensity={1.4}
               color={"#ffffff"}
             />
-
-            {/* Soft top light for premium shine */}
             <directionalLight
               position={[0, 10, 5]}
               intensity={0.8}
               castShadow={false}
             />
-
-            {/* Hemisphere for gentle color blend */}
             <hemisphereLight
               skyColor={"#ffffff"}
               groundColor={"#666666"}
               intensity={0.5}
             />
-            <Model scale={1.3} modelPath="/images/etraux.glb"  position={[0.1, 0, 0]}
-              rotation={[0, 0.4, 0]} />
-            <OrbitControls enableZoom={false}  />
+            <Model 
+              scale={0.8} 
+              modelPath="/images/ras.glb" 
+              position={[0.1, 0, 0]}
+              rotation={[0, 0.4, 0]} 
+            />
+            <OrbitControls enableZoom={false} />
           </Canvas>
         </div>
 
-        {/* Right Content - Text */}
-        <div
-          ref={rightContentRef}
-          className="space-y-6 text-white text-left lg:text-right"
-        >
-          <h2 className="text-4xl md:text-5xl font-black leading-tight">
-            Why Choose Us
+        {/* Right Content - Text - First on mobile, second on desktop */}
+        <div ref={rightContentRef} className="space-y-6 px-4 order-1 lg:order-2">
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            We are your <span className="text-pink-400">one-stop shop</span> for everything cosmetic
           </h2>
-          <p className="text-[#FFFFFF]">
-            At CosmeticChemist.com, we bridge the gap between innovative brands and expert cosmetic chemists. With a vast network of highly skilled formulators and innovative cosmetic chemists, we ensure that your products are developed with the latest market trends and scientific advancements.
-          </p>
-          <p>
-            Our team is also well experienced with all regulatory and quality assurance matters. Not only that but we are also passionate about design and branding (...if you couldn’t tell) and love to help brands out with that. We guarantee you’ve never come across a more well- rounded team of experts than at CosmeticChemist.com. We want to be part of your journey! Contact us today.
+          <p className="text-gray-300">
+            Our team is also well experienced with all regulatory and quality assurance matters. Not only that but we are also passionate about design and branding (...if you couldn't tell) and love to help brands out with that. We guarantee you've never come across a more well-rounded team of experts than at CosmeticChemist.com. We want to be part of your journey! Contact us today.
           </p>
           <button className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
             Join Our Network

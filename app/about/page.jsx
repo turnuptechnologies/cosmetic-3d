@@ -90,7 +90,7 @@ export default function AboutPage() {
         label="Science Meets Beauty"
         title="Skincare"
         modal='/images/shampoo.glb'
-        modalScale={1}
+        modalScale={2.4}
         description="Developing skincare products begins with a deep dive into skin science, where our chemists curate sophisticated blends of bioactive ingredients, cutting-edge peptides, and advanced delivery systems that penetrate barriers to nourish, protect, and rejuvenate at the cellular level."
       />
       <ProductShowcase
@@ -98,7 +98,7 @@ export default function AboutPage() {
         label="Follicular Innovation"
         title="Hair Care"
         modal='/images/conditioner.glb'
-        modalScale={0.7}
+        modalScale={2.4}
         description="Developing hair care products harnesses the intricacies of follicular biology and emulsion technology, where our chemists curate customized blends of quaternary ammonium compounds, hydrolyzed proteins, and plant-derived actives that repair, strengthen, and transform from root to tip."
       />
       <ProductShowcase
@@ -106,7 +106,7 @@ export default function AboutPage() {
         label="Artistry & Precision"
         title="Cosmetics"
         modal='/images/ras.glb'
-        modalScale={0.9}
+        modalScale={2.4}
         description="Developing cosmetics demands a fusion of artistry and precision, where our chemists harness vibrant pigments, emollients, and film-formers to create flawless finishes that enhance natural beauty while prioritizing skin compatibility and wearability."
       />
       <ProductShowcase
@@ -114,7 +114,7 @@ export default function AboutPage() {
         label="Biochemistry Excellence"
         title="Oral Care"
         modal='/images/etraux.glb'
-        modalScale={0.9}
+        modalScale={2.4}
         description="Developing oral care products requires a precise fusion of biochemistry and sensory science, where our chemists integrate antimicrobial agents, remineralizing compounds, and natural extracts to fortify enamel, freshen breath, and promote optimal oral health."
       />
       <ByTheNumbers />

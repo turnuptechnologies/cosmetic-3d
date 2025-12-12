@@ -163,7 +163,7 @@ export function ProductDetailSection({ side, model, content }) {
                                 intensity={0.5}
                             />
 
-                            <Model scale={1} modelPath={`/images/conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            <Model scale={2.4} modelPath={`/images/conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} />
                         </Canvas>
                     </motion.div>
                 </div>
@@ -278,7 +278,7 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                                 intensity={0.5}
                             />
 
-                            <Model scale={1} modelPath={`/images/shampoo.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            <Model scale={2.4} modelPath={`/images/shampoo.glb`} position={[-1.6, 9 / 7, -0.2]} />
                         </Canvas>
                     </motion.div>
                 </div>
