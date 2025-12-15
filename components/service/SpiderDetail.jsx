@@ -205,7 +205,7 @@ export default function SpiderDetail() {
                 />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
-                <span className="text-pink-500">Step</span> Six
+                <span className="text-pink-500">Step</span>Six
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed">
                 This is a sample description for process step six. Replace this with your actual content.
