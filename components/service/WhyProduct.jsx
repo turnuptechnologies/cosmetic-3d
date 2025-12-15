@@ -7,6 +7,25 @@ import Model from '../../components/model';
 import Image from 'next/image';
 
 const WhyProduct = () => {
+  const scrollDown = (e) => {
+    e.preventDefault();
+    // Get the next section element
+    const currentSection = e.target.closest('section');
+    const nextSection = currentSection.nextElementSibling;
+
+    if (nextSection) {
+      nextSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      // If no next section, scroll to bottom
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
   const features = [
     {
       path: "/images/clinic.png",
@@ -65,6 +84,33 @@ const WhyProduct = () => {
                 rotation={[0, 0.5, 0]}
               />
             </Canvas>
+            {/* Arrow Button – Mobile only */}
+            <button
+              onClick={scrollDown}
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 
+                                           text-white animate-bounce p-3 rounded-full 
+                                           bg-white/10 hover:bg-white/20 transition-all
+                                           z-50 cursor-pointer touch-manipulation
+                                           focus:outline-none focus:ring-2 focus:ring-white/30
+                                           md:hidden"
+              aria-label="Scroll Down"
+              type="button"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
           </div>
         </div>
 

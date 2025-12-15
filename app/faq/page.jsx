@@ -35,65 +35,66 @@ export default function FAQPage() {
   };
 
   return (
-    <div className=' h-screen '>
+    <div className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar pt-8 min-h-screen">
 
-  
-    <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl w-full scale-95 h-screen ">
-        <h1 className="text-4xl font-bold text-center mb-6 mt-42 sm:mt-20 md:mt-24 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
-          Frequently Asked Questions
-        </h1>
 
-        <div className="space-y-3 sm:space-y-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="border border-white/20 rounded-2xl overflow-hidden transition-all duration-300 hover:border-white/40"
-            >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex items-start justify-between gap-3 sm:gap-4 p-4 sm:p-6 text-left transition-all duration-300"
+      <div className="flex-grow bg-black text-white flex items-start justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-32">
+        <div className="max-w-3xl w-full py-8">
+          <h1 className="text-4xl font-bold text-center mb-8 px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
+            Frequently Asked Questions
+          </h1>
+
+          <div className="space-y-3 sm:space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="border border-white/20 rounded-2xl overflow-hidden transition-all duration-300 hover:border-white/40"
               >
-                <div className="flex items-start gap-3 sm:gap-4 flex-1">
-                  <span className={`text-3xl sm:text-4xl font-bold flex-shrink-0 ${openIndex === index ? 'text-[#e80076]' : 'text-white'}`}>
-                    {index + 1}
-                  </span>
-                  <div className="flex-1 pt-1 sm:pt-2">
-                    <h3 className={`text-base sm:text-lg lg:text-xl font-medium leading-tight ${openIndex === index ? 'text-[#e80076]' : 'text-white'}`}>
-                      {faq.question}
-                    </h3>
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ${openIndex === index
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full flex items-start justify-between gap-3 sm:gap-4 p-4 sm:p-6 text-left transition-all duration-300"
+                >
+                  <div className="flex items-start gap-3 sm:gap-4 flex-1">
+                    <span className={`text-3xl sm:text-4xl font-bold flex-shrink-0 ${openIndex === index ? 'text-[#e80076]' : 'text-white'}`}>
+                      {index + 1}
+                    </span>
+                    <div className="flex-1 pt-1 sm:pt-2">
+                      <h3 className={`text-base sm:text-lg lg:text-xl font-medium leading-tight ${openIndex === index ? 'text-[#e80076]' : 'text-white'}`}>
+                        {faq.question}
+                      </h3>
+                      <div
+                        className={`overflow-hidden transition-all duration-300 ${openIndex === index
                           ? 'max-h-80 opacity-100 mt-3'
                           : 'max-h-0 opacity-0'
-                        }`}
-                    >
-                      <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-                        {faq.answer}
-                      </p>
+                          }`}
+                      >
+                        <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex-shrink-0 pt-1">
-                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-transform duration-300 ${openIndex === index ? 'border-[#e80076]' : 'border-white'}`}>
-                    {openIndex === index ? (
-                      <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-[#e80076]" />
-                    ) : (
-                      <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
-                    )}
+                  <div className="flex-shrink-0 pt-1">
+                    <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-transform duration-300 ${openIndex === index ? 'border-[#e80076]' : 'border-white'}`}>
+                      {openIndex === index ? (
+                        <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-[#e80076]" />
+                      ) : (
+                        <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+                      )}
+                    </div>
                   </div>
-                </div>
-              </button>
-            </div>
-          ))}
-         
+                </button>
+              </div>
+            ))}
+
+          </div>
+
         </div>
-       
+
       </div>
 
+      <FinalSection />
+      <Footer />
     </div>
-            <FinalSection />
-            <Footer />
-      </div>
   )
 }

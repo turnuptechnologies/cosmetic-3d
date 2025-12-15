@@ -7,7 +7,27 @@ import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 import gsap from 'gsap';
 
-export default function ProductShowcase({imageSide = 'left', label, title, description, modal, modalScale}) {
+export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale }) {
+    const scrollDown = (e) => {
+        e.preventDefault();
+        // Get the next section element
+        const currentSection = e.target.closest('section');
+        const nextSection = currentSection.nextElementSibling;
+        
+        if (nextSection) {
+            nextSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        } else {
+            // If no next section, scroll to bottom
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    };
+
     return (
         <section className="relative w-full py-16 md:py-24 bg-black overflow-hidden">
             <div className="container mx-auto px-4">
@@ -68,6 +88,35 @@ export default function ProductShowcase({imageSide = 'left', label, title, descr
 
                                 <Model scale={modalScale} modelPath={modal} position={[-1.6, 9 / 7, -0.2]} />
                             </Canvas>
+
+                            {/* Arrow Button – Mobile only */}
+                            <button
+                                onClick={scrollDown}
+                                className="absolute bottom-4 left-1/2 -translate-x-1/2 
+                                           text-white animate-bounce p-3 rounded-full 
+                                           bg-white/10 hover:bg-white/20 transition-all
+                                           z-50 cursor-pointer touch-manipulation
+                                           focus:outline-none focus:ring-2 focus:ring-white/30
+                                           md:hidden"
+                                aria-label="Scroll Down"
+                                type="button"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </button>
+
                         </div>
                     </motion.div>
 
@@ -79,9 +128,9 @@ export default function ProductShowcase({imageSide = 'left', label, title, descr
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <h3 
-                            style={{color: imageSide == "right" ? "#CBFF00" : "#FF4D8A"}}
-                            className="text-sm font-semibold tracking-widest uppercase mb-4">
+                            <h3
+                                style={{ color: imageSide == "right" ? "#CBFF00" : "#FF4D8A" }}
+                                className="text-sm font-semibold tracking-widest uppercase mb-4">
                                 {label}
                             </h3>
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">

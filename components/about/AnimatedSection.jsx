@@ -28,7 +28,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
     return (
         <div
             ref={ref}
-            className="relative w-full h-full flex items-center justify-center overflow-hidden bg-black"
+            className="relative w-full  flex items-center justify-center overflow-hidden bg-black"
         >
             {/* Background grid effect */}
             <div className="absolute inset-0 opacity-10">
@@ -55,7 +55,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                 }}
             />
 
-            <div className="relative w-full h-full flex items-center">
+            <div className="relative w-full flex items-center">
                 <div
                     className={`container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center ${swapLayout ? "md:[direction:rtl]" : ""}`}
                 >
@@ -67,7 +67,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         className="order-2 md:order-1 text-white md:[direction:ltr] bg-black/30 backdrop-blur-sm border border-gray-600/30 rounded-xl p-8 max-w-lg mx-auto"
                     >
                         <motion.div
-                            className="relative w-28 h-28 mb-4 overflow-hidden rounded-lg"
+                            className="relative w-28 mb-4 overflow-hidden rounded-lg"
                             initial={{ scale: 0, rotate: -20 }}
                             animate={shouldAnimate ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -20 }}
                             transition={{ duration: 0.5, delay: 0.2 }}

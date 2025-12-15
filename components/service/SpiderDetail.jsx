@@ -2,6 +2,25 @@ import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 
 export default function SpiderDetail() {
+  const scrollDown = (e) => {
+    e.preventDefault();
+    // Get the next section element
+    const currentSection = e.target.closest('section');
+    const nextSection = currentSection.nextElementSibling;
+
+    if (nextSection) {
+      nextSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      // If no next section, scroll to bottom
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
   return (
     <section className="w-full py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto w-full">
@@ -235,16 +254,43 @@ export default function SpiderDetail() {
                       />
                       <Model scale={3.4} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
                     </Canvas>
+                    {/* Arrow Button – Mobile only */}
+                    <button
+                      onClick={scrollDown}
+                      className="absolute bottom-4 left-1/2 -translate-x-1/2 
+                                           text-white animate-bounce p-3 rounded-full 
+                                           bg-white/10 hover:bg-white/20 transition-all
+                                           z-50 cursor-pointer touch-manipulation
+                                           focus:outline-none focus:ring-2 focus:ring-white/30
+                                           md:hidden"
+                      aria-label="Scroll Down"
+                      type="button"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               )}
               <div key={`mobile-step-${step}`} className="bg-gray-900 bg-opacity-50 rounded-2xl p-6 backdrop-blur-sm">
                 <h3 className="text-2xl font-bold text-white mb-3">
-                  <span className="text-pink-500">Step</span> {step === 1 ? 'One' : 
-                    step === 2 ? 'Two' : 
-                    step === 3 ? 'Three' : 
-                    step === 4 ? 'Four' : 
-                    step === 5 ? 'Five' : 'Six'}
+                  <span className="text-pink-500">Step</span> {step === 1 ? 'One' :
+                    step === 2 ? 'Two' :
+                      step === 3 ? 'Three' :
+                        step === 4 ? 'Four' :
+                          step === 5 ? 'Five' : 'Six'}
                 </h3>
                 <p className="text-gray-300 text-base leading-relaxed">
                   This is a sample description for process step {step}. Replace this with your actual content.

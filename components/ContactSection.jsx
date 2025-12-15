@@ -2,12 +2,21 @@ import { CustomDropdown } from "./CustomDropdown";
 
 export function ContactSection() {
   const dropdownValue = [
-    { value: "web-app", label: "Web Application" },
-    { value: "mobile-app", label: "Mobile Application"},
-    { value: "api", label: "API Service" },
-    { value: "landing-page", label: "Landing Page" },
-    { value: "ecommerce", label: "E-Commerce" },
-    { value: "portfolio", label: "Portfolio" },
+    { value: "option 1", label: "Option 1" },
+    { value: "option 2", label: "Option 2"},
+    { value: "option 3", label: "Option 3" },
+    { value: "option 4", label: "Option 4" },
+    { value: "option 5", label: "Option 5" },
+    { value: "option 6", label: "Option 6" },
+  ]
+
+    const dropdownValue2 = [
+    { value: "option 1", label: "$2000 - $3000" },
+    { value: "option 2", label: "$3000 - $5000"},
+    { value: "option 3", label: "$5000 - $10000" },
+    { value: "option 4", label: "$10000 - $20000" },
+    { value: "option 5", label: "$20000 - $50000" },
+    { value: "option 6", label: "$50000 - $100000" },
   ]
   return (
     <section className="w-full bg-black text-white snap-start flex flex-col justify-center py-12 md:py-20 px-4 sm:px-6 mb-6">
@@ -76,7 +85,7 @@ export function ContactSection() {
 
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Budget Range *</label>
-            <CustomDropdown dropdownValue={dropdownValue}/>
+            <CustomDropdown dropdownValue={dropdownValue2}/>
           </div>
 
           {/* Textarea */}
