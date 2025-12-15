@@ -2,25 +2,28 @@ import { CustomDropdown } from "./CustomDropdown";
 
 export function ContactSection() {
   const dropdownValue = [
-    { value: "option 1", label: "Option 1" },
-    { value: "option 2", label: "Option 2"},
-    { value: "option 3", label: "Option 3" },
-    { value: "option 4", label: "Option 4" },
-    { value: "option 5", label: "Option 5" },
-    { value: "option 6", label: "Option 6" },
-  ]
+    { value: "skin-care", label: "Skin Care" },
+    { value: "hair-care", label: "Hair Care" },
+    { value: "oral-care", label: "Oral Care" },
+    { value: "personal-care", label: "Personal Care" },
+    { value: "product-reformulation", label: "Product Reformulation" },
+    { value: "reverse-engineer", label: "Reverse Engineer" },
+    { value: "consultation-only", label: "Consultation Only" },
+    { value: "lets-discuss", label: "Let's Discuss" },
+  ];
 
-    const dropdownValue2 = [
-    { value: "option 1", label: "$2000 - $3000" },
-    { value: "option 2", label: "$3000 - $5000"},
-    { value: "option 3", label: "$5000 - $10000" },
-    { value: "option 4", label: "$10000 - $20000" },
-    { value: "option 5", label: "$20000 - $50000" },
-    { value: "option 6", label: "$50000 - $100000" },
-  ]
+
+  const dropdownValue2 = [
+    { value: "2500-5000", label: "$2,500 - $5,000" },
+    { value: "5000-10000", label: "$5,000 - $10,000" },
+    { value: "10000-25000", label: "$10,000 - $25,000" },
+    { value: "25000-plus", label: "$25,000+" },
+    { value: "lets-discuss", label: "Let's Discuss" },
+  ];
+
   return (
     <section className="w-full bg-black text-white snap-start flex flex-col justify-center py-12 md:py-20 px-4 sm:px-6 mb-6">
-      
+
       {/* Top Heading Section */}
       <div className="max-w-6xl mx-auto text-center mb-6 md:mb-4 mt-6 md:mt-10 px-4">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
@@ -43,7 +46,7 @@ export function ContactSection() {
 
         {/* Form Grid */}
         <form className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-          
+
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Full Name *</label>
             <input
@@ -80,12 +83,12 @@ export function ContactSection() {
 
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Type *</label>
-            <CustomDropdown dropdownValue={dropdownValue}/>
+            <CustomDropdown dropdownValue={dropdownValue} />
           </div>
 
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Budget Range *</label>
-            <CustomDropdown dropdownValue={dropdownValue2}/>
+            <CustomDropdown dropdownValue={dropdownValue2} />
           </div>
 
           {/* Textarea */}
@@ -101,7 +104,7 @@ export function ContactSection() {
         </form>
 
         {/* Submit Button */}
-        <button 
+        <button
           type="submit"
           className="mt-8 sm:mt-10 w-full bg-pink-500 hover:bg-pink-600 transition text-white py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium"
         >

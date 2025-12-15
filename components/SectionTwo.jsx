@@ -154,11 +154,9 @@ export function SectionTwo() {
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <Canvas camera={{ position: [0, 0, 15], fov: 22 }}>
-            {/* Soft overall environmental light */}
+          {/* <Canvas camera={{ position: [0, 0, 15], fov: 22 }}>
             <ambientLight intensity={0.55} />
 
-            {/* Key Light — main highlight */}
             <directionalLight
               position={[6, 6, 12]}
               intensity={2.0}
@@ -167,28 +165,24 @@ export function SectionTwo() {
               shadow-mapSize-height={2048}
             />
 
-            {/* Fill Light — softens shadows on left */}
             <directionalLight
               position={[-6, 2, 10]}
               intensity={1.0}
               castShadow={false}
             />
 
-            {/* Rim Light — adds beautiful outline */}
             <directionalLight
               position={[0, -3, -10]}
               intensity={1.4}
               color={"#ffffff"}
             />
 
-            {/* Soft top light for premium shine */}
             <directionalLight
               position={[0, 10, 5]}
               intensity={0.8}
               castShadow={false}
             />
 
-            {/* Hemisphere for gentle color blend */}
             <hemisphereLight
               skyColor={"#ffffff"}
               groundColor={"#666666"}
@@ -202,7 +196,60 @@ export function SectionTwo() {
               rotation={[0, 0.4, 0]}
             />
             <OrbitControls enableZoom={false} />
+          </Canvas> */}
+          <Canvas
+            camera={{ position: [0, 2, 10], fov: 35 }} // slightly up & back
+            style={{ width: '100%', height: '100%',marginLeft:85 }}
+          >
+            <ambientLight intensity={0.55} />
+
+            <directionalLight
+              position={[6, 6, 12]}
+              intensity={2.0}
+              castShadow={true}
+              shadow-mapSize-width={2048}
+              shadow-mapSize-height={2048}
+            />
+
+            <directionalLight
+              position={[-6, 2, 10]}
+              intensity={1.0}
+              castShadow={false}
+            />
+
+            <directionalLight
+              position={[0, -3, -10]}
+              intensity={1.4}
+              color="#ffffff"
+            />
+
+            <directionalLight
+              position={[0, 10, 5]}
+              intensity={0.8}
+              castShadow={false}
+            />
+
+            <hemisphereLight
+              skyColor="#ffffff"
+              groundColor="#666666"
+              intensity={0.5}
+            />
+
+            <Model
+              scale={1.3}
+              modelPath="/images/shampoo.glb"
+              position={[0, 0, 0]}      
+              rotation={[0, 0.4, 0]}       
+            />
+
+            <OrbitControls
+              enableZoom={false}
+              target={[0, 0, 0]}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={0}
+            />
           </Canvas>
+
         </div>
       </div>
     </section>

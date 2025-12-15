@@ -147,14 +147,14 @@ export function ProductDetailSection({ side, model, content }) {
                         }}
                     >
                         <Canvas
-                            style={{ transform: 'rotate(-10deg) scale(1.2)' }}
+                            style={{ transform: 'rotate(-10deg) ' }}
+                            // style={{ width: '100%', height: '100%' }}
+
                             shadows
                             camera={{ position: [0, 0, 25], fov: 22 }}
                         >
-                            {/* Soft overall environmental light */}
                             <ambientLight intensity={0.55} />
 
-                            {/* Key Light — main highlight */}
                             <directionalLight
                                 position={[6, 6, 12]}
                                 intensity={2.0}
@@ -163,38 +163,39 @@ export function ProductDetailSection({ side, model, content }) {
                                 shadow-mapSize-height={2048}
                             />
 
-                            {/* Fill Light — softens shadows on left */}
                             <directionalLight
                                 position={[-6, 2, 10]}
                                 intensity={1.0}
                                 castShadow={false}
                             />
 
-                            {/* Rim Light — adds beautiful outline */}
                             <directionalLight
                                 position={[0, -3, -10]}
                                 intensity={1.4}
                                 color={"#ffffff"}
                             />
 
-                            {/* Soft top light for premium shine */}
                             <directionalLight
                                 position={[0, 10, 5]}
                                 intensity={0.8}
                                 castShadow={false}
                             />
 
-                            {/* Hemisphere for gentle color blend */}
                             <hemisphereLight
                                 skyColor={"#ffffff"}
                                 groundColor={"#666666"}
                                 intensity={0.5}
                             />
 
-                            <Model scale={2.4} modelPath={`/images/conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            {/* <Model scale={2.4} modelPath={`/images/conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} /> */}
+                            <Model
+                                scale={2.9}
+                                modelPath={`/images/conditioner.glb`}
+                                position={[0, 0, 0]}
+                                rotation={[0, Math.PI / 4, 0]} // optional initial rotation
+                            />
                             <OrbitControls enableZoom={false} />
                         </Canvas>
-                        {/* Arrow Button – Mobile only */}
                         <button
                             onClick={scrollDown}
                             className="absolute bottom-4 left-1/2 -translate-x-1/2 
@@ -292,10 +293,52 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                             duration: 0.5
                         }}
                     >
-                        <Canvas
+                        {/* OLD CODE FOR MODAL NOT ROTATING PROPERLY */}
+                        {/* <Canvas
                             style={{ transform: 'rotate(-10deg) scale(1.2)' }}
                             shadows
                             camera={{ position: [0, 0, 25], fov: 22 }}
+                        >
+                            <ambientLight intensity={0.55} />
+
+                            <directionalLight
+                                position={[6, 6, 12]}
+                                intensity={2.0}
+                                castShadow={true}
+                                shadow-mapSize-width={2048}
+                                shadow-mapSize-height={2048}
+                            />
+
+                            <directionalLight
+                                position={[-6, 2, 10]}
+                                intensity={1.0}
+                                castShadow={false}
+                            />
+
+                            <directionalLight
+                                position={[0, -3, -10]}
+                                intensity={1.4}
+                                color={"#ffffff"}
+                            />
+
+                            <directionalLight
+                                position={[0, 10, 5]}
+                                intensity={0.8}
+                                castShadow={false}
+                            />
+
+                            <hemisphereLight
+                                skyColor={"#ffffff"}
+                                groundColor={"#666666"}
+                                intensity={0.5}
+                            />
+
+                            <Model scale={2.4} modelPath={`/images/shampoo.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            <OrbitControls enableZoom={false} />
+                        </Canvas> */}
+                        <Canvas
+                            shadows
+                            camera={{ position: [0, 2, 10], fov: 35 }}
                         >
                             {/* Soft overall environmental light */}
                             <ambientLight intensity={0.55} />
@@ -337,8 +380,21 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                                 intensity={0.5}
                             />
 
-                            <Model scale={2.4} modelPath={`/images/shampoo.glb`} position={[-1.6, 9 / 7, -0.2]} />
-                            <OrbitControls enableZoom={false} />
+                            {/* Model centered at 0,0,0 with optional slight initial rotation */}
+                            <Model
+                                scale={2.4}
+                                modelPath={`/images/Product5.glb`}
+                                position={[0, 0, 0]}
+                                rotation={[0, Math.PI / 8, 0]} // slight initial tilt (optional)
+                            />
+
+                            {/* Orbit controls around model center */}
+                            <OrbitControls
+                                enableZoom={false}
+                                target={[0, 0, 0]}
+                                maxPolarAngle={Math.PI / 2}
+                                minPolarAngle={0}
+                            />
                         </Canvas>
                         {/* Arrow Button – Mobile only */}
                         <button

@@ -17,6 +17,7 @@ export default function Home() {
   const mainRef = useRef(null);
   useSnapScroll(mainRef);
 
+  
   return (
     <ScrollerContext.Provider value={mainRef}>
       <main ref={mainRef} className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar">

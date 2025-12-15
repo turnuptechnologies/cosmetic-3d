@@ -3,6 +3,8 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Header from '../components/Header'
 import LayoutWrapper from '../components/LayoutWrapper'
+import { LoaderProvider } from '../lib/LoaderContext'
+import PageLoader from './PageLoader'
 
 const lato = Lato({
   subsets: ['latin'],
@@ -38,9 +40,14 @@ export default function RootLayout({ children }) {
       >
         <Header />
 
+
         {/* Wrapper determines when to show footer */}
         <div className="flex flex-col min-h-screen">
-          <LayoutWrapper>{children}</LayoutWrapper>
+          <LayoutWrapper>
+            <LoaderProvider>
+              <PageLoader>{children}</PageLoader>
+            </LoaderProvider>
+          </LayoutWrapper>
         </div>
 
         <Analytics />

@@ -85,7 +85,7 @@ export function SectionThree() {
             boxShadow: 'inset 0 0 30px 20px rgba(0,0,0,0.7)'
           }}
         >
-          <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
+          {/* <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
             <ambientLight intensity={0.55} />
             <directionalLight
               position={[6, 6, 12]}
@@ -121,7 +121,68 @@ export function SectionThree() {
               rotation={[0, 0.4, 0]} 
             />
             <OrbitControls enableZoom={false} />
+          </Canvas> */}
+          <Canvas
+            camera={{ position: [0, 2, 8], fov: 25 }} // slightly up & back for correct rotation
+            style={{ width: '100%', height: '100%' }}
+          >
+            {/* Ambient light */}
+            <ambientLight intensity={0.55} />
+
+            {/* Key directional light */}
+            <directionalLight
+              position={[6, 6, 12]}
+              intensity={2.0}
+              castShadow={true}
+              shadow-mapSize-width={2048}
+              shadow-mapSize-height={2048}
+            />
+
+            {/* Fill light */}
+            <directionalLight
+              position={[-6, 2, 10]}
+              intensity={1.0}
+              castShadow={false}
+            />
+
+            {/* Rim/back light */}
+            <directionalLight
+              position={[0, -3, -10]}
+              intensity={1.4}
+              color="#ffffff"
+            />
+
+            {/* Top light */}
+            <directionalLight
+              position={[0, 10, 5]}
+              intensity={0.8}
+              castShadow={false}
+            />
+
+            {/* Hemisphere light */}
+            <hemisphereLight
+              skyColor="#ffffff"
+              groundColor="#666666"
+              intensity={0.5}
+            />
+
+            {/* Model centered */}
+            <Model
+              scale={1}
+              modelPath="/images/ras.glb"
+              position={[0, 0, 0]}         // center model
+              rotation={[0, 0.4, 0]}       // optional initial tilt
+            />
+
+            {/* OrbitControls for proper rotation */}
+            <OrbitControls
+              enableZoom={false}
+              target={[0, 0, 0]}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={0}
+            />
           </Canvas>
+
         </div>
 
         {/* Right Content - Text - First on mobile, second on desktop */}

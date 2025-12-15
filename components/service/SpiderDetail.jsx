@@ -37,10 +37,51 @@ export default function SpiderDetail() {
             {/* Center Image */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
               <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 relative">
-                <Canvas
+                {/* <Canvas
                   style={{ transform: 'rotate(-10deg) scale(1.2)' }}
                   shadows
                   camera={{ position: [0, 0, 25], fov: 22 }}
+                >
+                  <ambientLight intensity={0.55} />
+
+                  <directionalLight
+                    position={[6, 6, 12]}
+                    intensity={2.0}
+                    castShadow={true}
+                    shadow-mapSize-width={2048}
+                    shadow-mapSize-height={2048}
+                  />
+
+                  <directionalLight
+                    position={[-6, 2, 10]}
+                    intensity={1.0}
+                    castShadow={false}
+                  />
+
+                  <directionalLight
+                    position={[0, -3, -10]}
+                    intensity={1.4}
+                    color={"#ffffff"}
+                  />
+
+                  <directionalLight
+                    position={[0, 10, 5]}
+                    intensity={0.8}
+                    castShadow={false}
+                  />
+
+                  <hemisphereLight
+                    skyColor={"#ffffff"}
+                    groundColor={"#666666"}
+                    intensity={0.5}
+                  />
+
+                  <Model scale={2.8} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                  <OrbitControls enableZoom={false} />
+                </Canvas> */}
+                <Canvas
+                  shadows
+                  camera={{ position: [0, 2, 10], fov: 35 }} // slightly up & back
                 >
                   {/* Soft overall environmental light */}
                   <ambientLight intensity={0.55} />
@@ -82,9 +123,23 @@ export default function SpiderDetail() {
                     intensity={0.5}
                   />
 
-                  <Model scale={2.8} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
-                  <OrbitControls enableZoom={false} />
+                  {/* Model centered at 0,0,0 with optional slight initial rotation */}
+                  <Model
+                    scale={2.8}
+                    modelPath={`/images/ras.glb`}
+                    position={[0, 0, 0]} // center model
+                    rotation={[0, Math.PI / 8, 0]} // optional initial tilt
+                  />
+
+                  {/* Orbit controls around model center */}
+                  <OrbitControls
+                    enableZoom={false}
+                    target={[0, 0, 0]}
+                    maxPolarAngle={Math.PI / 2}
+                    minPolarAngle={0}
+                  />
                 </Canvas>
+
               </div>
             </div>
 

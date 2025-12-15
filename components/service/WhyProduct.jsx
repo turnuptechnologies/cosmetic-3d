@@ -55,7 +55,7 @@ const WhyProduct = () => {
         {/* Right side - 3D Model */}
         <div className="w-full flex justify-center relative h-96">
           <div className="relative w-full h-full center">
-            <Canvas
+            {/* <Canvas
               style={{ width: '100%', height: '100%' }}
               shadows
               camera={{ position: [0, 0, 25], fov: 30 }}
@@ -85,8 +85,55 @@ const WhyProduct = () => {
                 rotation={[0, 0.5, 0]}
               />
               <OrbitControls enableZoom={false} />
+            </Canvas> */}
+            <Canvas
+              style={{ width: '100%', height: '100%' }}
+              shadows
+              camera={{ position: [0, 2, 12], fov: 35 }}
+            >
+              {/* Ambient light */}
+              <ambientLight intensity={0.5} />
+
+              {/* Key light */}
+              <directionalLight
+                position={[5, 5, 8]}
+                intensity={1.5}
+                castShadow
+                shadow-mapSize-width={1024}
+                shadow-mapSize-height={1024}
+              />
+
+              {/* Fill light */}
+              <directionalLight
+                position={[-5, 5, -8]}
+                intensity={0.5}
+                color="#00a8ff"
+              />
+
+              {/* Hemisphere */}
+              <hemisphereLight
+                skyColor="#ffffff"
+                groundColor="#666666"
+                intensity={0.5}
+              />
+
+              {/* HORIZONTAL MODEL */}
+              <Model
+                scale={5}
+                modelPath="/images/white-tube.glb"
+                position={[0, 0, 0]}
+                rotation={[Math.PI / 2, 0, Math.PI / 8]} // 🔥 FIX
+              />
+
+              <OrbitControls
+                enableZoom={false}
+                target={[0, 0, 0]}
+                maxPolarAngle={Math.PI / 2}
+                minPolarAngle={0}
+              />
             </Canvas>
-            {/* Arrow Button – Mobile only */}
+
+
             <button
               onClick={scrollDown}
               className="absolute bottom-4 left-1/2 -translate-x-1/2 
