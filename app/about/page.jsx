@@ -90,8 +90,9 @@ export default function AboutPage() {
         imageSide="left"
         label="Science Meets Beauty"
         title="Skincare"
-        modal='/images/shampoo.glb'
-        modalScale={2.4}
+        modal='/images/Product5.glb'
+        modalPosition={[0,1,0]}
+        modalScale={2.8}
         description="Developing skincare products begins with a deep dive into skin science, where our chemists curate sophisticated blends of bioactive ingredients, cutting-edge peptides, and advanced delivery systems that penetrate barriers to nourish, protect, and rejuvenate at the cellular level."
       />
       <ProductShowcase
@@ -114,8 +115,9 @@ export default function AboutPage() {
         imageSide="right"
         label="Biochemistry Excellence"
         title="Oral Care"
-        modal='/images/etraux.glb'
-        modalScale={2.4}
+        modal='/images/white-tube.glb'
+        modalScale={2.8}
+        modalPosition={[0, 0, 0]}
         description="Developing oral care products requires a precise fusion of biochemistry and sensory science, where our chemists integrate antimicrobial agents, remineralizing compounds, and natural extracts to fortify enamel, freshen breath, and promote optimal oral health."
       />
       <ByTheNumbers />

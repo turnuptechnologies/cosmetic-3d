@@ -7,15 +7,15 @@ import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 import { OrbitControls } from '@react-three/drei';
 
-export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale }) {
+export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale, modalPosition = [0, 0, 0] }) {
     const scrollDown = (e) => {
         e.preventDefault();
         // Get the next section element
         const currentSection = e.target.closest('section');
         const nextSection = currentSection.nextElementSibling;
-        
+
         if (nextSection) {
-            nextSection.scrollIntoView({ 
+            nextSection.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
@@ -41,15 +41,13 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                         transition={{ duration: 0.8 }}
                     >
                         <div className="relative w-full max-w-md mx-auto h-[400px] lg:h-[500px]">
-                            <Canvas
+                            {/* <Canvas
                                 style={{ transform: 'rotate(-10deg) scale(1.2)' }}
                                 shadows
                                 camera={{ position: [0, 0, 25], fov: 22 }}
                             >
-                                {/* Soft overall environmental light */}
                                 <ambientLight intensity={0.55} />
 
-                                {/* Key Light — main highlight */}
                                 <directionalLight
                                     position={[6, 6, 12]}
                                     intensity={2.0}
@@ -58,28 +56,24 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                                     shadow-mapSize-height={2048}
                                 />
 
-                                {/* Fill Light — softens shadows on left */}
                                 <directionalLight
                                     position={[-6, 2, 10]}
                                     intensity={1.0}
                                     castShadow={false}
                                 />
 
-                                {/* Rim Light — adds beautiful outline */}
                                 <directionalLight
                                     position={[0, -3, -10]}
                                     intensity={1.4}
                                     color={"#ffffff"}
                                 />
 
-                                {/* Soft top light for premium shine */}
                                 <directionalLight
                                     position={[0, 10, 5]}
                                     intensity={0.8}
                                     castShadow={false}
                                 />
 
-                                {/* Hemisphere for gentle color blend */}
                                 <hemisphereLight
                                     skyColor={"#ffffff"}
                                     groundColor={"#666666"}
@@ -88,6 +82,67 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
 
                                 <Model scale={modalScale} modelPath={modal} position={[-1.6, 9 / 7, -0.2]} />
                                 <OrbitControls enableZoom={false} />
+                            </Canvas> */}
+                            <Canvas
+                                shadows
+                                camera={{ position: [0, 2, 12], fov: 35 }} // slightly up & back
+                                style={{ width: '100%', height: '100%' }}  // remove CSS transform
+                            >
+                                {/* Ambient light */}
+                                <ambientLight intensity={0.55} />
+
+                                {/* Key directional light */}
+                                <directionalLight
+                                    position={[6, 6, 12]}
+                                    intensity={2.0}
+                                    castShadow={true}
+                                    shadow-mapSize-width={2048}
+                                    shadow-mapSize-height={2048}
+                                />
+
+                                {/* Fill light */}
+                                <directionalLight
+                                    position={[-6, 2, 10]}
+                                    intensity={1.0}
+                                    castShadow={false}
+                                />
+
+                                {/* Rim/back light */}
+                                <directionalLight
+                                    position={[0, -3, -10]}
+                                    intensity={1.4}
+                                    color="#ffffff"
+                                />
+
+                                {/* Top light */}
+                                <directionalLight
+                                    position={[0, 10, 5]}
+                                    intensity={0.8}
+                                    castShadow={false}
+                                />
+
+                                {/* Hemisphere light */}
+                                <hemisphereLight
+                                    skyColor="#ffffff"
+                                    groundColor="#666666"
+                                    intensity={0.5}
+                                />
+
+                                {/* Model centered */}
+                                <Model
+                                    scale={modalScale}          // dynamic scale
+                                    modelPath={modal}           // dynamic modelPath
+                                    position={modalPosition}        // center model
+                                    rotation={[0, Math.PI / 8, 0]} // optional initial tilt
+                                />
+
+                                {/* OrbitControls */}
+                                <OrbitControls
+                                    enableZoom={false}
+                                    target={[0, 0, 0]}
+                                    maxPolarAngle={Math.PI / 2}
+                                    minPolarAngle={0}
+                                />
                             </Canvas>
 
                             {/* Arrow Button – Mobile only */}

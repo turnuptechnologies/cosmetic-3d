@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import Pagination from '../../components/Pagination';
 import { FinalSection } from "../../components/FinalSection"
 import Footer from "../../components/Footer"
+import Loader from '../../components/Loader';
 async function BlogList({ currentPage }) {
   const { data: posts, meta } = await getPaginatedBlogPosts(currentPage);
 
@@ -124,7 +125,7 @@ export default async function BlogPage({ searchParams }) {
 
       <Suspense fallback={
         <div className="bg-black min-h-screen flex items-center justify-center">
-          <div className="text-white text-xl">Loading posts...</div>
+          <div className="text-white text-xl"><Loader text={'Loading Blogs...'}/></div>
         </div>
       }>
         <BlogList currentPage={currentPage} />

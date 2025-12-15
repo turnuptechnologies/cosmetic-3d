@@ -155,31 +155,26 @@ export function FinalSection() {
               camera={{ position: [0, 0, 10], fov: 10 }}
               style={{ transform: 'rotate(-15deg) scale(1.15)' }}
             >
-              {/* Soft global light */}
               <ambientLight intensity={0.8} />
 
-              {/* Main key light */}
               <directionalLight
                 position={[5, 5, 10]}
                 intensity={1.6}
                 castShadow={false}
               />
 
-              {/* Fill light (softens shadows) */}
               <directionalLight
                 position={[-5, 2, 8]}
                 intensity={0.9}
                 castShadow={false}
               />
 
-              {/* Back rim light (gives premium edges) */}
               <directionalLight
                 position={[0, -3, -10]}
                 intensity={1.2}
                 color="#ffffff"
               />
 
-              {/* A soft hemisphere light for smooth gradients */}
               <hemisphereLight
                 skyColor={"#ffffff"}
                 groundColor={"#666666"}
