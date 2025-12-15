@@ -98,17 +98,17 @@ export function ProductDetailSection({ side, model, content }) {
                     {/* Left Column - Text Content */}
                     <div className="w-full lg:w-1/2 space-y-8">
                         <div>
-                            <h1 className="text-4xl md:text-5xl font-bold mb-2 text-[#FFFFFF]">{content?.title}</h1>
+                            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-[#FFFFFF]">{content?.title}</h1>
                             {/* <p className="text-gray-400 mb-6">1.5 FL OZ</p> */}
-                            <p className="text-[#FFFFFF] text-[14px] font-normal leading-relaxed mb-8">
+                            <p className="text-gray-300 text-[14px] font-normal leading-relaxed mb-8">
                                 {content?.description}
                             </p>
                         </div>
-                        <div className="flex flex-wrap gap-6">
+                        <div className="flex flex-wrap gap-4">
                             {content?.tags.map((item, index) => (
                                 <span
                                     key={index}
-                                    className="text-sm rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
+                                    className="text-sm text-gray-300 rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
                                 >
                                     <span className="relative">
                                         {item}
@@ -117,7 +117,7 @@ export function ProductDetailSection({ side, model, content }) {
                                 </span>
                             ))}
                         </div>
-                        <p className="text-[#FFFFFF] text-[14px] font-normal leading-relaxed mb-8">
+                        <p className="text-gray-300 text-[14px] font-normal leading-relaxed mb-8">
                             {content?.statement}
                         </p>
                         {/* <div className="mt-12">
@@ -244,17 +244,17 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                     {/* Left Column - Text Content */}
                     <div className="w-full lg:w-1/2 space-y-8">
                         <div>
-                            <h1 className="text-4xl md:text-5xl font-bold mb-2 text-[#FFFFFF]">{content?.title}</h1>
+                            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-[#FFFFFF]">{content?.title}</h1>
                             {/* <p className="text-gray-400 mb-6">1.5 FL OZ</p> */}
-                            <p className="text-[#FFFFFF] text-[14px] font-normal leading-relaxed mb-8">
+                            <p className="text-gray-300 text-[14px] font-normal leading-relaxed mb-8">
                                 {content?.description}
                             </p>
                         </div>
-                        <div className="flex flex-wrap gap-6">
+                        <div className="flex flex-wrap gap-4">
                             {content?.tags.map((item, index) => (
                                 <span
                                     key={index}
-                                    className="text-sm rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
+                                    className="text-sm text-gray-300 rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
                                 >
                                     <span className="relative">
                                         {item}
@@ -263,7 +263,7 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                                 </span>
                             ))}
                         </div>
-                        <p className="text-[#FFFFFF] text-[14px] font-normal leading-relaxed mb-8">
+                        <p className="text-gray-300 text-[14px] font-normal leading-relaxed mb-8">
                             {content?.statement}
                         </p>
                         {/* <div className="mt-12">

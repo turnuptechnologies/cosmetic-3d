@@ -56,7 +56,7 @@ export function ProductsSection() {
         <h2 className="text-5xl md:text-6xl font-black mb-6">
           Cosmetic Chemistry
         </h2>
-        <p className="leading-relaxed">
+        <p className="text-gray-300 leading-relaxed">
           Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces. Tailored expertise that turns visions into viral sensations. Let's formulate your success.
         </p>
       </div>
