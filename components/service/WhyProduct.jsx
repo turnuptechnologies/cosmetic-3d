@@ -5,6 +5,7 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 import Image from 'next/image';
+import { OrbitControls } from '@react-three/drei';
 
 const WhyProduct = () => {
   const scrollDown = (e) => {
@@ -83,6 +84,7 @@ const WhyProduct = () => {
                 position={[0, -1, 0]}
                 rotation={[0, 0.5, 0]}
               />
+              <OrbitControls enableZoom={false} />
             </Canvas>
             {/* Arrow Button – Mobile only */}
             <button

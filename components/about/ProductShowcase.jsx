@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
-import gsap from 'gsap';
+import { OrbitControls } from '@react-three/drei';
 
 export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale }) {
     const scrollDown = (e) => {
@@ -87,6 +87,7 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                                 />
 
                                 <Model scale={modalScale} modelPath={modal} position={[-1.6, 9 / 7, -0.2]} />
+                                <OrbitControls enableZoom={false} />
                             </Canvas>
 
                             {/* Arrow Button – Mobile only */}

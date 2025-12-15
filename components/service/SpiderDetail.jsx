@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
+import { OrbitControls } from '@react-three/drei';
 
 export default function SpiderDetail() {
   const scrollDown = (e) => {
@@ -82,6 +83,7 @@ export default function SpiderDetail() {
                   />
 
                   <Model scale={2.8} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                  <OrbitControls enableZoom={false} />
                 </Canvas>
               </div>
             </div>
@@ -253,6 +255,7 @@ export default function SpiderDetail() {
                         intensity={0.5}
                       />
                       <Model scale={3.4} modelPath={`/images/ras.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                      <OrbitControls enableZoom={false} />
                     </Canvas>
                     {/* Arrow Button – Mobile only */}
                     <button

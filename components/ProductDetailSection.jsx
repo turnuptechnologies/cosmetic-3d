@@ -4,6 +4,7 @@ import Model from '../components/model';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { motion, useInView } from 'framer-motion';
+import { OrbitControls } from '@react-three/drei';
 
 function JarModel() {
     const jarRef = useRef();
@@ -191,6 +192,7 @@ export function ProductDetailSection({ side, model, content }) {
                             />
 
                             <Model scale={2.4} modelPath={`/images/conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            <OrbitControls enableZoom={false} />
                         </Canvas>
                         {/* Arrow Button – Mobile only */}
                         <button
@@ -336,6 +338,7 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                             />
 
                             <Model scale={2.4} modelPath={`/images/shampoo.glb`} position={[-1.6, 9 / 7, -0.2]} />
+                            <OrbitControls enableZoom={false} />
                         </Canvas>
                         {/* Arrow Button – Mobile only */}
                         <button
