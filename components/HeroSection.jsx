@@ -55,13 +55,13 @@ export function HeroSection() {
     const handleResize = () => {
       setModelScale(window.innerWidth < 768 ? 2.8 : 1.4);
     };
-    
+
     // Set initial scale
     handleResize();
-    
+
     // Add event listener
     window.addEventListener('resize', handleResize);
-    
+
     // Clean up
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -115,10 +115,8 @@ export function HeroSection() {
             shadows
             camera={{ position: [0, 0, 25], fov: 22 }}
           >
-            {/* Soft overall environmental light */}
             <ambientLight intensity={0.55} />
 
-            {/* Key Light — main highlight */}
             <directionalLight
               position={[6, 6, 12]}
               intensity={2.0}
@@ -127,36 +125,37 @@ export function HeroSection() {
               shadow-mapSize-height={2048}
             />
 
-            {/* Fill Light — softens shadows on left */}
             <directionalLight
               position={[-6, 2, 10]}
               intensity={1.0}
               castShadow={false}
             />
 
-            {/* Rim Light — adds beautiful outline */}
             <directionalLight
               position={[0, -3, -10]}
               intensity={1.4}
               color={"#ffffff"}
             />
 
-            {/* Soft top light for premium shine */}
             <directionalLight
               position={[0, 10, 5]}
               intensity={0.8}
               castShadow={false}
             />
 
-            {/* Hemisphere for gentle color blend */}
             <hemisphereLight
               skyColor={"#ffffff"}
               groundColor={"#666666"}
               intensity={0.5}
             />
 
-            <Model scale={modelScale} modelPath="/images/conditioner.glb"  position={[-1.2, 1.2, 0]}
-              rotation={[0, 0.4, 0]} />
+            {/* <Model scale={modelScale} modelPath="/images/Pink_Conditioner.glb" position={[-1.2, 1.2, 0]} rotation={[0, 0.4, 0]} /> */}
+            <Model
+              scale={modelScale}
+              modelPath="/images/Pink_Conditioner.glb"
+              position={[-1.2, 1.2, 0]}
+              rotation={[0, 0.4, 0]}
+            />
           </Canvas>
 
         </div>

@@ -91,38 +91,49 @@ const WhyProduct = () => {
               shadows
               camera={{ position: [0, 2, 12], fov: 35 }}
             >
-              {/* Ambient light */}
-              <ambientLight intensity={0.5} />
+              {/* Ambient */}
+              <ambientLight intensity={0.4} />
 
-              {/* Key light */}
+              {/* FRONT key light */}
+              <directionalLight
+                position={[0, 2, 10]}
+                intensity={1.4}
+              />
+
+              {/* Right key light */}
               <directionalLight
                 position={[5, 5, 8]}
-                intensity={1.5}
+                intensity={1.2}
                 castShadow
                 shadow-mapSize-width={1024}
                 shadow-mapSize-height={1024}
               />
 
-              {/* Fill light */}
+              {/* Left fill light */}
               <directionalLight
-                position={[-5, 5, -8]}
-                intensity={0.5}
-                color="#00a8ff"
+                position={[-5, 3, 6]}
+                intensity={0.6}
+              />
+
+              {/* Back / rim light */}
+              <directionalLight
+                position={[0, 2, -10]}
+                intensity={8.9}
               />
 
               {/* Hemisphere */}
               <hemisphereLight
                 skyColor="#ffffff"
                 groundColor="#666666"
-                intensity={0.5}
+                intensity={0.45}
               />
 
-              {/* HORIZONTAL MODEL */}
+              {/* MODEL */}
               <Model
-                scale={5}
-                modelPath="/images/white-tube.glb"
+                scale={4}
+                modelPath="/images/Silver_Purple_Eye_Cream.glb"
                 position={[0, 0, 0]}
-                rotation={[Math.PI / 2, 0, Math.PI / 8]} // 🔥 FIX
+                rotation={[0, Math.PI / 8, 0]}
               />
 
               <OrbitControls

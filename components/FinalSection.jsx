@@ -93,19 +93,19 @@ export function FinalSection() {
   };
 
   const textSlideVariants = {
-  hidden: { 
-    y: -100,
-    opacity: 0
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.2, 0.65, 0.3, 0.9]
+    hidden: {
+      y: -100,
+      opacity: 0
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.2, 0.65, 0.3, 0.9]
+      }
     }
-  }
-};
+  };
 
   return (
     <div className="relative flex flex-col h-[70%] hidden md:flex min-h-0">
@@ -116,13 +116,13 @@ export function FinalSection() {
         className="relative flex-1 items-center justify-center bg-black snap-start hidden md:flex"
       >
         {/* Main Text */}
-<motion.div 
-  className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, margin: "-20%" }}
-  variants={textSlideVariants}
->
+        <motion.div
+          className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20%" }}
+          variants={textSlideVariants}
+        >
           <h1
             className="text-5xl md:text-[6rem] lg:text-[10rem] xl:text-[13rem] font-black text-center select-none w-full px-4"
             style={{
@@ -136,10 +136,10 @@ export function FinalSection() {
             <div className="flex justify-center"><span className='mb-[-30] tracking-widest font-light'>Cosmetic</span></div>
             <div className="flex justify-center"><span className='mt-[-30] tracking-widest font-light'>Chemist</span></div>
           </h1>
-   </motion.div>
+        </motion.div>
 
         {/* 3D Model */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
           initial={{ x: '-50%', opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -181,8 +181,9 @@ export function FinalSection() {
                 intensity={0.5}
               />
 
-              <Model scale={0.4} modelPath="/images/conditioner-footer.glb"  position={[-0.3, 0.4, 0]}
-              rotation={[0, 0.4, 0]} />
+              <Model scale={0.4} modelPath="/images/Pink_Conditioner2.glb"
+                position={[-0.3, 0.4, 0]}
+                rotation={[0, 0.4, 0]} />
             </Canvas>
 
           </div>
@@ -190,14 +191,14 @@ export function FinalSection() {
 
 
         {/* Outline Text */}
-<motion.div 
-  className="absolute inset-0 z-30 flex items-center justify-center w-full pointer-events-none"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, margin: "-20%" }}
-  variants={textSlideVariants}
-  transition={{ delay: 0.2 }} // Slight delay for the second text
->
+        <motion.div
+          className="absolute inset-0 z-30 flex items-center justify-center w-full pointer-events-none"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-20%" }}
+          variants={textSlideVariants}
+          transition={{ delay: 0.2 }} // Slight delay for the second text
+        >
           <h1
             className="text-5xl md:text-[6rem] lg:text-[10rem] xl:text-[13rem] font-black text-center select-none w-full px-4"
             style={{
@@ -210,7 +211,7 @@ export function FinalSection() {
             <div className="flex justify-center"><span className='mb-[-30] tracking-widest font-light'>Cosmetic</span></div>
             <div className="flex justify-center"><span className='mt-[-30] tracking-widest font-light'>Chemist</span></div>
           </h1>
-</motion.div>
+        </motion.div>
       </section>
 
 

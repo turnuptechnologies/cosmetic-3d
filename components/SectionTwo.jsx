@@ -237,7 +237,7 @@ export function SectionTwo() {
 
             <Model
               scale={1.3}
-              modelPath="/images/shampoo.glb"
+              modelPath="/images/Purple_Shampoo.glb"
               position={[0, 0, 0]}      
               rotation={[0, 0.4, 0]}       
             />

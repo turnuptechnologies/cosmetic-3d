@@ -125,7 +125,7 @@ export default function SpiderDetail() {
 
                   {/* Model centered at 0,0,0 with optional slight initial rotation */}
                   <Model
-                    scale={2.8}
+                    scale={3}
                     modelPath={`/images/ras.glb`}
                     position={[0, 0, 0]} // center model
                     rotation={[0, Math.PI / 8, 0]} // optional initial tilt

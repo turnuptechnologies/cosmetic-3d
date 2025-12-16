@@ -11,11 +11,9 @@ export default function PageLoader({ children }) {
         // || pathname === '/blog'
         if (pathname === '/') {
             setLoading(true);
-
-            const timeout = setTimeout(() => setLoading(false), 500); // 500ms for smooth UX
-
-            return () => clearTimeout(timeout);
         }
+        const timeout = setTimeout(() => setLoading(false), 500); // 500ms for smooth UX
+        return () => clearTimeout(timeout);
     }, [pathname, setLoading]);
 
     return <>{children}</>;
