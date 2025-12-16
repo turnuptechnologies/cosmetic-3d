@@ -74,7 +74,7 @@ export function ProductsSection() {
             <div className="absolute inset-0 z-[1] pointer-events-none flex items-start justify-center">
               <div className="w-[90%] h-[70%] bg-gradient-to-b from-white/40 to-transparent rounded-t-full blur-[0px]" />
             </div>
-            <Link href={`/products/${product.slug}`}>
+            {/* <Link href={`/products/${product.slug}`}> */}
               <div className="product-content relative z-[5]">
                 <div className="w-full h-56 flex items-center justify-center mb-10">
                   <Image
@@ -90,7 +90,7 @@ export function ProductsSection() {
                   {product.description}
                 </p>
               </div>
-            </Link>
+            {/* </Link> */}
           </div>
         ))}
       </div>
