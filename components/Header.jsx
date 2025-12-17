@@ -5,9 +5,43 @@ import Image from 'next/image';
 import BlogSearchPopup from './BlogSearchPopup';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { useGetService } from '../lib/getService';
 
 const Header = () => {
+  // const router = useRouter();
+  // const { data } = useGetService('/globals/header?depth=2&draft=false&locale=undefined&trash=false')
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isScrolled, setIsScrolled] = useState(false);
+
+  // console.log("----------POPOP",data)
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsScrolled(window.scrollY > 10);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
+
+  // const toggleMenu = () => {
+  //   setIsMenuOpen(!isMenuOpen);
+  //   document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
+  // };
+
+  // const navLinks = [
+  //   { href: "/", label: "Home" },
+  //   { href: "/about", label: "About" },
+  //   { href: "/service", label: "Service" },
+  //   { href: "/blog", label: "Blog" },
+  //   { href: "/faq", label: "FAQ's" },
+  //   // { href: "/contact", label: "Contact" }
+  // ];
   const router = useRouter();
+
+  const { data, loading } = useGetService(
+    "/globals/header?depth=2&draft=false&locale=undefined&trash=false"
+  );
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -15,23 +49,33 @@ const Header = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
+    document.body.style.overflow = !isMenuOpen ? "hidden" : "";
   };
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/service", label: "Service" },
-    { href: "/blog", label: "Blog" },
-    { href: "/faq", label: "FAQ's" },
-    // { href: "/contact", label: "Contact" }
-  ];
+  const navLinks = (data?.navItems ?? [])
+    .slice(0, -1)
+    .map((item) => ({
+      id: item.id,
+      href: item?.link?.url ?? "#",
+      label: item?.link?.label ?? "",
+      newTab: item?.link?.newTab ?? false,
+    }));
+
+
+  const ctaLink = data?.navItems?.length
+    ? {
+      href: data?.navItems.at(-1)?.link?.url ?? "#",
+      label: data?.navItems.at(-1)?.link?.label ?? "",
+      newTab: data?.navItems.at(-1)?.link?.newTab ?? false,
+    }
+    : null;
+  if (loading) return null; // ya skeleton
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 py-3' : 'bg-black/40 py-4 md:py-6'}`}>
@@ -60,30 +104,31 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-4 ">
-          <div className="">
-            <button
-              onClick={() => {
-                router.push('/contact');
-              }}
-              className="group cursor-pointer flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3  bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
-            >
-              <span>Contact</span>
-              <motion.svg
-                className="w-4 h-4 sm:w-5 sm:h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
+          < div className="">
+            {ctaLink &&
+              <button
+                onClick={() => {
+                  router.push(ctaLink?.href);
+                }}
+                className="group cursor-pointer flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3  bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </motion.svg>
-            </button>
+                <span>{ctaLink?.label}</span>
+                <motion.svg
+                  className="w-4 h-4 sm:w-5 sm:h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </motion.svg>
+              </button>}
           </div>
 
           {/* Mobile menu button */}
@@ -129,7 +174,7 @@ const Header = () => {
           </div> */}
         </nav>
       </div>
-    </header>
+    </header >
   );
 };
 
