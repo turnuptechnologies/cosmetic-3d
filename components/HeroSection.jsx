@@ -161,7 +161,7 @@ export function HeroSection(
             {/* <Model scale={modelScale} modelPath="/images/Pink_Conditioner.glb" position={[-1.2, 1.2, 0]} rotation={[0, 0.4, 0]} /> */}
             <Model
               scale={modelScale}
-              modelPath="/images/Pink_Conditioner.glb"
+              modelPath="/images/etraux.glb"
               position={[-1.2, 1.2, 0]}
               rotation={[0, 0.4, 0]}
             />

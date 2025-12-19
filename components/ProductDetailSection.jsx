@@ -190,7 +190,7 @@ export function ProductDetailSection({ side, model, content }) {
                             {/* <Model scale={2.4} modelPath={`/images/Pink_Conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} /> */}
                             <Model
                                 scale={2.9}
-                                modelPath={`/images/Pink_Conditioner.glb`}
+                                modelPath={`/images/metallic_blue_Belleza.glb`}
                                 position={[0, 0, 0]}
                                 rotation={[0, Math.PI / 4, 0]} // optional initial rotation
                             />
@@ -383,7 +383,7 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                             {/* Model centered at 0,0,0 with optional slight initial rotation */}
                             <Model
                                 scale={2.4}
-                                modelPath={`/images/Pink_Rose_Facial_Cream.glb`}
+                                modelPath={`/images/white winja.glb`}
                                 position={[0, 0, 0]}
                                 rotation={[0, Math.PI / 8, 0]} // slight initial tilt (optional)
                             />

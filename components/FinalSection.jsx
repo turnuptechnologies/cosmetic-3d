@@ -181,7 +181,7 @@ export function FinalSection() {
                 intensity={0.5}
               />
 
-              <Model scale={0.4} modelPath="/images/Pink_Conditioner2.glb"
+              <Model scale={0.1} modelPath="/images/Green formula_02.glb"
                 position={[-0.3, 0.4, 0]}
                 rotation={[0, 0.4, 0]} />
             </Canvas>
