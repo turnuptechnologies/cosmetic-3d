@@ -8,7 +8,17 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
 
-export function SectionThree() {
+export function SectionThree({
+  title = "We are your",
+  highlightedTitle = "one-stop shop",
+  subtitle = "for everything cosmetic",
+  ctaLabel = "Join Our Network",
+  description = `Our team is also well experienced with all regulatory and quality assurance matters.
+            Not only that but we are also passionate about design and branding (...if you couldn't tell)
+            and love to help brands out with that. We guarantee you've never come across a more
+            well-rounded team of experts than at CosmeticChemist.com. We want to be part of your journey!
+            Contact us today.`
+}) {
   const sectionRef = useRef(null);
   const leftContentRef = useRef(null);
   const rightContentRef = useRef(null);
@@ -188,13 +198,13 @@ export function SectionThree() {
         {/* Right Content - Text - First on mobile, second on desktop */}
         <div ref={rightContentRef} className="space-y-6 px-4 order-1 lg:order-2">
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            We are your <span className="text-pink-400">one-stop shop</span> for everything cosmetic
+            {title} <span className="text-pink-400">{highlightedTitle}</span> {subtitle}
           </h2>
           <p className="text-gray-300">
-            Our team is also well experienced with all regulatory and quality assurance matters. Not only that but we are also passionate about design and branding (...if you couldn't tell) and love to help brands out with that. We guarantee you've never come across a more well-rounded team of experts than at CosmeticChemist.com. We want to be part of your journey! Contact us today.
+            {description}
           </p>
           <button className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
-            Join Our Network
+            {ctaLabel}
           </button>
         </div>
       </div>

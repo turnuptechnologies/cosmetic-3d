@@ -6,9 +6,17 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig = {
-      images: {
+  images: {
     domains: [
       "incredible-creativity-c994eaf570.media.strapiapp.com",
+    ],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '3.230.102.8',
+        port: '3000',
+        pathname: '/api/media/**',
+      },
     ],
   },
 };

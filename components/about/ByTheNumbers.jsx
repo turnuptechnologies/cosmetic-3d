@@ -7,38 +7,38 @@ const AnimatedNumber = ({ value }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  
+
   // Extract numeric value and suffix
   const numericMatch = value.match(/^(\d+)/);
   const numericValue = numericMatch ? parseInt(numericMatch[1]) : 0;
   const suffix = value.replace(/^\d+/, '');
-  
+
   useEffect(() => {
     if (!isInView) return;
-    
+
     const duration = 2000; // 2 seconds
     const startTime = performance.now();
     const startValue = 0;
     const endValue = numericValue;
-    
+
     const animate = (currentTime) => {
       const elapsedTime = currentTime - startTime;
       const progress = Math.min(elapsedTime / duration, 1);
-      
+
       // Ease-out function
       const easeOutProgress = 1 - Math.pow(1 - progress, 3);
-      
+
       const currentValue = Math.floor(easeOutProgress * (endValue - startValue) + startValue);
       setDisplayValue(currentValue);
-      
+
       if (progress < 1) {
         requestAnimationFrame(animate);
       }
     };
-    
+
     requestAnimationFrame(animate);
   }, [isInView, numericValue]);
-  
+
   return (
     <span ref={ref}>
       {displayValue.toLocaleString()}{suffix}
@@ -79,20 +79,20 @@ const stats = [
   }
 ];
 
-export default function ByTheNumbers() {
+export default function ByTheNumbers({ stats, heading, paragraph }) {
   return (
     <section className="relative w-full py-16 md:py-24 bg-black overflow-hidden">
       <div className="container mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">By the Numbers</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{heading}</h2>
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-            Our track record speaks volumes. These numbers represent our commitment to excellence and innovation in cosmetic chemistry.
+            {paragraph}
           </p>
         </motion.div>
 

@@ -7,10 +7,14 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { products } from '../lib/products.js'
 import { ScrollerContext } from '../lib/ScrollerContext'
+import { API_URI, useGetService } from '../lib/getService.js'
 
 export function ProductsSection() {
   const gridRef = useRef(null)
   const scrollerRef = useContext(ScrollerContext)
+  const { data: pageData, loading } = useGetService(
+    "/pages/9?depth=2&draft=false&locale=undefined&trash=false"
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined' || !scrollerRef?.current) return
@@ -49,19 +53,31 @@ export function ProductsSection() {
     }
   }, [scrollerRef])
 
+  const heroData = pageData?.hero?.richText?.root?.children || [];
+  const heroTitle = heroData?.find(child => child.tag === 'h2')?.children[0]?.text || 'Default Title';
+  const heroDescription = heroData?.find(child => child.type === 'paragraph')?.children[0]?.text || 'Default Description';
+
+  // Extracting products or media (assuming it's in the layout or another part of pageData)
+  const products = pageData?.layout?.map(item => {
+    return {
+      id: item?.id,
+      name: item?.media?.caption?.root?.children?.[0]?.children[0]?.text || 'Product Name',
+      description: item?.media?.caption?.root?.children?.[1]?.children[0]?.text || 'Product Description',
+      imagePath: item?.media?.url || '/default-image.png',
+    };
+  }) || [];
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-8 md:px-16 lg:px-24 py-20 snap-start bg-black text-white">
-      {/* Section Header */}
       <div className="text-center  mx-auto mb-16">
         <h2 className="text-5xl md:text-6xl font-black mb-6">
-          Cosmetic Chemistry
+          {heroTitle}
         </h2>
         <p className="text-gray-300 leading-relaxed">
           Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces. Tailored expertise that turns visions into viral sensations. Let's formulate your success.
         </p>
       </div>
 
-      {/* Products Grid */}
       <div
         ref={gridRef}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl w-full overflow-visible"
@@ -75,21 +91,21 @@ export function ProductsSection() {
               <div className="w-[90%] h-[70%] bg-gradient-to-b from-white/40 to-transparent rounded-t-full blur-[0px]" />
             </div>
             {/* <Link href={`/products/${product.slug}`}> */}
-              <div className="product-content relative z-[5]">
-                <div className="w-full h-56 flex items-center justify-center mb-10">
-                  <Image
-                    src={product.imagePath}
-                    alt={product.name}
-                    width={240}
-                    height={240}
-                    className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
-                  {product.description}
-                </p>
+            <div className="product-content relative z-[5]">
+              <div className="w-full h-56 flex items-center justify-center mb-10">
+                <Image
+                  src={`${API_URI}${product.imagePath.replace('/api','')}`}
+                  alt={product.name}
+                  width={240}
+                  height={240}
+                  className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
+              <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+                {product.description}
+              </p>
+            </div>
             {/* </Link> */}
           </div>
         ))}

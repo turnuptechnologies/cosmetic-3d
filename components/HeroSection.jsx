@@ -4,9 +4,18 @@ import { useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Model from './model';
 import gsap from 'gsap';
-import { motion } from 'framer-motion'; // Keep for continuous animation
+import { motion } from 'framer-motion';
 
-export function HeroSection() {
+export function HeroSection(
+  {
+    title = "Chemist",
+    description = "Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products.",
+    ctaLabel = "Start Innovating",
+    // ctaHref = "/",
+    // backgroundVideoSrc = "/videos/hero-bg.mp4",
+    // modelPath = "/images/Pink_Conditioner.glb",
+  }
+) {
   const [modelScale, setModelScale] = useState(1.4);
   const bottomLeftRef = useRef(null);
   const bottomRightRef = useRef(null);
@@ -189,13 +198,13 @@ export function HeroSection() {
         <p
           className="text-xs sm:text-sm md:text-base text-gray-300 leading-relaxed text-center sm:text-left"
         >
-          Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products.
+          {description}
         </p>
         <div className="flex justify-center sm:justify-start">
           <button
             className="group flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
           >
-            <span>Start Innovating</span>
+            <span>{ctaLabel}</span>
             <motion.svg
               className="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
@@ -218,7 +227,7 @@ export function HeroSection() {
         <h2
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white font-light tracking-wide text-center sm:text-right"
         >
-          Chemist
+          {title}
         </h2>
       </div>
     </section>

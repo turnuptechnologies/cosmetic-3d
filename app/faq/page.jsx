@@ -4,36 +4,57 @@ import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { FinalSection } from '../../components/FinalSection';
 import Footer from '../../components/Footer';
+import { useGetService } from '../../lib/getService';
+import Loader from '../../components/Loader';
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState(0); // first item open by default
+  const { data: pageData, loading } = useGetService(
+    "/pages/11?depth=2&draft=false&locale=undefined&trash=false"
+  );
+  const { layout = [] } = pageData || {};
 
-  const faqs = [
-    {
-      question: "What Types Of Products Can You Formulate?",
-      answer: "We Formulate Across The Full Spectrum: Skincare, Personal Care, Hair Care, Color Cosmetics, Oral Care, OTC, CBD, And More."
-    },
-    {
-      question: "Do You Offer Custom Formulations From Scratch?",
-      answer: "Yes, we specialize in creating custom formulations tailored to your specific needs. Our team of expert chemists works closely with you to develop unique products that align with your brand vision and market requirements."
-    },
-    {
-      question: "Can You Work With Clean, Vegan, Or Cruelty-Free Standards?",
-      answer: "Absolutely! We are committed to formulating products that meet clean, vegan, and cruelty-free standards. We can help you navigate certifications and ensure your products align with ethical and sustainable practices."
-    },
-    {
-      question: "What Is The Typical Development Timeline?",
-      answer: "The typical development timeline varies based on complexity, but generally ranges from 8-16 weeks. This includes initial consultation, formulation development, testing, refinement, and final approval. Rush timelines may be available for certain projects."
-    },
-    {
-      question: "Do You Help With Packaging And Supply Chain?",
-      answer: "Yes, we offer comprehensive support including packaging design recommendations, supplier sourcing, and supply chain management. Our network of trusted partners ensures you have access to quality packaging solutions and reliable manufacturing."
-    }
-  ];
+  // Map the columns to the required FAQ structure
+  const faqs = layout.map((section) => {
+    return section.columns.map((column) => {
+      console.log("faqs-----", column?.richText?.root?.children?.find(child => child?.tag === "h1" || child?.tag === "h2" || child?.tag === "h3" || child?.tag === "h4")?.children?.find(child => child.type == 'text')?.text)
+
+      const question = column?.richText?.root?.children?.find(child => child?.tag === "h1" || child?.tag === "h2" || child?.tag === "h3" || child?.tag === "h4")?.children?.find(child => child.type == 'text')?.text || "No Question";
+      const answer = column?.richText?.root?.children?.find((child) => child.type === "paragraph")?.children?.[0]?.text || "No Answer";
+
+      return { question, answer };
+    });
+  }).flat(); // Flatten the array of arrays
+
+  //  const faqs = [
+  //   {
+  //     question: "What Types Of Products Can You Formulate?",
+  //     answer: "We Formulate Across The Full Spectrum: Skincare, Personal Care, Hair Care, Color Cosmetics, Oral Care, OTC, CBD, And More."
+  //   },
+  //   {
+  //     question: "Do You Offer Custom Formulations From Scratch?",
+  //     answer: "Yes, we specialize in creating custom formulations tailored to your specific needs. Our team of expert chemists works closely with you to develop unique products that align with your brand vision and market requirements."
+  //   },
+  //   {
+  //     question: "Can You Work With Clean, Vegan, Or Cruelty-Free Standards?",
+  //     answer: "Absolutely! We are committed to formulating products that meet clean, vegan, and cruelty-free standards. We can help you navigate certifications and ensure your products align with ethical and sustainable practices."
+  //   },
+  //   {
+  //     question: "What Is The Typical Development Timeline?",
+  //     answer: "The typical development timeline varies based on complexity, but generally ranges from 8-16 weeks. This includes initial consultation, formulation development, testing, refinement, and final approval. Rush timelines may be available for certain projects."
+  //   },
+  //   {
+  //     question: "Do You Help With Packaging And Supply Chain?",
+  //     answer: "Yes, we offer comprehensive support including packaging design recommendations, supplier sourcing, and supply chain management. Our network of trusted partners ensures you have access to quality packaging solutions and reliable manufacturing."
+  //   }
+  // ];
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? -1 : index);
   };
 
+  if (loading) {
+    return <Loader />
+  }
   return (
     <div className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar pt-8 min-h-screen">
 
