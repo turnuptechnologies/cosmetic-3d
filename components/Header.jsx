@@ -84,7 +84,7 @@ const Header = () => {
           <Image
             width={isScrolled ? 100 : 130}
             height={isScrolled ? 100 : 130}
-            src="/full-logo.png"
+            src="/new-full-logo.png"
             alt="Cosmetic Chemist Logo"
             className="transition-all duration-300"
           />
@@ -104,7 +104,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-4 ">
-          < div className="">
+          < div className="hidden md:flex">
             {ctaLink &&
               <button
                 onClick={() => {
@@ -155,12 +155,12 @@ const Header = () => {
         className={`fixed inset-0 bg-black/40 backdrop-blur-md z-40 transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           } md:hidden pt-24`}
       >
-        <nav className="flex flex-col space-y-4 text-xl">
+        <nav className="flex flex-col space-y-4 text-xl text-center mt-16">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-white/80 hover:text-white transition-colors duration-200 pl-6"
+              className="text-white/80 hover:text-white transition-colors duration-200"
               onClick={() => {
                 setIsMenuOpen(false);
                 document.body.style.overflow = '';
@@ -172,6 +172,31 @@ const Header = () => {
           {/* <div className="pt-4">
             <BlogSearchPopup />
           </div> */}
+          <div className="mx-4">
+            <button
+              onClick={() => {
+                router.push('/contact');
+              }}
+              className="group cursor-pointer flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3  bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
+            >
+              <span>Contact</span>
+              <motion.svg
+                className="w-4 h-4 sm:w-5 sm:h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                animate={{ x: [0, 4, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </motion.svg>
+            </button>
+          </div>
         </nav>
       </div>
     </header >

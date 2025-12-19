@@ -9,7 +9,6 @@
     "lint": "next lint",
     "analyze": "ANALYZE=true next build --webpack"
   },
-  
   "dependencies": {
     "@next/bundle-analyzer": "^16.0.8",
     "@react-three/drei": "^10.7.7",
