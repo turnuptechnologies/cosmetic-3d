@@ -74,7 +74,7 @@ export function ProductsSection() {
           {heroTitle}
         </h2>
         <p className="text-gray-300 leading-relaxed">
-          Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces. Tailored expertise that turns visions into viral sensations. Let's formulate your success.
+          {heroDescription}
         </p>
       </div>
 
@@ -94,7 +94,7 @@ export function ProductsSection() {
             <div className="product-content relative z-[5]">
               <div className="w-full h-56 flex items-center justify-center mb-10">
                 <Image
-                  src={`${API_URI}${product.imagePath.replace('/api','')}`}
+                  src={`${API_URI}${product.imagePath.replace('/api', '')}`}
                   alt={product.name}
                   width={240}
                   height={240}

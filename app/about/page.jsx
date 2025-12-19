@@ -40,7 +40,6 @@ export default function AboutPage() {
     return { columnTitle, columnSubtitle, columnDescription, image };
     // });
   };
-
   const sections = layoutBlocks?.map((block, index) => {
 
     const blockTitle = block.blockName || `Section ${index + 1}`;
@@ -71,6 +70,8 @@ export default function AboutPage() {
 
   const imageSides = ["left", "right", "left", "right"];
   const layoutBlocksProductSection = pageData?.layout?.[3]?.columns || [];
+  // console.log("POPOPOPP----------", layoutBlocksProductSection[2]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children.map(child => child.type === 'normal'))
+
   const productShowcaseData = [
     {
       label: layoutBlocksProductSection[0]?.richText?.root?.children?.find(child => child.tag === "h4")?.children[0]?.text || "Default Label",
