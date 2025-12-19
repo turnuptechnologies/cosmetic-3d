@@ -44,9 +44,11 @@ export default function RootLayout({ children }) {
         {/* Wrapper determines when to show footer */}
         <div className="flex flex-col min-h-screen">
           <LayoutWrapper>
-            <LoaderProvider>
-              <PageLoader>{children}</PageLoader>
-            </LoaderProvider>
+            {/* <LoaderProvider> */}
+            {/* <PageLoader> */}
+            {children}
+            {/* </PageLoader> */}
+            {/* </LoaderProvider> */}
           </LayoutWrapper>
         </div>
 
