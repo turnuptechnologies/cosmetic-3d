@@ -14,6 +14,7 @@ import { ContactSection } from '../components/ContactSection';
 import Footer from '../components/Footer';
 import { useGetService } from '../lib/getService';
 import Loader from '../components/Loader';
+import { extractPlainText, joinParagraphChildren } from '../lib/sanitizeText';
 
 export default function Home() {
   const mainRef = useRef(null);
@@ -25,24 +26,22 @@ export default function Home() {
 
   const extractTextFromRichText = (richText) => {
     if (!richText?.root?.children) return "";
-
-    return richText.root.children
-      .flatMap(node => node.children || [])
-      .map(child => child.text)
-      .filter(Boolean)
-      .join(" ");
+    return extractPlainText(richText, ['paragraph'])
+    // .flatMap(node => node.children || [])
+    // .map(child => child.text)
+    // .filter(Boolean)
+    // .join(" ");
   };
   const hero = pageData?.hero;
 
-  const heroHeading =
-    hero?.richText?.root?.children
+  const heroHeading = hero?.richText?.root?.children
       ?.find(node => node.type === "heading")
       ?.children?.[0]?.text || "";
 
-  const heroDescription =
-    hero?.richText?.root?.children
-      ?.find(node => node.type === "paragraph" && node.children.length > 0)
-      ?.children?.[0]?.text || "";
+  const heroDescription = extractPlainText(hero?.richText, ["paragraph"])
+  // hero?.richText?.root?.children
+  //   ?.find(node => node.type === "paragraph" && node.children.length > 0)
+  //   ?.children?.[0]?.text || "";
 
   const heroImage = {
     url: hero?.media?.url,
@@ -61,18 +60,20 @@ export default function Home() {
     whatWeDoRichText?.root?.children?.find(c => c.type === "heading")
       ?.children?.find(c => c.type === "text")?.text || "";
 
-  const whatWeDoDescription =
-    whatWeDoRichText?.root?.children?.find(c => c.type === "paragraph")
-      ?.children?.[0]?.text || "";
+  const whatWeDoDescription = joinParagraphChildren(whatWeDoRichText?.root?.children?.find(c => c.type === "paragraph")
+    ?.children)
+  // whatWeDoRichText?.root?.children?.find(c => c.type === "paragraph")
+  //   ?.children?.[0]?.text || "";
 
   const whatWeDoFeatures =
     whatWeDoRichText?.root?.children
       ?.reduce((acc, node, index, arr) => {
-        if (node.type === "heading" && node.tag === "h4") {
+        if (node.type === "heading" && (node.tag === "h4" || node.tag === "h3")) {
           const descriptionNode = arr[index + 1];
           acc.push({
             title: node.children?.[0]?.text,
-            description: descriptionNode?.children?.[0]?.text,
+            description: joinParagraphChildren(descriptionNode?.children)
+            // descriptionNode?.children?.[0]?.text,
           });
         }
         return acc;

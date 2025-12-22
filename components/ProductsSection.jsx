@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { products } from '../lib/products.js'
 import { ScrollerContext } from '../lib/ScrollerContext'
 import { API_URI, useGetService } from '../lib/getService.js'
+import { extractPlainText, joinParagraphChildren } from '../lib/sanitizeText.js'
 
 export function ProductsSection() {
   const gridRef = useRef(null)
@@ -54,15 +55,19 @@ export function ProductsSection() {
   }, [scrollerRef])
 
   const heroData = pageData?.hero?.richText?.root?.children || [];
-  const heroTitle = heroData?.find(child => child.tag === 'h2')?.children[0]?.text || 'Default Title';
-  const heroDescription = heroData?.find(child => child.type === 'paragraph')?.children[0]?.text || 'Default Description';
+  const heroTitle = extractPlainText(pageData?.hero?.richText, ['heading'])
+  //  heroData?.find(child => child.tag === 'h2')?.children[0]?.text || 'Default Title';
+  const heroDescription = extractPlainText(pageData?.hero?.richText, ["paragraph"])
+  // heroData?.find(child => child.type === 'paragraph')?.children[0]?.text || 'Default Description';
 
   // Extracting products or media (assuming it's in the layout or another part of pageData)
   const products = pageData?.layout?.map(item => {
+    console.log("axxxxxxxxxxxxxxxxxx", extractPlainText(item?.media?.caption, ['paragraph']))
     return {
       id: item?.id,
       name: item?.media?.caption?.root?.children?.[0]?.children[0]?.text || 'Product Name',
-      description: item?.media?.caption?.root?.children?.[1]?.children[0]?.text || 'Product Description',
+      description: extractPlainText(item?.media?.caption, ['paragraph']).split(' ').slice(1).join(' ') || 'No Description',
+      //  item?.media?.caption?.root?.children?.[1]?.children[0]?.text || 'Product Description',
       imagePath: item?.media?.url || '/default-image.png',
     };
   }) || [];

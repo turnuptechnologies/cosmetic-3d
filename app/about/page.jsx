@@ -10,6 +10,7 @@ import { FinalSection } from "../../components/FinalSection";
 import Footer from "../../components/Footer";
 import { useGetService } from "../../lib/getService";
 import Loader from "../../components/Loader";
+import { extractPlainText } from "../../lib/sanitizeText";
 
 export default function AboutPage() {
   const containerRef = useRef(null);
@@ -19,6 +20,14 @@ export default function AboutPage() {
     "/pages/8?depth=2&draft=false&locale=undefined&trash=false"
   );
 
+  const extractTextFromRichText = (richText) => {
+    if (!richText?.root?.children) return "";
+    return extractPlainText(richText, ['paragraph'])
+    // .flatMap(node => node.children || [])
+    // .map(child => child.text)
+    // .filter(Boolean)
+    // .join(" ");
+  };
   const pageTitle = pageData?.title || "Default Title";
 
   // Extract hero section
@@ -34,8 +43,11 @@ export default function AboutPage() {
     // const columns = block?.columns || [];
     // return columns.map(col => {
     const columnTitle = col.richText?.root?.children.find(child => child.tag === "h2")?.children[0]?.text || "Default Column Title";
-    const columnSubtitle = col.richText?.root?.children.find(child => child.tag === "h4")?.children[0]?.text || "Default Column Subtitle";
-    const columnDescription = col.richText?.root?.children.find(child => child.type === "paragraph")?.children[0]?.text || "Default Column Description";
+    const columnSubtitle = extractPlainText(col.richText, ['heading']).replace(columnTitle,'')
+    //  col.richText?.root?.children.find(child => child.tag === "h4")?.children[0]?.text || "Default Column Subtitle";
+    const columnDescription = extractTextFromRichText(col.richText)
+      //  col.richText?.root?.children.find(child => child.type === "paragraph")?.children[0]?.text
+      || "Default Column Description";
     const image = "/images/default-image.png"; // Set default or dynamically extract from data if available
     return { columnTitle, columnSubtitle, columnDescription, image };
     // });
@@ -58,14 +70,22 @@ export default function AboutPage() {
   const layoutBlocksCTASection = pageData?.layout?.[1]?.columns || [];
 
   // Extract the required data for CallToAction
-  const heading = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.tag === "h4")?.children[0]?.text || "Join the elite casre shaping the future."; // Default value if not found
+  const heading = extractPlainText(layoutBlocksCTASection[0]?.richText, ['heading'])
+  //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.tag === "h4")?.children[0]?.text 
+   || "Join the elite casre shaping the future."; // Default value if not found
   const brandLink = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "link")?.fields?.url || "https://CosmeticChemist.com"; // Default URL if not found
   const brandName = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "link")?.children[0]?.text || "CosmeticChemist.com"; // Default brand name if not found
-  const tagline = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "paragraph" && child.children[0]?.text === "Where chemistry meets destiny.")?.children[0]?.text || "Where chemistry meets destiny."; // Default tagline if not found
+  const tagline = extractPlainText(layoutBlocksCTASection[0]?.richText, ['paragraph'])
+  //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "paragraph" && child.children[0]?.text === "Where chemistry meets destiny.")?.children[0]?.text 
+   || "Where chemistry meets destiny."; // Default tagline if not found
 
   const layoutBlocksExcellenceSection = pageData?.layout?.[2]?.columns || [];
-  const excellenceHeading = layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text || "Cosmetic Chemistry Excellence";
-  const excellenceParagraph = layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children[0]?.text || "Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces.";
+  const excellenceHeading = extractPlainText(layoutBlocksExcellenceSection[0]?.richText, ['heading'])
+  //  layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text 
+   || "Cosmetic Chemistry Excellence";
+  const excellenceParagraph = extractPlainText(layoutBlocksExcellenceSection[0]?.richText, ['paragraph'])
+  // layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children[0]?.text 
+  || "Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces.";
 
 
   const imageSides = ["left", "right", "left", "right"];
