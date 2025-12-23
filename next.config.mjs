@@ -12,7 +12,7 @@ const nextConfig = {
     ],
     remotePatterns: [
       {
-        protocol: 'http',
+        protocol: 'https',
         hostname: '3.230.102.8',
         port: '3000',
         pathname: '/api/media/**',
