@@ -7,7 +7,7 @@ import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 import { OrbitControls } from '@react-three/drei';
 
-export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale, modalPosition = [0, 0, 0] }) {
+export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale, modalPosition = [0, 0, 0], rotation = [0, Math.PI / 8, 0] }) {
     const scrollDown = (e) => {
         e.preventDefault();
         // Get the next section element
@@ -83,6 +83,7 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                                 <Model scale={modalScale} modelPath={modal} position={[-1.6, 9 / 7, -0.2]} />
                                 <OrbitControls enableZoom={false} />
                             </Canvas> */}
+
                             <Canvas
                                 shadows
                                 camera={{ position: [0, 2, 12], fov: 35 }} // slightly up & back
@@ -132,8 +133,11 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                                 <Model
                                     scale={modalScale}          // dynamic scale
                                     modelPath={modal}           // dynamic modelPath
-                                    position={modalPosition}        // center model
-                                    rotation={[0, Math.PI / 8, 0]} // optional initial tilt
+                                    position={modalPosition}
+                                    rotation={rotation}
+
+                                // center model
+                                // rotation={[0, Math.PI / 8, 0]} // optional initial tilt
                                 />
 
                                 {/* OrbitControls */}
@@ -144,7 +148,6 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                                     minPolarAngle={0}
                                 />
                             </Canvas>
-
                             {/* Arrow Button – Mobile only */}
                             <button
                                 onClick={scrollDown}

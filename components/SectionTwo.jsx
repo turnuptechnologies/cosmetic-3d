@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 import { FlaskConical, Lightbulb } from 'lucide-react';
 import Model from './model';
 import gsap from 'gsap';
@@ -163,7 +163,7 @@ export function SectionTwo({
                 className="flex items-start gap-4 rounded-lg hover:bg-gray-750 transition-colors"
               >
                 <div className="p-2 rounded-full text-[#CBFF00]">
-                 
+
                   {index === 0 && (
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -210,50 +210,8 @@ export function SectionTwo({
             backgroundRepeat: 'no-repeat',
           }}
         >
-          {/* <Canvas camera={{ position: [0, 0, 15], fov: 22 }}>
-            <ambientLight intensity={0.55} />
-
-            <directionalLight
-              position={[6, 6, 12]}
-              intensity={2.0}
-              castShadow={true}
-              shadow-mapSize-width={2048}
-              shadow-mapSize-height={2048}
-            />
-
-            <directionalLight
-              position={[-6, 2, 10]}
-              intensity={1.0}
-              castShadow={false}
-            />
-
-            <directionalLight
-              position={[0, -3, -10]}
-              intensity={1.4}
-              color={"#ffffff"}
-            />
-
-            <directionalLight
-              position={[0, 10, 5]}
-              intensity={0.8}
-              castShadow={false}
-            />
-
-            <hemisphereLight
-              skyColor={"#ffffff"}
-              groundColor={"#666666"}
-              intensity={0.5}
-            />
-
-            <Model
-              scale={1.3}
-              modelPath="/images/shampoo.glb"
-              position={[0.5, 0, 0]}
-              rotation={[0, 0.4, 0]}
-            />
-            <OrbitControls enableZoom={false} />
-          </Canvas> */}
-          <Canvas
+        
+          {/* <Canvas
             camera={{ position: [0, 2, 10], fov: 35 }} // slightly up & back
             style={{ width: '100%', height: '100%', marginLeft: 85 }}
           >
@@ -293,7 +251,7 @@ export function SectionTwo({
 
             <Model
               scale={1.3}
-              modelPath="/images/Purple_Shampoo.glb"
+              modelPath="/images/Lipstick.glb"
               position={[0, 0, 0]}
               rotation={[0, 0.4, 0]}
             />
@@ -304,10 +262,63 @@ export function SectionTwo({
               maxPolarAngle={Math.PI / 2}
               minPolarAngle={0}
             />
-          </Canvas>
+          </Canvas> */}
+          <Canvas
+            shadows
+            camera={{ position: [0, 2, 12], fov: 35 }}
+            style={{ width: '100%', height: '100%', background: 'transparent', marginLeft: 85 }}
+          >
+            {/* 1. THE SECRET INGREDIENT: Environment Map 
+          This provides the reflections that make the "NYXA" metal text shine. */}
+            <Environment preset="city" />
 
+            {/* 2. AMBIENT LIGHT: Lowered to prevent flattening the model */}
+            <ambientLight intensity={0.2} />
+
+            {/* 3. KEY LIGHT: Placed to the side to create highlights on the text edges */}
+            <spotLight
+              position={[10, 10, 10]}
+              angle={0.15}
+              penumbra={1}
+              intensity={2}
+              castShadow
+            />
+
+            {/* 4. RIM LIGHT: Placed behind to define the silhouette of the glass */}
+            <directionalLight
+              position={[-10, 5, -5]}
+              intensity={1.5}
+              color="#ffffff"
+            />
+
+            {/* 5. FILL LIGHT: A warm light from the front to pop the orange color */}
+            <pointLight position={[0, 2, 5]} intensity={1} color="#ff8844" />
+
+            <Model
+              scale={2.6}
+              modelPath="/images/SilverVerticalTube2.glb"
+              position={[0, 0, 0]} // Lowered slightly to center
+            // rotation={[0, 0.4, 0]}
+            />
+
+            {/* 6. GROUND SHADOWS: Makes the product look high-end */}
+            {/* <ContactShadows
+              position={[0, -2.5, 0]}
+              opacity={0.4}
+              scale={10}
+              blur={2.5}
+              far={4}
+            /> */}
+
+            <OrbitControls
+              enableZoom={false}
+              target={[0, 0, 0]}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={0}
+            />
+          </Canvas>
         </div>
       </div>
-    </section>
+    </section >
   );
 }

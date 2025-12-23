@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
 import { motion, useAnimation } from 'framer-motion';
+import { Environment } from '@react-three/drei';
 
 export function FinalSection() {
   const controls = useAnimation();
@@ -151,39 +152,47 @@ export function FinalSection() {
           }}
         >
           <div className="w-60 h-60 mt-20 md:w-[22rem] md:h-[22rem] lg:w-[28rem] lg:h-[28rem] xl:w-[34rem] xl:h-[34rem]">
-            <Canvas
+            {/* <Canvas
               camera={{ position: [0, 0, 10], fov: 10 }}
               style={{ transform: 'rotate(-15deg) scale(1.15)' }}
+            > */}
+            <Canvas
+              shadows
+              // FOV 15-20 is the "sweet spot" for professional product shots
+              camera={{ position: [0, 0, 15], fov: 15 }}
+              // Antialiasing makes edges smooth
+              gl={{ antialias: true }}
+              style={{ width: '100%', height: '100%', transform: 'rotate(-15deg) scale(1.15)' }}
             >
-              <ambientLight intensity={0.8} />
+              <Environment preset="studio" intensity={1} />
 
-              <directionalLight
-                position={[5, 5, 10]}
-                intensity={1.6}
-                castShadow={false}
+              <ambientLight intensity={0.1} />
+
+              {/* 3. KEY LIGHT: Highlights the front and label */}
+              <spotLight
+                position={[10, 10, 10]}
+                angle={0.15}
+                penumbra={1}
+                intensity={2}
+                castShadow
               />
 
-              <directionalLight
-                position={[-5, 2, 8]}
-                intensity={0.9}
-                castShadow={false}
-              />
+              {/* 4. RIM LIGHT: Placed behind to catch the edge of the green glass */}
+              <pointLight position={[-10, -5, -10]} intensity={1.5} color="#ffffff" />
 
-              <directionalLight
-                position={[0, -3, -10]}
-                intensity={1.2}
-                color="#ffffff"
-              />
-
-              <hemisphereLight
-                skyColor={"#ffffff"}
-                groundColor={"#666666"}
-                intensity={0.5}
-              />
-
-              <Model scale={0.4} modelPath="/images/Pink_Conditioner2.glb"
-                position={[-0.3, 0.4, 0]}
-                rotation={[0, 0.4, 0]} />
+              <group position={[0, 0, 0]}>
+                <Model
+                  scale={0.25} // Adjusted slightly
+                  modelPath="/images/GreenBottleC2.glb"
+                  /* 
+                     The rotation here stands the bottle up. 
+                     Since we removed CSS rotate, we use -0.26 radians 
+                     (approx -15deg) to get that stylish tilt.
+                  */
+                  rotation={[0, 0, 0]}
+                  position={[-0.5, 0.8, 0]}
+                />
+              </group>
             </Canvas>
 
           </div>

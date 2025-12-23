@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import Model from './model';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
+import { Environment } from '@react-three/drei';
 
 export function HeroSection(
   {
@@ -119,7 +120,7 @@ export function HeroSection(
         transition={textAnimation.transition}
       >
         <div className="w-[16rem] h-[26rem] md:w-[22rem] md:h-[36rem] lg:w-[28rem] lg:h-[44rem] xl:w-[34rem] xl:h-[54rem]">
-          <Canvas
+          {/* <Canvas
             style={{ transform: 'rotate(-10deg) scale(1.2)' }}
             shadows
             camera={{ position: [0, 0, 25], fov: 22 }}
@@ -158,15 +159,60 @@ export function HeroSection(
               intensity={0.5}
             />
 
-            {/* <Model scale={modelScale} modelPath="/images/Pink_Conditioner.glb" position={[-1.2, 1.2, 0]} rotation={[0, 0.4, 0]} /> */}
             <Model
               scale={modelScale}
               modelPath="/images/Pink_Conditioner.glb"
               position={[-1.2, 1.2, 0]}
               rotation={[0, 0.4, 0]}
             />
-          </Canvas>
+          </Canvas> */}
+          <Canvas
+            shadows
+            camera={{ position: [0, 0, 15], fov: 15 }} // Moved back slightly to fit the vertical tube
+            style={{ width: '100%', height: '100%' }}
+          >
+            {/* Boosted Environment for that bright Silver look */}
+            <Environment preset="studio" intensity={1.5} />
 
+            <ambientLight intensity={0.4} />
+
+            {/* Front Light to see the labels clearly */}
+            <directionalLight position={[0, 5, 10]} intensity={2} />
+
+            {/* Rim Light for the metallic shimmer on the edges */}
+            <pointLight position={[-10, 2, 5]} intensity={3} color="#ffffff" />
+            {/* 4. THE STANDING MODEL */}
+            <group
+              position={[0, 0, 0]} // Moved DOWN so the tall vertical tube fits the screen
+              rotation={[0, 0, 0]}   // Adjusted Y rotation to face the label toward camera
+            >
+              <Model
+                scale={1.4}
+                modelPath="/images/SilverVerticalTube.glb"
+
+                /* 
+                   THE FIX: -Math.PI / 2 stands the tube UP.
+                   If it stands up but is upside down, change to: [Math.PI / 2, 0, 0]
+                */
+                rotation={[0, 0, 0]}
+
+                /* 
+                   CENTERING: If the tube spins like a wide circle, 
+                   change the middle 0 here to -1 or -2 to find the center
+                */
+                position={[0, 0, 0]}
+              />
+            </group>
+
+            {/* Ground Shadow adds a lot of professionalism */}
+            {/* <ContactShadows
+                position={[0, -2.5, 0]}
+                opacity={0.4}
+                scale={10}
+                blur={2}
+                far={4.5}
+              /> */}
+          </Canvas>
         </div>
       </motion.div>
       <div className="absolute inset-0 z-30 flex items-center justify-center w-full pt-1 sm:pt-0">

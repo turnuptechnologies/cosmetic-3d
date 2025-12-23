@@ -43,7 +43,7 @@ export default function AboutPage() {
     // const columns = block?.columns || [];
     // return columns.map(col => {
     const columnTitle = col.richText?.root?.children.find(child => child.tag === "h2")?.children[0]?.text || "Default Column Title";
-    const columnSubtitle = extractPlainText(col.richText, ['heading']).replace(columnTitle,'')
+    const columnSubtitle = extractPlainText(col.richText, ['heading']).replace(columnTitle, '')
     //  col.richText?.root?.children.find(child => child.tag === "h4")?.children[0]?.text || "Default Column Subtitle";
     const columnDescription = extractTextFromRichText(col.richText)
       //  col.richText?.root?.children.find(child => child.type === "paragraph")?.children[0]?.text
@@ -71,21 +71,21 @@ export default function AboutPage() {
 
   // Extract the required data for CallToAction
   const heading = extractPlainText(layoutBlocksCTASection[0]?.richText, ['heading'])
-  //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.tag === "h4")?.children[0]?.text 
-   || "Join the elite casre shaping the future."; // Default value if not found
+    //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.tag === "h4")?.children[0]?.text 
+    || "Join the elite casre shaping the future."; // Default value if not found
   const brandLink = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "link")?.fields?.url || "https://CosmeticChemist.com"; // Default URL if not found
   const brandName = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "link")?.children[0]?.text || "CosmeticChemist.com"; // Default brand name if not found
   const tagline = extractPlainText(layoutBlocksCTASection[0]?.richText, ['paragraph'])
-  //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "paragraph" && child.children[0]?.text === "Where chemistry meets destiny.")?.children[0]?.text 
-   || "Where chemistry meets destiny."; // Default tagline if not found
+    //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "paragraph" && child.children[0]?.text === "Where chemistry meets destiny.")?.children[0]?.text 
+    || "Where chemistry meets destiny."; // Default tagline if not found
 
   const layoutBlocksExcellenceSection = pageData?.layout?.[2]?.columns || [];
   const excellenceHeading = extractPlainText(layoutBlocksExcellenceSection[0]?.richText, ['heading'])
-  //  layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text 
-   || "Cosmetic Chemistry Excellence";
+    //  layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text 
+    || "Cosmetic Chemistry Excellence";
   const excellenceParagraph = extractPlainText(layoutBlocksExcellenceSection[0]?.richText, ['paragraph'])
-  // layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children[0]?.text 
-  || "Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces.";
+    // layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children[0]?.text 
+    || "Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces.";
 
 
   const imageSides = ["left", "right", "left", "right"];
@@ -124,10 +124,11 @@ export default function AboutPage() {
       label: layoutBlocksProductSection[3]?.richText?.root?.children?.find(child => child.tag === "h4")?.children[0]?.text || "Default Label",
       title: layoutBlocksProductSection[3]?.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text || "Default Title",
       description: layoutBlocksProductSection[3]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children[0]?.text || "Default Description",
-      modalPath: '/images/white-tube.glb',
-      modalScale: layoutBlocksProductSection[3]?.modalScale || 3.4,
+      modalPath: '/images/VerticalWhiteTube.glb',
+      modalScale: layoutBlocksProductSection[3]?.modalScale || 4.2,
       modalPosition: layoutBlocksProductSection[3]?.modalPosition || [0, 0, 0],
-      imageSide: imageSides[3]
+      imageSide: imageSides[3],
+      rotation: [0 , 0, 0]
     }
   ];
   const layoutBlocksNumbersHeading = pageData?.layout?.[4]?.columns || [];
@@ -184,40 +185,7 @@ export default function AboutPage() {
           {excellenceParagraph}
         </p>
       </motion.div>
-      {/* <ProductShowcase
-        imageSide="left"
-        label="Science Meets Beauty"
-        title="Skincare"
-        modal='/images/Pink_Rose_Facial_Cream.glb'
-        modalPosition={[0, 1, 0]}
-        modalScale={2.8}
-        description="Developing skincare products begins with a deep dive into skin science, where our chemists curate sophisticated blends of bioactive ingredients, cutting-edge peptides, and advanced delivery systems that penetrate barriers to nourish, protect, and rejuvenate at the cellular level."
-      />
-      <ProductShowcase
-        imageSide="right"
-        label="Follicular Innovation"
-        title="Hair Care"
-        modal='/images/Pink_Conditioner.glb'
-        modalScale={2.4}
-        description="Developing hair care products harnesses the intricacies of follicular biology and emulsion technology, where our chemists curate customized blends of quaternary ammonium compounds, hydrolyzed proteins, and plant-derived actives that repair, strengthen, and transform from root to tip."
-      />
-      <ProductShowcase
-        imageSide="left"
-        label="Artistry & Precision"
-        title="Cosmetics"
-        modal='/images/ras.glb'
-        modalScale={2.4}
-        description="Developing cosmetics demands a fusion of artistry and precision, where our chemists harness vibrant pigments, emollients, and film-formers to create flawless finishes that enhance natural beauty while prioritizing skin compatibility and wearability."
-      />
-      <ProductShowcase
-        imageSide="right"
-        label="Biochemistry Excellence"
-        title="Oral Care"
-        modal='/images/white-tube.glb'
-        modalScale={3.8}
-        modalPosition={[0, 0, 0]}
-        description="Developing oral care products requires a precise fusion of biochemistry and sensory science, where our chemists integrate antimicrobial agents, remineralizing compounds, and natural extracts to fortify enamel, freshen breath, and promote optimal oral health."
-      /> */}
+   
       {productShowcaseData.map((product, index) => (
         <ProductShowcase
           key={index}
@@ -228,6 +196,7 @@ export default function AboutPage() {
           modalPosition={product.modalPosition}
           modalScale={product.modalScale}
           description={product.description}
+          rotation={product?.rotation}
         />
       ))}
       <ByTheNumbers heading={layoutBlockByNumberHeading} paragraph={layoutBlockByNumberParagraph} stats={stats} />
