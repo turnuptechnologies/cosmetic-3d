@@ -13,7 +13,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '3.230.102.8',
+        hostname: 'cos.backend.turnuptechnologies.net',
         port: '3000',
         pathname: '/api/media/**',
       },
