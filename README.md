@@ -1,4 +1,4 @@
-# Cosmetic 3D
+# Cosmetic 3D v1
 
 This is a full-stack Next.js and Strapi application for viewing cosmetic products in 3D.
 
