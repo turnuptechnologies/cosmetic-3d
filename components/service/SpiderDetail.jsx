@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
-import { OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 
 // export default function SpiderDetail() {
 //   const scrollDown = (e) => {
@@ -404,7 +404,7 @@ export default function SpiderDetail({ processSteps }) {
 
             {/* Center Image */}
             <div className="w-full h-80 flex justify-center mb-8">
-              <Canvas
+              {/* <Canvas
                 shadows
                 camera={{ position: [0, 2, 10], fov: 35 }}
               >
@@ -418,10 +418,64 @@ export default function SpiderDetail({ processSteps }) {
                 />
                 <Model
                   scale={3}
-                  modelPath={`/images/ras.glb`}
+                  modelPath={`/images/Lipstick.glb`}
                   position={[0, 0, 0]}
                   rotation={[0, Math.PI / 8, 0]}
                 />
+                <OrbitControls
+                  enableZoom={false}
+                  target={[0, 0, 0]}
+                  maxPolarAngle={Math.PI / 2}
+                  minPolarAngle={0}
+                />
+              </Canvas> */}
+              <Canvas
+                shadows
+                camera={{ position: [0, 2, 12], fov: 35 }}
+                style={{ width: '100%', height: '100%', background: 'transparent' }}
+              >
+                {/* 1. THE SECRET INGREDIENT: Environment Map 
+                        This provides the reflections that make the "NYXA" metal text shine. */}
+                <Environment preset="forest" />
+
+                {/* 2. AMBIENT LIGHT: Lowered to prevent flattening the model */}
+                <ambientLight intensity={0.2} />
+
+                {/* 3. KEY LIGHT: Placed to the side to create highlights on the text edges */}
+                <spotLight
+                  position={[10, 10, 10]}
+                  angle={0.15}
+                  penumbra={1}
+                  intensity={2}
+                  castShadow
+                />
+
+                {/* 4. RIM LIGHT: Placed behind to define the silhouette of the glass */}
+                <directionalLight
+                  position={[-10, 5, -5]}
+                  intensity={1.5}
+                  color="#ffffff"
+                />
+
+                {/* 5. FILL LIGHT: A warm light from the front to pop the orange color */}
+                <pointLight position={[0, 2, 5]} intensity={1} color="#ff8844" />
+
+                <Model
+                  scale={3}
+                  modelPath="/images/Lipstick.glb"
+                  position={[0, 0, 0]} // Lowered slightly to center
+                // rotation={[0, 0.4, 0]}
+                />
+
+                {/* 6. GROUND SHADOWS: Makes the product look high-end */}
+                {/* <ContactShadows
+                            position={[0, -2.5, 0]}
+                            opacity={0.4}
+                            scale={10}
+                            blur={2.5}
+                            far={4}
+                          /> */}
+
                 <OrbitControls
                   enableZoom={false}
                   target={[0, 0, 0]}

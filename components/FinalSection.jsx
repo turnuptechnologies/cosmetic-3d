@@ -164,21 +164,21 @@ export function FinalSection() {
               gl={{ antialias: true }}
               style={{ width: '100%', height: '100%', transform: 'rotate(-15deg) scale(1.15)' }}
             >
-              <Environment preset="studio" intensity={1} />
+              <Environment preset="sunset" intensity={1} />
 
               <ambientLight intensity={0.1} />
 
               {/* 3. KEY LIGHT: Highlights the front and label */}
-              <spotLight
+              {/* <spotLight
                 position={[10, 10, 10]}
                 angle={0.15}
                 penumbra={1}
                 intensity={2}
                 castShadow
-              />
+              /> */}
 
               {/* 4. RIM LIGHT: Placed behind to catch the edge of the green glass */}
-              <pointLight position={[-10, -5, -10]} intensity={1.5} color="#ffffff" />
+              {/* <pointLight position={[-10, -5, -10]} intensity={1.5} color="#ffffff" /> */}
 
               <group position={[0, 0, 0]}>
                 <Model

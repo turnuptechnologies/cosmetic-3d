@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import Model from './model';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
-import { Environment } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 
 export function HeroSection(
   {
@@ -168,50 +168,51 @@ export function HeroSection(
           </Canvas> */}
           <Canvas
             shadows
-            camera={{ position: [0, 0, 15], fov: 15 }} // Moved back slightly to fit the vertical tube
-            style={{ width: '100%', height: '100%' }}
+            camera={{ position: [0, 2, 12], fov: 35 }}
+            style={{ width: '100%', height: '100%', background: 'transparent' }}
           >
-            {/* Boosted Environment for that bright Silver look */}
-            <Environment preset="studio" intensity={1.5} />
 
-            <ambientLight intensity={0.4} />
+            <Environment preset="city" />
 
-            {/* Front Light to see the labels clearly */}
-            <directionalLight position={[0, 5, 10]} intensity={2} />
+            <ambientLight intensity={0.2} />
 
-            {/* Rim Light for the metallic shimmer on the edges */}
-            <pointLight position={[-10, 2, 5]} intensity={3} color="#ffffff" />
-            {/* 4. THE STANDING MODEL */}
-            <group
-              position={[0, 0, 0]} // Moved DOWN so the tall vertical tube fits the screen
-              rotation={[0, 0, 0]}   // Adjusted Y rotation to face the label toward camera
-            >
-              <Model
-                scale={1.4}
-                modelPath="/images/SilverVerticalTube.glb"
+            {/* <spotLight
+                        position={[10, 10, 10]}
+                        angle={0.15}
+                        penumbra={1}
+                        intensity={2}
+                        castShadow
+                      /> */}
 
-                /* 
-                   THE FIX: -Math.PI / 2 stands the tube UP.
-                   If it stands up but is upside down, change to: [Math.PI / 2, 0, 0]
-                */
-                rotation={[0, 0, 0]}
+            {/* <directionalLight
+              position={[-10, 5, -5]}
+              intensity={1.5}
+              color="#ffffff"
+            /> */}
 
-                /* 
-                   CENTERING: If the tube spins like a wide circle, 
-                   change the middle 0 here to -1 or -2 to find the center
-                */
-                position={[0, 0, 0]}
-              />
-            </group>
+            {/* <pointLight position={[0, 2, 5]} intensity={1} color="#ff8844" /> */}
 
-            {/* Ground Shadow adds a lot of professionalism */}
+            <Model
+              scale={3}
+              modelPath="/images/SilverVerticalTube.glb"
+              position={[0, 0, 0]} // Lowered slightly to center
+            // rotation={[0, 0.4, 0]}
+            />
+
             {/* <ContactShadows
-                position={[0, -2.5, 0]}
-                opacity={0.4}
-                scale={10}
-                blur={2}
-                far={4.5}
-              /> */}
+                        position={[0, -2.5, 0]}
+                        opacity={0.4}
+                        scale={10}
+                        blur={2.5}
+                        far={4}
+                      /> */}
+
+            {/* <OrbitControls
+              enableZoom={false}
+              target={[0, 0, 0]}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={0}
+            /> */}
           </Canvas>
         </div>
       </motion.div>

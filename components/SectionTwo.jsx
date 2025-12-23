@@ -276,18 +276,18 @@ export function SectionTwo({
             <ambientLight intensity={0.2} />
 
             {/* 3. KEY LIGHT: Placed to the side to create highlights on the text edges */}
-            <spotLight
+            {/* <spotLight
               position={[10, 10, 10]}
               angle={0.15}
               penumbra={1}
               intensity={2}
               castShadow
-            />
+            /> */}
 
             {/* 4. RIM LIGHT: Placed behind to define the silhouette of the glass */}
             <directionalLight
               position={[-10, 5, -5]}
-              intensity={1.5}
+              intensity={1.5} 
               color="#ffffff"
             />
 

@@ -4,7 +4,7 @@ import Model from '../components/model';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { motion, useInView } from 'framer-motion';
-import { OrbitControls } from '@react-three/drei';
+import { ContactShadows, Environment, OrbitControls, PerspectiveCamera } from '@react-three/drei';
 
 function JarModel() {
     const jarRef = useRef();
@@ -146,55 +146,63 @@ export function ProductDetailSection({ side, model, content }) {
                             duration: 0.5
                         }}
                     >
+
                         <Canvas
-                            style={{ transform: 'rotate(-10deg) ' }}
-                            // style={{ width: '100%', height: '100%' }}
-
                             shadows
-                            camera={{ position: [0, 0, 25], fov: 22 }}
+                            // gl={{ antialias: true, toneMappingExposure: 1.2 }}
+                            style={{ transform: 'rotate(-10deg)' }}
                         >
-                            <ambientLight intensity={0.55} />
+                            {/* 1. Environment: This is the SECRET for metal. 
+       It provides realistic reflections so the bottle doesn't look like flat plastic. */}
+                            <Environment preset="studio" intensity={0.5} />
 
-                            <directionalLight
-                                position={[6, 6, 12]}
-                                intensity={2.0}
-                                castShadow={true}
-                                shadow-mapSize-width={2048}
-                                shadow-mapSize-height={2048}
-                            />
+                            {/* 2. Professional Camera Positioning 
+       Lower FOV (15-20) creates a "telephoto" look which is standard for product photography */}
+                            {/* <PerspectiveCamera makeDefault position={[0, 2, 20]} fov={18} /> */}
 
-                            <directionalLight
-                                position={[-6, 2, 10]}
-                                intensity={1.0}
-                                castShadow={false}
-                            />
+                            {/* 3. Lighting Setup */}
+                            {/* Ambient: Soft base layer */}
+                            <ambientLight intensity={0.4} />
 
-                            <directionalLight
-                                position={[0, -3, -10]}
-                                intensity={1.4}
-                                color={"#ffffff"}
-                            />
+                            {/* Key Light: Main light to define the bottle's shape */}
+                            {/* <spotLight
+                                position={[10, 15, 10]}
+                                angle={0.15}
+                                penumbra={1}
+                                intensity={2}
+                                castShadow
+                                shadow-mapSize={[2048, 2048]}
+                            /> */}
 
-                            <directionalLight
-                                position={[0, 10, 5]}
-                                intensity={0.8}
-                                castShadow={false}
-                            />
+                            {/* Fill Light: Softens the shadows on the opposite side */}
+                            {/* <pointLight position={[-10, 0, -5]} intensity={1} color="#ffffff" /> */}
 
-                            <hemisphereLight
-                                skyColor={"#ffffff"}
-                                groundColor={"#666666"}
-                                intensity={0.5}
-                            />
+                            {/* Rim Light: Placed behind to create that "glow" on the edges to separate it from the background */}
+                            <directionalLight position={[0, 5, -10]} intensity={2} color="#ffffff" />
 
-                            {/* <Model scale={2.4} modelPath={`/images/Pink_Conditioner.glb`} position={[-1.6, 9 / 7, -0.2]} /> */}
-                            <Model
-                                scale={2.9}
-                                modelPath={`/images/Pink_Conditioner.glb`}
-                                position={[0, 0, 0]}
-                                rotation={[0, Math.PI / 4, 0]} // optional initial rotation
+                            {/* 4. The Model */}
+                            <group position={[0, 0.7, 0]}>
+                                <Model
+                                    scale={2}
+                                    modelPath={`/images/MetalBlueBott.glb`}
+                                    rotation={[0, 0, 0]} // Slight angle looks more professional than straight on
+                                />
+
+                                {/* 5. Soft Contact Shadows: Much more realistic than hard directional shadows */}
+                                {/* <ContactShadows
+                                    position={[0, -0.01, 0]}
+                                    opacity={0.5}
+                                    scale={10}
+                                    blur={2.5}
+                                    far={4}
+                                /> */}
+                            </group>
+
+                            <OrbitControls
+                                enableZoom={false}
+                                minPolarAngle={Math.PI / 2.5}
+                                maxPolarAngle={Math.PI / 2}
                             />
-                            <OrbitControls enableZoom={false} />
                         </Canvas>
                         <button
                             onClick={scrollDown}
