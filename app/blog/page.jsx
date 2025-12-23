@@ -46,7 +46,7 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
                 : '');
 
             return (
-              <Link href={`/blog/${post.slug}`} key={post.id}>
+              <Link href={`/blog/${post.id}`} key={post.id}>
                 <div className="bg-black border h-full border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all duration-300 group">
                   <div className="relative h-64 overflow-hidden">
                     <img
