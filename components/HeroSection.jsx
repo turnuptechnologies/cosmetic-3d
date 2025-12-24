@@ -167,53 +167,35 @@ export function HeroSection(
             />
           </Canvas> */}
           <Canvas
-            shadows
-            camera={{ position: [0, 2, 12], fov: 35 }}
-            style={{ width: '100%', height: '100%', background: 'transparent' }}
+            dpr={window.devicePixelRatio}
+            camera={{ position: [0, 3, 12], fov: 35 }}
+            style={{ width: "100%", height: "100%" }}
+            gl={{ antialias: true, powerPreference: "high-performance" }}
           >
+            <ambientLight intensity={0.8} />
 
-            <Environment preset="city" />
+            <directionalLight position={[5, 10, 10]} intensity={2.5} />
+            <directionalLight position={[-5, 8, 5]} intensity={2.0} />
+            <directionalLight position={[0, 12, -5]} intensity={2.2} />
 
-            <ambientLight intensity={0.2} />
-
-            {/* <spotLight
-                        position={[10, 10, 10]}
-                        angle={0.15}
-                        penumbra={1}
-                        intensity={2}
-                        castShadow
-                      /> */}
-
-            {/* <directionalLight
-              position={[-10, 5, -5]}
-              intensity={1.5}
+            <spotLight
+              position={[0, 12, 5]}
+              angle={0.3}
+              penumbra={0.8}
+              intensity={3.5}
               color="#ffffff"
-            /> */}
-
-            {/* <pointLight position={[0, 2, 5]} intensity={1} color="#ff8844" /> */}
+              castShadow={false}
+            />
+            <Environment preset="city" />
 
             <Model
               scale={3}
-              modelPath="/images/SilverVerticalTube.glb"
-              position={[0, 0, 0]} // Lowered slightly to center
-            // rotation={[0, 0.4, 0]}
+              modelPath="/images/SilverVerticalTube.compressed.glb"
+              position={[0, 0, 0]}
             />
-
-            {/* <ContactShadows
-                        position={[0, -2.5, 0]}
-                        opacity={0.4}
-                        scale={10}
-                        blur={2.5}
-                        far={4}
-                      /> */}
-
-            {/* <OrbitControls
-              enableZoom={false}
-              target={[0, 0, 0]}
-              maxPolarAngle={Math.PI / 2}
-              minPolarAngle={0}
-            /> */}
           </Canvas>
+
+
         </div>
       </motion.div>
       <div className="absolute inset-0 z-30 flex items-center justify-center w-full pt-1 sm:pt-0">

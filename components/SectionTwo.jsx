@@ -296,7 +296,7 @@ export function SectionTwo({
 
             <Model
               scale={2.6}
-              modelPath="/images/SilverVerticalTube2.glb"
+              modelPath="/images/SilverVerticalTube.compressed2.glb"
               position={[0, 0, 0]} // Lowered slightly to center
             // rotation={[0, 0.4, 0]}
             />

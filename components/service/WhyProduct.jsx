@@ -228,7 +228,7 @@ const WhyProduct = ({ whyChooseUsSection }) => {
         </div>
 
         {/* Right side - 3D Model */}
-        <div className="w-full flex justify-center relative h-96">
+        <div className="w-full flex justify-center relative h-70">
           <div className="relative w-full h-full center">
             {/* <Canvas
               style={{ width: '100%', height: '100%' }}
@@ -245,53 +245,38 @@ const WhyProduct = ({ whyChooseUsSection }) => {
               <OrbitControls enableZoom={false} target={[0, 0, 0]} maxPolarAngle={Math.PI / 2} minPolarAngle={0} />
             </Canvas> */}
             <Canvas
-              shadows
-              camera={{ position: [0, 0, 15], fov: 15 }} // Moved back slightly to fit the vertical tube
-              style={{ width: '100%', height: '100%' }}
+              dpr={1}
+              camera={{ position: [0, 0, 15], fov: 15 }}
+              style={{ width: "100%", height: "100%" }}
+              gl={{
+                antialias: false,
+                powerPreference: "low-power",
+              }}
             >
-              {/* Boosted Environment for that bright Silver look */}
-              <Environment preset="studio" intensity={1.5} />
+              <ambientLight intensity={0.8} />
 
-              <ambientLight intensity={0.4} />
+              <directionalLight position={[0, 6, 10]} intensity={2.6} />
+              <directionalLight position={[6, 4, 6]} intensity={1.8} />
+              <directionalLight position={[-6, 4, 6]} intensity={1.8} />
+              <directionalLight position={[0, 8, -10]} intensity={2.2} />
 
-              {/* Front Light to see the labels clearly */}
-              <directionalLight position={[0, 5, 10]} intensity={2} />
-
-              {/* Rim Light for the metallic shimmer on the edges */}
-              <pointLight position={[-10, 2, 5]} intensity={3} color="#ffffff" />
-
-              {/* 4. THE STANDING MODEL */}
-              <group
-                position={[0, 0, 0]} // Moved DOWN so the tall vertical tube fits the screen
-                rotation={[0, 0, 0]}   // Adjusted Y rotation to face the label toward camera
-              >
+              <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
                 <Model
-                  scale={2}
-                  modelPath="/images/SilverVerticalTube2.glb"
-
-                  /* 
-                     THE FIX: -Math.PI / 2 stands the tube UP.
-                     If it stands up but is upside down, change to: [Math.PI / 2, 0, 0]
-                  */
+                  scale={1.5}
+                  modelPath="/images/horizontalLipStick.glb"
                   rotation={[0, 0, 0]}
-
-                  /* 
-                     CENTERING: If the tube spins like a wide circle, 
-                     change the middle 0 here to -1 or -2 to find the center
-                  */
                   position={[0, 0.5, 0]}
                 />
+                <OrbitControls
+                  enableZoom={false}
+                  // enableDamping={false}
+                  target={[0, 0, 0]}
+                  maxPolarAngle={Math.PI / 2}
+                  minPolarAngle={0}
+                />
               </group>
-
-              {/* Ground Shadow adds a lot of professionalism */}
-              {/* <ContactShadows
-                position={[0, -2.5, 0]}
-                opacity={0.4}
-                scale={10}
-                blur={2}
-                far={4.5}
-              /> */}
             </Canvas>
+
             <button
               onClick={scrollDown}
               className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white animate-bounce p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all z-50 cursor-pointer touch-manipulation focus:outline-none focus:ring-2 focus:ring-white/30 md:hidden"

@@ -148,62 +148,37 @@ export function ProductDetailSection({ side, model, content }) {
                     >
 
                         <Canvas
-                            shadows
-                            // gl={{ antialias: true, toneMappingExposure: 1.2 }}
-                            style={{ transform: 'rotate(-10deg)' }}
+                            dpr={1}
+                            gl={{
+                                antialias: false,
+                                powerPreference: "low-power",
+                            }}
+                            style={{ transform: "rotate(-10deg)" }}
                         >
-                            {/* 1. Environment: This is the SECRET for metal. 
-       It provides realistic reflections so the bottle doesn't look like flat plastic. */}
-                            <Environment preset="studio" intensity={0.5} />
+                            <ambientLight intensity={0.9} />
 
-                            {/* 2. Professional Camera Positioning 
-       Lower FOV (15-20) creates a "telephoto" look which is standard for product photography */}
-                            {/* <PerspectiveCamera makeDefault position={[0, 2, 20]} fov={18} /> */}
+                            <directionalLight position={[6, 12, 6]} intensity={10.5} />
+                            <directionalLight position={[-6, 8, 6]} intensity={10.8} />
+                            <directionalLight position={[0, 6, -10]} intensity={10.2} />
+                            <directionalLight position={[0, 15, 0]} intensity={10.5} />
+                            <Environment preset="city" />
 
-                            {/* 3. Lighting Setup */}
-                            {/* Ambient: Soft base layer */}
-                            <ambientLight intensity={0.4} />
-
-                            {/* Key Light: Main light to define the bottle's shape */}
-                            {/* <spotLight
-                                position={[10, 15, 10]}
-                                angle={0.15}
-                                penumbra={1}
-                                intensity={2}
-                                castShadow
-                                shadow-mapSize={[2048, 2048]}
-                            /> */}
-
-                            {/* Fill Light: Softens the shadows on the opposite side */}
-                            {/* <pointLight position={[-10, 0, -5]} intensity={1} color="#ffffff" /> */}
-
-                            {/* Rim Light: Placed behind to create that "glow" on the edges to separate it from the background */}
-                            <directionalLight position={[0, 5, -10]} intensity={2} color="#ffffff" />
-
-                            {/* 4. The Model */}
                             <group position={[0, 0.7, 0]}>
                                 <Model
                                     scale={2}
-                                    modelPath={`/images/MetalBlueBott.glb`}
-                                    rotation={[0, 0, 0]} // Slight angle looks more professional than straight on
+                                    modelPath="/images/MetalBlueBott.compressed.glb"
+                                    rotation={[0, 0, 0]}
                                 />
-
-                                {/* 5. Soft Contact Shadows: Much more realistic than hard directional shadows */}
-                                {/* <ContactShadows
-                                    position={[0, -0.01, 0]}
-                                    opacity={0.5}
-                                    scale={10}
-                                    blur={2.5}
-                                    far={4}
-                                /> */}
                             </group>
 
                             <OrbitControls
                                 enableZoom={false}
+                                // enableDamping={false}
                                 minPolarAngle={Math.PI / 2.5}
                                 maxPolarAngle={Math.PI / 2}
                             />
                         </Canvas>
+
                         <button
                             onClick={scrollDown}
                             className="absolute bottom-4 left-1/2 -translate-x-1/2 
@@ -345,65 +320,36 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                             <OrbitControls enableZoom={false} />
                         </Canvas> */}
                         <Canvas
-                            shadows
+                            dpr={1}
                             camera={{ position: [0, 2, 10], fov: 35 }}
+                            gl={{
+                                antialias: false,
+                                powerPreference: "low-power",
+                            }}
                         >
-                            {/* Soft overall environmental light */}
-                            <ambientLight intensity={0.55} />
+                            <ambientLight intensity={0.8} />
 
-                            {/* Key Light — main highlight */}
-                            <directionalLight
-                                position={[6, 6, 12]}
-                                intensity={2.0}
-                                castShadow={true}
-                                shadow-mapSize-width={2048}
-                                shadow-mapSize-height={2048}
-                            />
+                            <directionalLight position={[6, 8, 10]} intensity={2.4} />
+                            <directionalLight position={[-6, 4, 8]} intensity={1.6} />
+                            <directionalLight position={[0, 6, -10]} intensity={2.0} />
+                            <directionalLight position={[0, 12, 4]} intensity={1.4} />
 
-                            {/* Fill Light — softens shadows on left */}
-                            <directionalLight
-                                position={[-6, 2, 10]}
-                                intensity={1.0}
-                                castShadow={false}
-                            />
-
-                            {/* Rim Light — adds beautiful outline */}
-                            <directionalLight
-                                position={[0, -3, -10]}
-                                intensity={1.4}
-                                color={"#ffffff"}
-                            />
-
-                            {/* Soft top light for premium shine */}
-                            <directionalLight
-                                position={[0, 10, 5]}
-                                intensity={0.8}
-                                castShadow={false}
-                            />
-
-                            {/* Hemisphere for gentle color blend */}
-                            <hemisphereLight
-                                skyColor={"#ffffff"}
-                                groundColor={"#666666"}
-                                intensity={0.5}
-                            />
-
-                            {/* Model centered at 0,0,0 with optional slight initial rotation */}
                             <Model
                                 scale={2.4}
-                                modelPath={`/images/Pink_Rose_Facial_Cream.glb`}
+                                modelPath="/images/Pink_Rose_Facial_Cream.glb"
                                 position={[0, 0, 0]}
-                                rotation={[0, Math.PI / 8, 0]} // slight initial tilt (optional)
+                                rotation={[0, Math.PI / 8, 0]}
                             />
 
-                            {/* Orbit controls around model center */}
                             <OrbitControls
                                 enableZoom={false}
+                                // enableDamping={false}
                                 target={[0, 0, 0]}
                                 maxPolarAngle={Math.PI / 2}
                                 minPolarAngle={0}
                             />
                         </Canvas>
+
                         {/* Arrow Button – Mobile only */}
                         <button
                             onClick={scrollDown}

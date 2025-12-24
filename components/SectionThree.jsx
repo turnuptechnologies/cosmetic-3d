@@ -178,8 +178,8 @@ export function SectionThree({
 
             {/* Model centered */}
             <Model
-              scale={1}
-              modelPath="/images/ras.glb"
+              scale={0.5}
+              modelPath="/images/OrangeSkinBottle.glb"
               position={[0, 0, 0]}         // center model
               rotation={[0, 0.4, 0]}       // optional initial tilt
             />

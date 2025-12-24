@@ -157,43 +157,32 @@ export function FinalSection() {
               style={{ transform: 'rotate(-15deg) scale(1.15)' }}
             > */}
             <Canvas
-              shadows
-              // FOV 15-20 is the "sweet spot" for professional product shots
+              dpr={window.devicePixelRatio}
               camera={{ position: [0, 0, 15], fov: 15 }}
-              // Antialiasing makes edges smooth
-              gl={{ antialias: true }}
-              style={{ width: '100%', height: '100%', transform: 'rotate(-15deg) scale(1.15)' }}
+              gl={{ antialias: true, powerPreference: "high-performance" }}
+              style={{ width: "100%", height: "100%", transform: "rotate(-15deg) scale(1.15)" }}
             >
-              <Environment preset="sunset" intensity={1} />
+              <ambientLight intensity={0.6} />
 
-              <ambientLight intensity={0.1} />
+              {/* Key directional light to highlight front label */}
+              <directionalLight position={[5, 8, 10]} intensity={2.5} />
 
-              {/* 3. KEY LIGHT: Highlights the front and label */}
-              {/* <spotLight
-                position={[10, 10, 10]}
-                angle={0.15}
-                penumbra={1}
-                intensity={2}
-                castShadow
-              /> */}
+              {/* Fill light to soften shadows */}
+              <directionalLight position={[-5, 4, 8]} intensity={1.8} />
 
-              {/* 4. RIM LIGHT: Placed behind to catch the edge of the green glass */}
-              {/* <pointLight position={[-10, -5, -10]} intensity={1.5} color="#ffffff" /> */}
+              {/* Rim light to make edges pop */}
+              <directionalLight position={[0, 6, -10]} intensity={2.0} />
 
               <group position={[0, 0, 0]}>
                 <Model
-                  scale={0.25} // Adjusted slightly
+                  scale={0.25}
                   modelPath="/images/GreenBottleC2.glb"
-                  /* 
-                     The rotation here stands the bottle up. 
-                     Since we removed CSS rotate, we use -0.26 radians 
-                     (approx -15deg) to get that stylish tilt.
-                  */
                   rotation={[0, 0, 0]}
                   position={[-0.5, 0.8, 0]}
                 />
               </group>
             </Canvas>
+
 
           </div>
         </motion.div>
