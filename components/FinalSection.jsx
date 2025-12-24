@@ -157,7 +157,7 @@ export function FinalSection() {
               style={{ transform: 'rotate(-15deg) scale(1.15)' }}
             > */}
             <Canvas
-              dpr={window.devicePixelRatio}
+              // dpr={window.devicePixelRatio}
               camera={{ position: [0, 0, 15], fov: 15 }}
               gl={{ antialias: true, powerPreference: "high-performance" }}
               style={{ width: "100%", height: "100%", transform: "rotate(-15deg) scale(1.15)" }}

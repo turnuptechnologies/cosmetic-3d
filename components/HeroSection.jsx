@@ -167,7 +167,7 @@ export function HeroSection(
             />
           </Canvas> */}
           <Canvas
-            dpr={window.devicePixelRatio}
+            // dpr={window.devicePixelRatio}
             camera={{ position: [0, 3, 12], fov: 35 }}
             style={{ width: "100%", height: "100%" }}
             gl={{ antialias: true, powerPreference: "high-performance" }}
