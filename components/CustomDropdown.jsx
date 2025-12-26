@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ChevronDown, Globe, Smartphone, Zap, Target, ShoppingCart, Briefcase } from "lucide-react"
 
-export function CustomDropdown({dropdownValue}) {
+export function CustomDropdown({ dropdownValue, name }) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedType, setSelectedType] = useState(null)
 
@@ -18,7 +18,10 @@ export function CustomDropdown({dropdownValue}) {
   return (
     <div className="relative w-full">
       {/* Dropdown Trigger */}
+      <input type="hidden" name={name} value={selectedType || ""} />
+
       <button
+        name={name}
         onClick={(e) => {
           e.preventDefault();
           setIsOpen(!isOpen);
