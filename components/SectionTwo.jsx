@@ -265,8 +265,9 @@ export function SectionTwo({
           </Canvas> */}
           <Canvas
             shadows
+            className='ml-0 2xl:ml-[40px]'
             camera={{ position: [0, 2, 12], fov: 35 }}
-            style={{ width: '100%', height: '100%', background: 'transparent', marginLeft: 85 }}
+            style={{ width: '100%', height: '100%', background: 'transparent' }}
           >
             {/* 1. THE SECRET INGREDIENT: Environment Map 
           This provides the reflections that make the "NYXA" metal text shine. */}

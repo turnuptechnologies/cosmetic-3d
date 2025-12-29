@@ -196,7 +196,7 @@ export function SectionThree({
         </div>
 
         {/* Right Content - Text - First on mobile, second on desktop */}
-        <div ref={rightContentRef} className="space-y-6 px-4 order-1 lg:order-2">
+        <div ref={rightContentRef} className="space-y-6 md:px-4 order-0 lg:order-2">
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             {title} <span className="text-pink-400">{highlightedTitle}</span> {subtitle}
           </h2>
