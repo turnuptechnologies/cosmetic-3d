@@ -24,80 +24,124 @@ export default function Home() {
     "/pages/4?depth=2&draft=false&locale=undefined&trash=false"
   );
 
+  // ✅ Default values (only used when API data is missing)
+  const DEFAULTS = {
+    heroHeading: "Default Hero Heading",
+    heroDescription: "Default hero description goes here.",
+    heroImage: { url: "/images/placeholder.jpg", alt: "Hero image" },
+    heroCTALabel: "Learn More",
+    heroCTAUrl: "/",
+
+    whatWeDoTitle: "What We Do",
+    whatWeDoDescription: "Default description for what we do.",
+    whatWeDoFeatures: [
+      { title: "Default Feature 1", description: "Default feature description." },
+      { title: "Default Feature 2", description: "Default feature description." },
+    ],
+
+    oneStopHeading: {
+      title: "One Stop",
+      highlightedTitle: "Solution",
+      subtitle: "Default subtitle here.",
+    },
+    oneStopDescription: "Default one stop description goes here.",
+    oneStopCTA: { url: "/get-started", label: "Get Started" },
+
+    brands: {
+      title: "For Brands",
+      points: ["Default point 1", "Default point 2"],
+      cta: { url: "/ExploreDirectory", label: "Explore Directory" },
+    },
+    chemists: {
+      title: "For Chemists",
+      points: ["Default point 1", "Default point 2"],
+      cta: { url: "/JoinOurNetwork", label: "Join Our Network" },
+    },
+  };
+
   const extractTextFromRichText = (richText) => {
     if (!richText?.root?.children) return "";
-    return extractPlainText(richText, ['paragraph'])
-    // .flatMap(node => node.children || [])
-    // .map(child => child.text)
-    // .filter(Boolean)
-    // .join(" ");
+    return extractPlainText(richText, ["paragraph"]);
   };
+
   const hero = pageData?.hero;
 
-  const heroHeading = hero?.richText?.root?.children
-      ?.find(node => node.type === "heading")
-      ?.children?.[0]?.text || "";
+  const heroHeading =
+    hero?.richText?.root?.children
+      ?.find((node) => node.type === "heading")
+      ?.children?.[0]?.text || DEFAULTS.heroHeading;
 
-  const heroDescription = extractPlainText(hero?.richText, ["paragraph"])
-  // hero?.richText?.root?.children
-  //   ?.find(node => node.type === "paragraph" && node.children.length > 0)
-  //   ?.children?.[0]?.text || "";
+  const heroDescription =
+    extractPlainText(hero?.richText, ["paragraph"]) || DEFAULTS.heroDescription;
 
   const heroImage = {
-    url: hero?.media?.url,
-    alt: hero?.media?.alt,
+    url: hero?.media?.url || DEFAULTS.heroImage.url,
+    alt: hero?.media?.alt || DEFAULTS.heroImage.alt,
   };
 
-  const heroCTA = hero?.links?.[0]?.link?.label;
+  const heroCTA =
+    hero?.links?.[0]?.link?.label || DEFAULTS.heroCTALabel;
+
+  // (optional but helpful if you use it somewhere)
+  const heroCTAUrl =
+    hero?.links?.[0]?.link?.url || DEFAULTS.heroCTAUrl;
+
   const layoutBlocks = pageData?.layout ?? [];
+
   const whatWeDoBlock = layoutBlocks.find(
-    block => block.blockType === "content" && block.columns?.length === 1
+    (block) => block.blockType === "content" && block.columns?.length === 1
   );
 
   const whatWeDoRichText = whatWeDoBlock?.columns?.[0]?.richText;
 
   const whatWeDoTitle =
-    whatWeDoRichText?.root?.children?.find(c => c.type === "heading")
-      ?.children?.find(c => c.type === "text")?.text || "";
+    whatWeDoRichText?.root?.children
+      ?.find((c) => c.type === "heading")
+      ?.children?.find((c) => c.type === "text")?.text || DEFAULTS.whatWeDoTitle;
 
-  const whatWeDoDescription = joinParagraphChildren(whatWeDoRichText?.root?.children?.find(c => c.type === "paragraph")
-    ?.children)
-  // whatWeDoRichText?.root?.children?.find(c => c.type === "paragraph")
-  //   ?.children?.[0]?.text || "";
+  const whatWeDoDescription =
+    joinParagraphChildren(
+      whatWeDoRichText?.root?.children?.find((c) => c.type === "paragraph")
+        ?.children
+    ) || DEFAULTS.whatWeDoDescription;
 
   const whatWeDoFeatures =
-    whatWeDoRichText?.root?.children
-      ?.reduce((acc, node, index, arr) => {
-        if (node.type === "heading" && (node.tag === "h4" || node.tag === "h3")) {
-          const descriptionNode = arr[index + 1];
-          acc.push({
-            title: node.children?.[0]?.text,
-            description: joinParagraphChildren(descriptionNode?.children)
-            // descriptionNode?.children?.[0]?.text,
-          });
-        }
-        return acc;
-      }, []) || [];
+    (whatWeDoRichText?.root?.children ?? []).reduce((acc, node, index, arr) => {
+      if (
+        node.type === "heading" &&
+        (node.tag === "h4" || node.tag === "h3")
+      ) {
+        const descriptionNode = arr[index + 1];
+        const title = node.children?.[0]?.text || "";
+        const description = joinParagraphChildren(descriptionNode?.children) || "";
+
+        // keep logic same, just ensure fallback happens at the end
+        acc.push({
+          title: title || "Default Feature",
+          description: description || "Default feature description.",
+        });
+      }
+      return acc;
+    }, []) || [];
+
+  const finalWhatWeDoFeatures =
+    whatWeDoFeatures.length ? whatWeDoFeatures : DEFAULTS.whatWeDoFeatures;
+
   const oneStopBlock = layoutBlocks.find(
-    block => block.columns?.[0]?.size === "oneThird"
+    (block) => block.columns?.[0]?.size === "oneThird"
   );
+
   const extractOneStopHeading = (richText) => {
-    const headingNode = richText?.children?.find(
-      node => node.type === "heading"
-    );
+    const headingNode = richText?.children?.find((node) => node.type === "heading");
 
     if (!headingNode?.children) {
-      return {
-        title: "",
-        highlightedTitle: "",
-        subtitle: "",
-      };
+      return DEFAULTS.oneStopHeading; // ✅ default instead of empty strings
     }
 
     const normalTexts = [];
     let highlightedTitle = "";
 
-    headingNode.children.forEach(child => {
+    headingNode.children.forEach((child) => {
       if (child.type !== "text") return;
 
       // format === 3 → highlighted (bold/emphasis)
@@ -112,46 +156,57 @@ export default function Home() {
     const subtitle = normalTexts.slice(1).join("").trim();
 
     return {
-      title,
-      highlightedTitle: highlightedTitle.trim(),
-      subtitle,
+      title: title || DEFAULTS.oneStopHeading.title,
+      highlightedTitle: highlightedTitle.trim() || DEFAULTS.oneStopHeading.highlightedTitle,
+      subtitle: subtitle || DEFAULTS.oneStopHeading.subtitle,
     };
   };
 
   const oneStopText = oneStopBlock?.columns?.[0]?.richText;
-  const oneStopDescription = extractTextFromRichText(oneStopText);
+  const oneStopDescription =
+    extractTextFromRichText(oneStopText) || DEFAULTS.oneStopDescription;
 
+  const oneStopCTA = oneStopBlock?.link || DEFAULTS.oneStopCTA;
 
-  const oneStopCTA = oneStopBlock?.link;
-  const brandsChemistsBlock = layoutBlocks.find(
-    block => block?.columns?.length === 2
-  );
-
+  const brandsChemistsBlock = layoutBlocks.find((block) => block?.columns?.length === 2);
   const [brandsCol, chemistsCol] = brandsChemistsBlock?.columns || [];
 
+  // ✅ safer arrays + true fallbacks (no logic removed)
+  const brandsChildren = brandsCol?.richText?.root?.children ?? [];
+  const chemistsChildren = chemistsCol?.richText?.root?.children ?? [];
 
-  const brandsData = brandsCol && {
-    title: brandsCol.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text || "Default Title", // Extracting title from <h2>
-    // description: brandsCol.richText?.root?.children?.find(child => child.tag === "p")?.children[0]?.text || "Default Description", // Extracting description
-    points: brandsCol.richText?.root?.children
-      .filter(child => child.type === "paragraph")
-      .map(child => child.children[0]?.text) || ["Default point 1", "Default point 2"], // Extracting points
-    cta: brandsCol.link || { url: "/ExploreDirectory", label: "Explore Directory" }, // Extracting CTA
-  };
+  const brandPoints = brandsChildren
+    .filter((child) => child.type === "paragraph")
+    .map((child) => child.children?.[0]?.text)
+    .filter(Boolean);
 
-  // Extracting chemists data
-  const chemistsData = chemistsCol && {
-    title: chemistsCol.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text || "Default Title", // Extracting title from <h2>
-    // description: chemistsCol.richText?.root?.children?.find(child => child.tag === "p")?.children[0]?.text || "Default Description", // Extracting description
-    points: chemistsCol.richText?.root?.children
-      .filter(child => child.type === "paragraph")
-      .map(child => child.children[0]?.text) || ["Default point 1", "Default point 2"], // Extracting points
-    cta: chemistsCol.link || { url: "/JoinOurNetwork", label: "Join Our Network" }, // Extracting CTA
-  };
+  const chemistPoints = chemistsChildren
+    .filter((child) => child.type === "paragraph")
+    .map((child) => child.children?.[0]?.text)
+    .filter(Boolean);
+
+  const brandsData =
+    brandsCol && {
+      title:
+        brandsChildren.find((child) => child.tag === "h2")?.children?.[0]?.text ||
+        DEFAULTS.brands.title,
+      points: brandPoints.length ? brandPoints : DEFAULTS.brands.points,
+      cta: brandsCol.link || DEFAULTS.brands.cta,
+    };
+
+  const chemistsData =
+    chemistsCol && {
+      title:
+        chemistsChildren.find((child) => child.tag === "h2")?.children?.[0]?.text ||
+        DEFAULTS.chemists.title,
+      points: chemistPoints.length ? chemistPoints : DEFAULTS.chemists.points,
+      cta: chemistsCol.link || DEFAULTS.chemists.cta,
+    };
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
+
 
   return (
     <ScrollerContext.Provider value={mainRef}>

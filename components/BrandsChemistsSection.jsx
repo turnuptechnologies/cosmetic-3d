@@ -2,6 +2,7 @@ import Image from "next/image";
 
 export function BrandsChemistsSection() {
   return (
+    
     <section className="w-full min-h-screen snap-start bg-black text-white relative overflow-hidden py-28 px-6 flex items-center">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-16 items-center w-full">
         

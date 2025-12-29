@@ -90,7 +90,6 @@ export default function AboutPage() {
 
   const imageSides = ["left", "right", "left", "right"];
   const layoutBlocksProductSection = pageData?.layout?.[3]?.columns || [];
-  // console.log("POPOPOPP----------", layoutBlocksProductSection[2]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children.map(child => child.type === 'normal'))
 
   const productShowcaseData = [
     {
@@ -128,7 +127,7 @@ export default function AboutPage() {
       modalScale: layoutBlocksProductSection[3]?.modalScale || 4.2,
       modalPosition: layoutBlocksProductSection[3]?.modalPosition || [0, 0, 0],
       imageSide: imageSides[3],
-      rotation: [0 , 0, 0]
+      rotation: [0, 0, 0]
     }
   ];
   const layoutBlocksNumbersHeading = pageData?.layout?.[4]?.columns || [];
@@ -137,13 +136,42 @@ export default function AboutPage() {
 
 
   const layoutBlocksNumbersSection = pageData?.layout?.[5]?.columns || [];
-  const stats = layoutBlocksNumbersSection.map((block) => {
-    const value = block?.richText?.root?.children?.find((child) => child.tag === "h2")?.children[0]?.text || "";
-    const title = block?.richText?.root?.children?.find((child) => child.tag === "h3")?.children[0]?.text || "";
-    const description = block?.richText?.root?.children?.find((child) => child.type === "paragraph")?.children[0]?.text || "";
 
-    return { value, title, description };
-  });
+  // ✅ Defaults (used only when a stat field is missing)
+  const DEFAULT_STATS = [
+    { value: "0", title: "Default Title", description: "Default description." },
+    { value: "0", title: "Default Title", description: "Default description." },
+    { value: "0", title: "Default Title", description: "Default description." },
+  ];
+
+  const stats = (layoutBlocksNumbersSection.length ? layoutBlocksNumbersSection : DEFAULT_STATS).map(
+    (block, index) => {
+      const isDefaultObject = typeof block?.value !== "undefined";
+
+      const value =
+        (isDefaultObject
+          ? block.value
+          : block?.richText?.root?.children?.find((child) => child.tag === "h2")?.children?.[0]?.text) ||
+        DEFAULT_STATS[index]?.value ||
+        "0";
+
+      const title =
+        (isDefaultObject
+          ? block.title
+          : block?.richText?.root?.children?.find((child) => child.tag === "h3")?.children?.[0]?.text) ||
+        DEFAULT_STATS[index]?.title ||
+        "Default Title";
+
+      const description =
+        (isDefaultObject
+          ? block.description
+          : block?.richText?.root?.children?.find((child) => child.type === "paragraph")?.children?.[0]?.text) ||
+        DEFAULT_STATS[index]?.description ||
+        "Default description.";
+
+      return { value, title, description };
+    }
+  );
 
 
   if (loading) {
@@ -185,7 +213,7 @@ export default function AboutPage() {
           {excellenceParagraph}
         </p>
       </motion.div>
-   
+
       {productShowcaseData.map((product, index) => (
         <ProductShowcase
           key={index}

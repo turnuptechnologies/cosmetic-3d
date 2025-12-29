@@ -8,34 +8,19 @@ import { useRouter } from 'next/navigation';
 import { useGetService } from '../lib/getService';
 
 const Header = () => {
-  // const router = useRouter();
-  // const { data } = useGetService('/globals/header?depth=2&draft=false&locale=undefined&trash=false')
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [isScrolled, setIsScrolled] = useState(false);
+  // ✅ Default nav items (same as your commented object)
+  const DEFAULT_NAV_LINKS = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/service", label: "Service" },
+    { href: "/blog", label: "Blog" },
+    { href: "/faq", label: "FAQ's" },
+    // { href: "/contact", label: "Contact" }
+  ];
 
-  // console.log("----------POPOP",data)
+  // ✅ Default CTA (since your API expects last navItem as CTA)
+  const DEFAULT_CTA = { href: "/faq", label: "FAQ's", newTab: false };
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsScrolled(window.scrollY > 10);
-  //   };
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
-
-  // const toggleMenu = () => {
-  //   setIsMenuOpen(!isMenuOpen);
-  //   document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
-  // };
-
-  // const navLinks = [
-  //   { href: "/", label: "Home" },
-  //   { href: "/about", label: "About" },
-  //   { href: "/service", label: "Service" },
-  //   { href: "/blog", label: "Blog" },
-  //   { href: "/faq", label: "FAQ's" },
-  //   // { href: "/contact", label: "Contact" }
-  // ];
   const router = useRouter();
 
   const { data, loading } = useGetService(
@@ -58,24 +43,33 @@ const Header = () => {
     document.body.style.overflow = !isMenuOpen ? "hidden" : "";
   };
 
-  const navLinks = (data?.navItems ?? [])
+  // ✅ keep your logic, just add fallback to defaults if missing/empty
+  const apiNavLinks = (data?.navItems ?? [])
     .slice(0, -1)
     .map((item) => ({
-      id: item.id,
+      id: item?.id,
       href: item?.link?.url ?? "#",
       label: item?.link?.label ?? "",
       newTab: item?.link?.newTab ?? false,
-    }));
+    }))
+    .filter((l) => l?.label); // optional safety (avoid empty labels)
 
+  const navLinks = apiNavLinks.length
+    ? apiNavLinks
+    : DEFAULT_NAV_LINKS.map((l, idx) => ({ id: `default-${idx + 1}`, ...l, newTab: false }));
 
+  // ✅ CTA link: from API last item, else from defaults (same behavior)
   const ctaLink = data?.navItems?.length
     ? {
-      href: data?.navItems.at(-1)?.link?.url ?? "#",
-      label: data?.navItems.at(-1)?.link?.label ?? "",
-      newTab: data?.navItems.at(-1)?.link?.newTab ?? false,
+      href: data?.navItems.at(-1)?.link?.url ?? DEFAULT_CTA.href,
+      label: data?.navItems.at(-1)?.link?.label ?? DEFAULT_CTA.label,
+      newTab: data?.navItems.at(-1)?.link?.newTab ?? DEFAULT_CTA.newTab,
     }
-    : null;
+    : DEFAULT_CTA;
+
   if (loading) return null; // ya skeleton
+
+  // ...rest of your component render
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 py-3' : 'bg-black/40 py-4 md:py-6'}`}>
