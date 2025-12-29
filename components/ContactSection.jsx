@@ -37,10 +37,12 @@ export function ContactSection() {
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
           Let&apos;s Create Something Amazing Together
         </h2>
+        <p className="text-gray-300 text-lg max-w-3xl mx-auto mt-3">Ready to transform your beauty vision into reality? Get in touch with our expert team for a free consultation.</p>
       </div>
 
       <div className="max-w-6xl w-full mx-auto bg-[#111]/60 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 md:p-10 rounded-2xl shadow-[0_0_40px_rgba(255,20,147,0.15)]">
-        <h3 className="text-lg sm:text-xl font-semibold mb-1">Start Your Project</h3>
+        <h3 className="text-lg sm:text-xl font-semibold mb-1">Start Your Project - We Will Contact You Very Soon</h3>
+        <p className="text-gray-300 text-[13px] mb-1">Start Your Project - We Will Contact You Very Soon</p>
 
         {/* 2. Add formAction here */}
         <form action={formAction} className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">

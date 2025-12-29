@@ -14,6 +14,8 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
         amount: 0.3
     })
 
+    const colors = ['#FF4D8A', '#A855F7', '#3B82F6', '#CBFF00']
+
     useEffect(() => {
         if (index === 0 && !hasAnimated) {
             setHasAnimated(true); // auto animate first section
@@ -45,12 +47,12 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                 animate={shouldAnimate ? { scale: 1 } : { scale: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 style={{
-                    backgroundColor: section.color,
+                    backgroundColor: colors[index],
                     border: '2px solid black',
                     boxShadow: `
-      0 0 10px ${section.color},
-      0 0 20px ${section.color}40,
-      0 0 30px ${section.color}20
+      0 0 10px ${colors[index]},
+      0 0 20px ${colors[index]}40,
+      0 0 30px ${colors[index]}20
     `
                 }}
             />
@@ -67,25 +69,19 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                         className="order-2 md:order-1 text-white md:[direction:ltr] bg-black/30 backdrop-blur-sm border border-gray-600/30 rounded-xl p-8 max-w-lg mx-auto"
                     >
                         <motion.div
-                            className="relative w-28 mb-4 overflow-hidden rounded-lg"
+                            className="relative w-28 h-28 mb-4 overflow-hidden rounded-lg"
                             initial={{ scale: 0, rotate: -20 }}
                             animate={shouldAnimate ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -20 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
-                        >
-                            {section.image ? (
+                        >  
                                 <Image
-                                    src={section.image}
+                                    src={`/images/about-${index + 1}.png`}
                                     alt={section.title || 'Section image'}
                                     fill
                                     className="object-cover"
                                     priority
-                                    style={{ marginLeft: "-24px" }}
-                                />
-                            ) : (
-                                <div className="w-full h-full flex items-center justify-center text-4xl">
-                                    {section.icon}
-                                </div>
-                            )}
+                                    style={{ marginLeft: "-24px", zIndex: 1 }}
+                                />                          
                         </motion.div>
 
                         <motion.h2
@@ -102,7 +98,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
                             initial={{ opacity: 0, y: 20 }}
                             animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
-                            style={{ color: section.color }}
+                            style={{ color: colors[index] }}
                         >
                             {section.subtitle}
                         </motion.h3>
@@ -119,7 +115,7 @@ export default function AnimatedSection({ section, index, swapLayout = false }) 
 
                         {/* Underline accent */}
                         <motion.div
-                            className="mt-8 h-1 w-16 bg-gradient-to-r from-pink-500 to-purple-500"
+                            className="mt-8 h-1 w-16 bg-[#FF4D8A]"
                             initial={{ width: 0 }}
                             animate={shouldAnimate ? { width: 64 } : { width: 0 }}
                             transition={{ duration: 0.8, delay: 0.6 }}

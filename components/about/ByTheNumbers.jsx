@@ -100,7 +100,7 @@ export default function ByTheNumbers({ stats, heading, paragraph }) {
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="bg-gradient-to-br from-[#00000000] to-black p-6 md:p-8 rounded-xl border border-[#FFFFFF0D] shadow-lg"
+              className="bg-[linear-gradient(135deg,rgba(255,255,255,0.05)_0%,rgba(0,0,0,0)_100%)] p-6 md:p-8 rounded-xl border border-[#FFFFFF0D] shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
