@@ -308,7 +308,7 @@ const WhyProduct = ({ whyChooseUsSection }) => {
                   </div>
                   <div>
                     <h3 className="text-xl text-center font-bold text-white my-6">{title}</h3>
-                    <p className="text-gray-300 text-center">{description}</p>
+                    <p className="text-gray-300 max-w-md mx-auto text-center">{description}</p>
                   </div>
                 </div>
               );
