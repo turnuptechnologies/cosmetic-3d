@@ -90,7 +90,7 @@ export function TwoColumnSection({
               <p key={index}>{point}</p>
             ))}
           </div>
-          <a href={leftColumnData.cta.url}>
+          <a href={'/contact'}>
             <button className="flex items-center mx-auto gap-2 px-6 py-3 bg-pink-500 text-white font-medium rounded-full shadow-lg">
               {leftColumnData.cta.label} <ArrowUpRight size={18} />
             </button>
@@ -108,7 +108,7 @@ export function TwoColumnSection({
               <p key={index}>{point}</p>
             ))}
           </div>
-          <a href={rightColumnData.cta.url}>
+          <a href={'/contact'}>
             <button className="flex items-center mx-auto gap-2 px-6 py-3 bg-pink-500 text-white font-medium rounded-full shadow-lg">
               {rightColumnData.cta.label} <ArrowUpRight size={18} />
             </button>

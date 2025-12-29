@@ -6,6 +6,7 @@ import Model from './model';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
 import { Environment, OrbitControls } from '@react-three/drei';
+import { useRouter } from 'next/navigation';
 
 export function HeroSection(
   {
@@ -17,6 +18,7 @@ export function HeroSection(
     // modelPath = "/images/Pink_Conditioner.glb",
   }
 ) {
+  const router = useRouter();
   const [modelScale, setModelScale] = useState(1.4);
   const bottomLeftRef = useRef(null);
   const bottomRightRef = useRef(null);
@@ -232,15 +234,16 @@ export function HeroSection(
         <div className="flex justify-center sm:justify-start">
           <button
             className="group flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
+            onClick={() => router.push('/contact')}
           >
             <span>{ctaLabel}</span>
+            <div className="bg-white rounded-full p-1 inline-flex items-center justify-center shadow">
             <motion.svg
-              className="w-4 h-4 sm:w-5 sm:h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5 z-10"
               fill="none"
-              stroke="currentColor"
+              stroke="#ff4f7a" 
               viewBox="0 0 24 24"
-              animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+              style={{ rotate: -35 }}
             >
               <path
                 strokeLinecap="round"
@@ -249,6 +252,7 @@ export function HeroSection(
                 d="M13 7l5 5m0 0l-5 5m5-5H6"
               />
             </motion.svg>
+            </div>
           </button>
         </div>
       </div>

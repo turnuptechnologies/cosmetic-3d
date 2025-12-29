@@ -7,6 +7,7 @@ import Model from './model';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
+import { useRouter } from 'next/navigation';
 
 export function SectionThree({
   title = "We are your",
@@ -19,6 +20,7 @@ export function SectionThree({
             well-rounded team of experts than at CosmeticChemist.com. We want to be part of your journey!
             Contact us today.`
 }) {
+  const router = useRouter();
   const sectionRef = useRef(null);
   const leftContentRef = useRef(null);
   const rightContentRef = useRef(null);
@@ -203,7 +205,9 @@ export function SectionThree({
           <p className="text-gray-300">
             {description}
           </p>
-          <button className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300">
+          <button className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
+            onClick={() => router.push('/contact')}
+          >
             {ctaLabel}
           </button>
         </div>
