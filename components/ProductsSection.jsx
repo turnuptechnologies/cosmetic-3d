@@ -119,7 +119,7 @@ export function ProductsSection() {
         <h2 className="text-5xl md:text-6xl font-black mb-6">
           {heroTitle}
         </h2>
-        <p className="text-gray-300 leading-relaxed">
+        <p className="text-gray-300 max-w-[1100px] leading-relaxed">
           {heroDescription}
         </p>
       </div>

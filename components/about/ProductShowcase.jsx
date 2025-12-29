@@ -6,8 +6,10 @@ import { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 import { OrbitControls } from '@react-three/drei';
+import { useRouter } from 'next/navigation';
 
 export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale, modalPosition = [0, 0, 0], rotation = [0, Math.PI / 8, 0] }) {
+    const router = useRouter();
     const scrollDown = (e) => {
         e.preventDefault();
         // Get the next section element
@@ -201,7 +203,8 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300"
+                                className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 cursor-pointer"
+                                onClick={() => router.push('/contact')}
                             >
                                 Learn More
                             </motion.button>

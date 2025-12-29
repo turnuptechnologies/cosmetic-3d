@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -24,32 +25,32 @@ const Footer = () => {
           </p>
           <div className="flex justify-center md:justify-start gap-6">
             <a
-              href="https://www.linkedin.com/company/cosmetic-chemist-labs/"
+              href="https://facebook.com/"
               target="_blank"
               className="text-white hover:text-pink-500"
             >
-              <i className="fab fa-linkedin"></i>
+              <FaFacebookF  size={24} />
             </a>
             <a
               href="https://x.com/COSMETICLABSx"
               target="_blank"
               className="text-white hover:text-pink-500"
             >
-              <i className="fab fa-twitter"></i>
+              <FaTwitter size={24} />
             </a>
             <a
-              href="https://facebook.com/"
+              href="https://www.linkedin.com/company/cosmetic-chemist-labs/"
               target="_blank"
               className="text-white hover:text-pink-500"
             >
-              <i className="fab fa-facebook"></i>
+              <FaLinkedinIn size={24} />
             </a>
             <a
-              href="https://www.youtube.com/@cosmeticchemistlabs"
+              href="https://x.com/COSMETICLABSx"
               target="_blank"
               className="text-white hover:text-pink-500"
             >
-              <i className="fab fa-youtube"></i>
+              <FaInstagram size={24} />
             </a>
           </div>
         </div>
@@ -80,21 +81,21 @@ const Footer = () => {
           <p className="mb-2 font-light">
             <a
               href="mailto:sales@cosmeticchemist.com"
-              className="text-white hover:text-pink-500"
+              className="text-white hover:text-pink-500 flex items-center gap-2"
             >
-              sales@cosmeticchemist.com
+              <FaEnvelope size={20} /> sales@cosmeticchemist.com
             </a>
           </p>
           <p className="mb-2 font-light">
             <a
               href="tel:+18016973001"
-              className="text-white hover:text-pink-500"
+              className="text-white hover:text-pink-500 flex items-center gap-2"
             >
-              +1 (801) 697-3001
+             <FaPhoneAlt size={20} /> +1 (801) 697-3001
             </a>
           </p>
-          <p className="mb-2 font-light">
-            Salt Lake City, UT 84106
+          <p className="mb-2 font-light flex items-center gap-2">
+            <FaMapMarkerAlt size={20} /> Salt Lake City, UT 84106
           </p>
         </div>
       </div>
