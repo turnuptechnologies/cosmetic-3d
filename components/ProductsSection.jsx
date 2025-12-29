@@ -134,11 +134,11 @@ export function ProductsSection() {
             className="product-card relative rounded-3xl p-8 text-center shadow-2xl cursor-pointer group overflow-visible bg-transparent"
           >
             <div className="absolute inset-0 z-[1] pointer-events-none flex items-start justify-center">
-              <div className="w-[90%] h-[70%] bg-gradient-to-b from-white/40 to-transparent rounded-t-full blur-[0px]" />
+              <div className="w-[90%] h-[98%] bg-gradient-to-b from-white/40 to-transparent rounded-t-full blur-[0px]" />
             </div>
             {/* <Link href={`/products/${product.slug}`}> */}
             <div className="product-content relative z-[5]">
-              <div className="w-full h-56 flex items-center justify-center mb-10">
+              <div className="w-full h-56 flex items-center justify-center mb-8">
                 <Image
                   // src={`${API_URI}${product.imagePath.replace('/api', '')}`}
                   src={product.imagePath}
@@ -148,8 +148,8 @@ export function ProductsSection() {
                   className="object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+              <h3 className="text-2xl font-bold mb-2 text-left">{product.name}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed line-clamp-3 text-left">
                 {product.description}
               </p>
             </div>

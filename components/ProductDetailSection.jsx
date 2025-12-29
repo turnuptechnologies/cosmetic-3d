@@ -110,6 +110,7 @@ export function ProductDetailSection({ side, model, content }) {
                                     key={index}
                                     className="text-sm text-gray-300 rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
                                 >
+                                      <span className="mr-2 text-[#FFFFFF] text-lg leading-none">•</span>
                                     <span className="relative">
                                         {item}
                                         <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#e90077] transition-all duration-300 group-hover:w-full"></span>
@@ -240,6 +241,7 @@ export function ProductDetailSectiontwo({ side, model, content }) {
                                     key={index}
                                     className="text-sm text-gray-300 rounded-lg transition-all duration-300 relative overflow-hidden group inline-block"
                                 >
+                                    <span className="mr-2 text-[#FFFFFF] text-lg leading-none">•</span>
                                     <span className="relative">
                                         {item}
                                         <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#e90077] transition-all duration-300 group-hover:w-full"></span>
