@@ -13,7 +13,7 @@ const Footer = () => {
         {/* Left Section */}
         <div className="flex flex-col items-center md:items-start mb-6 md:mb-0 w-full md:w-1/4">
           <Image
-            src="/full-logo.png"
+            src="/new-full-logo.png"
             alt="Cosmetic Chemist Logo"
             width={128}
             height={40}
