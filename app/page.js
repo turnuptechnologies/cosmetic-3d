@@ -1,7 +1,7 @@
 'use client'; // This page needs to be a client component to use hooks
 
 import { useRef } from 'react';
-import { HeroSection } from '../components/HeroSection';
+import { HeroSectionAnimation } from '../components/HeroSection-animation';
 import { SectionTwo } from '../components/SectionTwo';
 import { SectionThree } from '../components/SectionThree';
 import { ProductsSection } from '../components/ProductsSection';
@@ -211,17 +211,20 @@ export default function Home() {
   return (
     <ScrollerContext.Provider value={mainRef}>
       <main ref={mainRef} className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar">
-        <HeroSection
+        <HeroSectionAnimation
           title={heroHeading}
           description={heroDescription}
           ctaLabel={heroCTA}
+           title2={whatWeDoTitle}
+          description2={whatWeDoDescription}
+          features={whatWeDoFeatures}
         />
 
-        <SectionTwo
+        {/* <SectionTwo
           title={whatWeDoTitle}
           description={whatWeDoDescription}
           features={whatWeDoFeatures}
-        />
+        /> */}
         <SectionThree
           {...extractOneStopHeading(oneStopText?.root)}
           description={oneStopDescription} />
