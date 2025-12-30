@@ -120,22 +120,21 @@ export function HeroSectionAnimation({
       scroller,
       start: 'top top',
       end: 'bottom top',
-       
       onEnter: () =>
         gsap.to(modalRef.current, {
           left: '40%',
           opacity: 1,
-           rotation: 320,
-          duration: 0.8,
-          ease: 'power2.out',
+          rotation: 320,
+          duration: 1.2,
+          ease: 'power3.inOut',
         }),
       onEnterBack: () =>
         gsap.to(modalRef.current, {
           left: '40%',
           opacity: 1,
           rotation: 320,
-          duration: 0.8,
-          ease: 'power2.out',
+          duration: 1.2,
+          ease: 'power3.inOut',
         }),
     });
 
@@ -144,22 +143,21 @@ export function HeroSectionAnimation({
       trigger: section2Ref.current,
       scroller,
       start: 'top center',
-      
       onEnter: () =>
         gsap.to(modalRef.current, {
           left: '75%',
           opacity: 1,
-         rotation: 360,
-          duration: 1,
-          ease: 'power2.out',
+          rotation: 360,
+          duration: 1.4,
+          ease: 'power3.inOut',
         }),
       onEnterBack: () =>
         gsap.to(modalRef.current, {
           left: '75%',
           opacity: 1,
           rotation: 360,
-          duration: 1,
-          ease: 'power2.out',
+          duration: 1.4,
+          ease: 'power3.inOut',
         }),
     });
 
@@ -171,16 +169,20 @@ export function HeroSectionAnimation({
       onEnter: () =>
         gsap.to(modalRef.current, {
           opacity: 0,
-          scale: 0.9,
-          duration: 0.6,
-          ease: 'power2.out',
+        
+                left: '100%',
+                // top:'0%',
+          duration: 1,
+          ease: 'power3.inOut',
         }),
       onEnterBack: () =>
         gsap.to(modalRef.current, {
           opacity: 1,
-          scale: 1,
-          duration: 0.6,
-          ease: 'power2.out',
+    
+
+                left: '75%',
+          duration: 1.4,
+          ease: 'power3.inOut',
         }),
     });
 
@@ -209,7 +211,7 @@ export function HeroSectionAnimation({
       {/* ================= SECTION 1 ================= */}
       <section
         ref={section1Ref}
-        className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black mb-10"
+        className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black mb-10"
       >
         <div className="relative w-full h-full">
           <video
@@ -312,7 +314,7 @@ export function HeroSectionAnimation({
       {/* ================= SECTION 2 ================= */}
       <section
         ref={section2Ref}
-        className=" flex items-center px-16 bg-black text-white"
+        className=" flex h-screen items-center px-16 bg-black text-white justify-center"
       >
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center w-full max-w-7xl">
           <div>

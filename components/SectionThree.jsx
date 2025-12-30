@@ -15,55 +15,67 @@ export function SectionThree({
   subtitle = "for everything cosmetic",
   ctaLabel = "Join Our Network",
   description = `Our team is also well experienced with all regulatory and quality assurance matters.
-            Not only that but we are also passionate about design and branding (...if you couldn't tell)
-            and love to help brands out with that. We guarantee you've never come across a more
-            well-rounded team of experts than at CosmeticChemist.com. We want to be part of your journey!
-            Contact us today.`
+Not only that but we are also passionate about design and branding and love to help brands out with that.
+We guarantee you've never come across a more well-rounded team of experts than at CosmeticChemist.com.`
 }) {
   const router = useRouter();
+
   const sectionRef = useRef(null);
   const leftContentRef = useRef(null);
   const rightContentRef = useRef(null);
   const scrollerRef = useContext(ScrollerContext);
 
   useEffect(() => {
-    if (!scrollerRef?.current) return;
+    if (!scrollerRef?.current || !sectionRef.current) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
         scroller: scrollerRef.current,
-        start: 'top center',
+        start: 'top 65%',
         toggleActions: 'play none none none',
       },
     });
 
+    // 3D model container comes from left
     tl.fromTo(
       leftContentRef.current,
-      { opacity: 0, scale: 0.8 },
       {
-        opacity: 1,
-        scale: 1,
-        duration: 1,
-        ease: 'power3.out',
-      }
-    ).fromTo(
-      rightContentRef.current.children,
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
+        opacity: 0,
+        x: -250,
+        scale: 0.9,
       },
-      '-=0.5'
-    );
+      {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 1.2,
+        ease: 'power4.out',
+      }
+    )
+
+      // Text content stagger
+      .fromTo(
+        rightContentRef.current.children,
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 2,
+          stagger: 0.2,
+          ease: 'power3.out',
+        },
+        '-=0.6'
+      );
 
     return () => {
       tl.kill();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, [scrollerRef]);
 
@@ -72,11 +84,11 @@ export function SectionThree({
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center px-12 md:px-16 snap-start overflow-hidden"
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl">
-        {/* Left Content - 3D Model - Second on mobile, first on desktop */}
+        {/* LEFT — 3D MODEL */}
         <div
           ref={leftContentRef}
           className="w-full flex items-center justify-center h-[450px] md:h-[600px] lg:h-[750px] order-2 lg:order-1"
@@ -85,108 +97,41 @@ export function SectionThree({
               radial-gradient(
                 circle at center,
                 rgba(0,0,0,0.3) 0%,
-                rgba(0,0,0,0.5) 70%,
+                rgba(0,0,0,0.6) 70%,
                 rgba(0,0,0,0.9) 100%
               ),
               url('/images/35.png')
             `,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
             backgroundBlendMode: 'multiply',
-            boxShadow: 'inset 0 0 30px 20px rgba(0,0,0,0.7)'
+            boxShadow: 'inset 0 0 40px 25px rgba(0,0,0,0.75)',
           }}
         >
-          {/* <Canvas camera={{ position: [0, 0, 10], fov: 15 }}>
-            <ambientLight intensity={0.55} />
-            <directionalLight
-              position={[6, 6, 12]}
-              intensity={2.0}
-              castShadow={true}
-              shadow-mapSize-width={2048}
-              shadow-mapSize-height={2048}
-            />
-            <directionalLight
-              position={[-6, 2, 10]}
-              intensity={1.0}
-              castShadow={false}
-            />
-            <directionalLight
-              position={[0, -3, -10]}
-              intensity={1.4}
-              color={"#ffffff"}
-            />
-            <directionalLight
-              position={[0, 10, 5]}
-              intensity={0.8}
-              castShadow={false}
-            />
-            <hemisphereLight
-              skyColor={"#ffffff"}
-              groundColor={"#666666"}
-              intensity={0.5}
-            />
-            <Model 
-              scale={0.8} 
-              modelPath="/images/ras.glb" 
-              position={[0.1, 0, 0]}
-              rotation={[0, 0.4, 0]} 
-            />
-            <OrbitControls enableZoom={false} />
-          </Canvas> */}
           <Canvas
-            camera={{ position: [0, 2, 8], fov: 25 }} // slightly up & back for correct rotation
+            camera={{ position: [0, 2, 8], fov: 25 }}
             style={{ width: '100%', height: '100%' }}
           >
-            {/* Ambient light */}
             <ambientLight intensity={0.55} />
 
-            {/* Key directional light */}
-            <directionalLight
-              position={[6, 6, 12]}
-              intensity={2.0}
-              castShadow={true}
-              shadow-mapSize-width={2048}
-              shadow-mapSize-height={2048}
-            />
+            <directionalLight position={[6, 6, 12]} intensity={2} />
+            <directionalLight position={[-6, 2, 10]} intensity={1} />
+            <directionalLight position={[0, -3, -10]} intensity={1.4} />
+            <directionalLight position={[0, 10, 5]} intensity={0.8} />
 
-            {/* Fill light */}
-            <directionalLight
-              position={[-6, 2, 10]}
-              intensity={1.0}
-              castShadow={false}
-            />
-
-            {/* Rim/back light */}
-            <directionalLight
-              position={[0, -3, -10]}
-              intensity={1.4}
-              color="#ffffff"
-            />
-
-            {/* Top light */}
-            <directionalLight
-              position={[0, 10, 5]}
-              intensity={0.8}
-              castShadow={false}
-            />
-
-            {/* Hemisphere light */}
             <hemisphereLight
               skyColor="#ffffff"
               groundColor="#666666"
               intensity={0.5}
             />
 
-            {/* Model centered */}
             <Model
-              scale={0.5}
               modelPath="/images/OrangeSkinBottle.glb"
-              position={[0, 0, 0]}         // center model
-              rotation={[0, 0.4, 0]}       // optional initial tilt
+              scale={0.5}
+              position={[0, 0, 0]}
+              rotation={[0, 0.4, 0]}
             />
 
-            {/* OrbitControls for proper rotation */}
             <OrbitControls
               enableZoom={false}
               target={[0, 0, 0]}
@@ -194,19 +139,24 @@ export function SectionThree({
               minPolarAngle={0}
             />
           </Canvas>
-
         </div>
 
-        {/* Right Content - Text - First on mobile, second on desktop */}
-        <div ref={rightContentRef} className="space-y-6 md:px-4 order-0 lg:order-2">
+        {/* RIGHT — TEXT */}
+        <div
+          ref={rightContentRef}
+          className="space-y-6 md:px-4 order-1 lg:order-2"
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            {title} <span className="text-pink-400">{highlightedTitle}</span> {subtitle}
+            {title}{' '}
+            <span className="text-pink-400">{highlightedTitle}</span>{' '}
+            {subtitle}
           </h2>
-          <p className="text-gray-300">
-            {description}
-          </p>
-          <button className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
+
+          <p className="text-gray-300">{description}</p>
+
+          <button
             onClick={() => router.push('/contact')}
+            className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
           >
             {ctaLabel}
           </button>
