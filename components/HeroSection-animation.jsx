@@ -9,7 +9,7 @@ import { Environment } from '@react-three/drei';
 import { useRouter } from 'next/navigation';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
-
+import { OrbitControls } from '@react-three/drei';
 gsap.registerPlugin(ScrollTrigger);
 
 export function HeroSectionAnimation({
@@ -103,8 +103,9 @@ export function HeroSectionAnimation({
 
     gsap.set(modalRef.current, {
       position: 'fixed',
-      top: '50%',
-      left: '50%',
+      top: '60%',
+      left: '40%',
+      rotation: 320,
       xPercent: -50,
       yPercent: -50,
       width: 550,
@@ -119,17 +120,20 @@ export function HeroSectionAnimation({
       scroller,
       start: 'top top',
       end: 'bottom top',
+       
       onEnter: () =>
         gsap.to(modalRef.current, {
-          left: '50%',
+          left: '40%',
           opacity: 1,
+           rotation: 320,
           duration: 0.8,
           ease: 'power2.out',
         }),
       onEnterBack: () =>
         gsap.to(modalRef.current, {
-          left: '50%',
+          left: '40%',
           opacity: 1,
+          rotation: 320,
           duration: 0.8,
           ease: 'power2.out',
         }),
@@ -140,10 +144,12 @@ export function HeroSectionAnimation({
       trigger: section2Ref.current,
       scroller,
       start: 'top center',
+      
       onEnter: () =>
         gsap.to(modalRef.current, {
           left: '75%',
           opacity: 1,
+         rotation: 360,
           duration: 1,
           ease: 'power2.out',
         }),
@@ -151,6 +157,7 @@ export function HeroSectionAnimation({
         gsap.to(modalRef.current, {
           left: '75%',
           opacity: 1,
+          rotation: 360,
           duration: 1,
           ease: 'power2.out',
         }),
@@ -189,11 +196,12 @@ export function HeroSectionAnimation({
           <directionalLight position={[8, 8, 10]} intensity={1.8} />
           <directionalLight position={[-6, 4, 6]} intensity={1.0} />
           <directionalLight position={[0, 10, 5]} intensity={0.6} />
+          <OrbitControls enableZoom={false} enablePan={false} enableRotate />
           <Model
             modelPath="/images/SilverVerticalTube.compressed.glb"
             scale={3}
             position={[0, 0.3, -0.2]}
-            rotation={[0, 0.4, 0.4]}
+           
           />
         </Canvas>
       </div>
