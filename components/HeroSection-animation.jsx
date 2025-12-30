@@ -105,6 +105,7 @@ export function HeroSectionAnimation({
       position: 'fixed',
       top: '60%',
       left: '40%',
+      scale: 1,
       rotation: 320,
       xPercent: -50,
       yPercent: -50,
@@ -124,6 +125,7 @@ export function HeroSectionAnimation({
         gsap.to(modalRef.current, {
           left: '40%',
           opacity: 1,
+          scale: 1,
           rotation: 320,
           duration: 1.2,
           ease: 'power3.inOut',
@@ -132,6 +134,7 @@ export function HeroSectionAnimation({
         gsap.to(modalRef.current, {
           left: '40%',
           opacity: 1,
+          scale: 1,
           rotation: 320,
           duration: 1.2,
           ease: 'power3.inOut',
@@ -147,6 +150,7 @@ export function HeroSectionAnimation({
         gsap.to(modalRef.current, {
           left: '75%',
           opacity: 1,
+          scale: 1.1,
           rotation: 360,
           duration: 1.4,
           ease: 'power3.inOut',
@@ -155,6 +159,7 @@ export function HeroSectionAnimation({
         gsap.to(modalRef.current, {
           left: '75%',
           opacity: 1,
+          scale: 1.1,
           rotation: 360,
           duration: 1.4,
           ease: 'power3.inOut',
@@ -169,18 +174,16 @@ export function HeroSectionAnimation({
       onEnter: () =>
         gsap.to(modalRef.current, {
           opacity: 0,
-        
-                left: '100%',
-                // top:'0%',
+          scale: 1,
+          left: '100%',
           duration: 1,
           ease: 'power3.inOut',
         }),
       onEnterBack: () =>
         gsap.to(modalRef.current, {
           opacity: 1,
-    
-
-                left: '75%',
+          scale: 1,
+          left: '75%',
           duration: 1.4,
           ease: 'power3.inOut',
         }),
@@ -190,7 +193,7 @@ export function HeroSectionAnimation({
   }, [scrollerRef]);
 
   return (
-    <main>
+    <main className='scroll-smooth'>
       {/* ================= MODAL ================= */}
       <div ref={modalRef} >
         <Canvas camera={{ position: [15, 0, 0], fov: 20 }}>
@@ -203,7 +206,7 @@ export function HeroSectionAnimation({
             modelPath="/images/SilverVerticalTube.compressed.glb"
             scale={3}
             position={[0, 0.3, -0.2]}
-           
+
           />
         </Canvas>
       </div>
@@ -313,10 +316,10 @@ export function HeroSectionAnimation({
 
       {/* ================= SECTION 2 ================= */}
       <section
-        ref={section2Ref}
-        className=" flex h-screen items-center px-16 bg-black text-white justify-center"
+
+        className=" flex h-screen w-full items-center px-16 bg-black text-white "
       >
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center w-full max-w-7xl">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 justify-between items-center w-full ">
           <div>
             <h2 className="text-5xl font-black mb-6">{title2}</h2>
             <p className="text-xl text-gray-300">{description2}</p>
@@ -363,7 +366,8 @@ export function HeroSectionAnimation({
             </div>
           </div>
           <div
-            className="h-[600px] bg-no-repeat bg-center bg-contain"
+            ref={section2Ref}
+            className="h-screen bg-no-repeat bg-center bg-contain"
             style={{ backgroundImage: "url('/images/11.png')" }}
           />
         </div>

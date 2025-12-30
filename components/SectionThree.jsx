@@ -87,7 +87,7 @@ We guarantee you've never come across a more well-rounded team of experts than a
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/50" />
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full max-w-7xl">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full justify-between">
         {/* LEFT — 3D MODEL */}
         <div
           ref={leftContentRef}

@@ -370,7 +370,7 @@ export default function ProductDetailPage() {
       {/* MAIN SCROLL + SNAP CONTAINER */}
       <main
         ref={mainRef}
-        className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black no-scrollbar"
+        className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black no-scrollbar scroll-smooth"
       >
         {/* FIXED MODAL */}
         <div
