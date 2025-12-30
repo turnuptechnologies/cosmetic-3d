@@ -85,7 +85,9 @@ body {
   /* cursor: none; */
 }
 
-
+button {
+  cursor: pointer;
+}
 
 
 body::-webkit-scrollbar-track

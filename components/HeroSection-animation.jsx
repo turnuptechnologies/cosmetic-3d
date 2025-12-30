@@ -316,7 +316,7 @@ export function HeroSectionAnimation({
 
       {/* ================= SECTION 2 ================= */}
       <section
-
+  ref={section2Ref}
         className=" flex h-screen w-full items-center px-16 bg-black text-white "
       >
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 justify-between items-center w-full ">
@@ -366,7 +366,7 @@ export function HeroSectionAnimation({
             </div>
           </div>
           <div
-            ref={section2Ref}
+          
             className="h-screen bg-no-repeat bg-center bg-contain"
             style={{ backgroundImage: "url('/images/11.png')" }}
           />
