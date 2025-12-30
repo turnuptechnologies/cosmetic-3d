@@ -1,7 +1,8 @@
 'use client'; // This page needs to be a client component to use hooks
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { HeroSectionAnimation } from '../components/HeroSection-animation';
+import { HeroSection } from '../components/HeroSection';
 import { SectionTwo } from '../components/SectionTwo';
 import { SectionThree } from '../components/SectionThree';
 import { ProductsSection } from '../components/ProductsSection';
@@ -23,6 +24,21 @@ export default function Home() {
   const { data: pageData, loading } = useGetService(
     "/pages/4?depth=2&draft=false&locale=undefined&trash=false"
   );
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    // Function to check if the screen is mobile
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // 768px is a common breakpoint for mobile/desktop
+    };
+    // Initial check
+    checkIfMobile();
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+    // Clean up the event listener when the component unmounts
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
 
   // ✅ Default values (only used when API data is missing)
   const DEFAULTS = {
@@ -211,20 +227,31 @@ export default function Home() {
   return (
     <ScrollerContext.Provider value={mainRef}>
       <main ref={mainRef} className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar">
-        <HeroSectionAnimation
-          title={heroHeading}
-          description={heroDescription}
-          ctaLabel={heroCTA}
-           title2={whatWeDoTitle}
-          description2={whatWeDoDescription}
-          features={whatWeDoFeatures}
-        />
-
-        {/* <SectionTwo
-          title={whatWeDoTitle}
-          description={whatWeDoDescription}
-          features={whatWeDoFeatures}
-        /> */}
+               {isMobile ? (
+          // Mobile view
+          <>
+            <HeroSection
+              title={heroHeading}
+              description={heroDescription}
+              ctaLabel={heroCTA}
+            />
+            <SectionTwo
+              title={whatWeDoTitle}
+              description={whatWeDoDescription}
+              features={whatWeDoFeatures}
+            />
+          </>
+        ) : (
+          // Desktop view
+          <HeroSectionAnimation
+            title={heroHeading}
+            description={heroDescription}
+            ctaLabel={heroCTA}
+            title2={whatWeDoTitle}
+            description2={whatWeDoDescription}
+            features={whatWeDoFeatures}
+          />
+        )}
         <SectionThree
           {...extractOneStopHeading(oneStopText?.root)}
           description={oneStopDescription} />
