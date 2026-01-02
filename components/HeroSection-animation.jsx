@@ -202,6 +202,7 @@ export function HeroSectionAnimation({
           <directionalLight position={[-6, 4, 6]} intensity={1.0} />
           <directionalLight position={[0, 10, 5]} intensity={0.6} />
           <OrbitControls enableZoom={false} enablePan={false} enableRotate />
+          <Environment preset="city"/>
           <Model
             modelPath="/images/SilverVerticalTube.compressed.glb"
             scale={3}

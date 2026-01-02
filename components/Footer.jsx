@@ -106,9 +106,9 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} Cosmetic Chemist Labs. All Rights Reserved.
         </p>
         <div className="flex gap-6">
-          <a href="#" className="hover:text-white transition text-sm font-light">Privacy Policy</a>
-          <a href="#" className="hover:text-white transition text-sm font-light">Terms of Service</a>
-          <a href="#" className="hover:text-white transition text-sm font-light">Cookie Policy</a>
+          <a href="/privacy-policy" className="hover:text-white transition text-sm font-light">Privacy Policy</a>
+          <a href="/term-service" className="hover:text-white transition text-sm font-light">Terms of Service</a>
+          <a href="/cookie-policy" className="hover:text-white transition text-sm font-light">Cookie Policy</a>
         </div>
       </div>
     </footer>
