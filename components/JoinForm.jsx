@@ -87,16 +87,16 @@ export function JoinForm() {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Type *</label>
-            {/* Added name prop - Ensure your CustomDropdown uses this for a hidden input */}
+
             <CustomDropdown name="projectType" dropdownValue={dropdownValue} />
           </div>
 
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Budget Range *</label>
             <CustomDropdown name="budgetRange" dropdownValue={dropdownValue2} />
-          </div>
+          </div> */}
 
           <div className="md:col-span-2">
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Details *</label>
