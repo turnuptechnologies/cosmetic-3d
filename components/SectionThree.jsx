@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useContext } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Environment } from '@react-three/drei';
 import Model from './model';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,7 +13,7 @@ export function SectionThree({
   title = "We are your",
   highlightedTitle = "one-stop shop",
   subtitle = "for everything cosmetic",
-  ctaLabel = "Join Our Network",
+  ctaLabel = "Get Started",
   description = `Our team is also well experienced with all regulatory and quality assurance matters.
 Not only that but we are also passionate about design and branding and love to help brands out with that.
 We guarantee you've never come across a more well-rounded team of experts than at CosmeticChemist.com.`
@@ -125,9 +125,10 @@ We guarantee you've never come across a more well-rounded team of experts than a
               intensity={0.5}
             />
 
+            <Environment preset="city" />
             <Model
-              modelPath="/images/OrangeSkinBottle.glb"
-              scale={0.5}
+              modelPath="/images/SilverVerticalTube.compressed.glb"
+              scale={1.5}
               position={[0, 0, 0]}
               rotation={[0, 0.4, 0]}
             />
@@ -152,7 +153,14 @@ We guarantee you've never come across a more well-rounded team of experts than a
             {subtitle}
           </h2>
 
-          <p className="text-gray-300">{description}</p>
+          {description
+            ?.split(/<br\s*\/?>/gi)
+            .map((line, index) => (
+              <p key={index} className="text-gray-300">
+                {line}
+              </p>
+            ))}
+
 
           <button
             onClick={() => router.push('/contact')}

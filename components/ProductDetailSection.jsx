@@ -154,7 +154,7 @@ export function ProductDetailSection({ side, model, content }) {
                                 antialias: false,
                                 powerPreference: "low-power",
                             }}
-                            style={{ transform: "rotate(-10deg)" }}
+                            // style={{ transform: "rotate(-10deg)" }}
                         >
                             <ambientLight intensity={0.9} />
 
@@ -338,7 +338,7 @@ export function ProductDetailSectiontwo({ side, model, content }) {
 
                             <Model
                                 scale={2.4}
-                                modelPath="/images/Pink_Rose_Facial_Cream.glb"
+                                modelPath="/images/VerticalWhiteTube.glb"
                                 position={[0, 0, 0]}
                                 rotation={[0, Math.PI / 8, 0]}
                             />

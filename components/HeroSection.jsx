@@ -5,7 +5,6 @@ import { Canvas } from '@react-three/fiber';
 import Model from './model';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
-import { Environment, OrbitControls } from '@react-three/drei';
 import { useRouter } from 'next/navigation';
 
 export function HeroSection(
@@ -188,11 +187,10 @@ export function HeroSection(
               color="#ffffff"
               castShadow={false}
             />
-            <Environment preset="city" />
 
             <Model
-              scale={3}
-              modelPath="/images/SilverVerticalTube.compressed.glb"
+              scale={1}
+              modelPath="/images/OrangeSkinBottle.glb"
               position={[0, 0, 0]}
             />
           </Canvas>

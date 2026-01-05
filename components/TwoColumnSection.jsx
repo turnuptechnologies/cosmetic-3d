@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
+import Image from 'next/image';
 
 export function TwoColumnSection({
   leftColumnData = {
@@ -78,7 +79,7 @@ export function TwoColumnSection({
       className="relative min-h-screen flex items-center bg-black text-white overflow-hidden snap-start"
     >
       <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-black pointer-events-none" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-24 max-w-6xl mx-auto w-full py-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto w-full py-16">
         {/* Left Column */}
         <div ref={leftColRef} className="text-center space-y-6">
           <h2 className="text-5xl font-extrabold">{leftColumnData.title}</h2>
@@ -90,13 +91,15 @@ export function TwoColumnSection({
               <p key={index}>{point}</p>
             ))}
           </div>
-          <a href={'/comming-soon'}>
+          <a href={'/coming-soon'}>
             <button className="flex items-center mx-auto gap-2 px-6 py-3 bg-pink-500 text-white font-medium rounded-full shadow-lg">
               {leftColumnData.cta.label} <ArrowUpRight size={18} />
             </button>
           </a>
         </div>
-
+        <div ref={leftColRef} className="text-center space-y-6 flex justify-center align-center">
+          <Image src='/images/product5.png' alt='cosmetic' width={100} height={100} className="w-1/2 h-2/2 object-contain"/>
+        </div>
         {/* Right Column */}
         <div ref={rightColRef} className="text-center space-y-6">
           <h2 className="text-5xl font-extrabold">{rightColumnData.title}</h2>
@@ -108,7 +111,7 @@ export function TwoColumnSection({
               <p key={index}>{point}</p>
             ))}
           </div>
-          <a href={'/contact'}>
+          <a href={'/join'}>
             <button className="flex items-center mx-auto gap-2 px-6 py-3 bg-pink-500 text-white font-medium rounded-full shadow-lg">
               {rightColumnData.cta.label} <ArrowUpRight size={18} />
             </button>

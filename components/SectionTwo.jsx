@@ -184,6 +184,16 @@ export function SectionTwo({
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   )}
+                  {index === 4 && (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                  )}
+                  {index === 5 && (
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  )}
                 </div>
 
                 <div>
@@ -210,7 +220,7 @@ export function SectionTwo({
             backgroundRepeat: 'no-repeat',
           }}
         >
-        
+
           {/* <Canvas
             camera={{ position: [0, 2, 10], fov: 35 }} // slightly up & back
             style={{ width: '100%', height: '100%', marginLeft: 85 }}
@@ -271,10 +281,9 @@ export function SectionTwo({
           >
             {/* 1. THE SECRET INGREDIENT: Environment Map 
           This provides the reflections that make the "NYXA" metal text shine. */}
-            <Environment preset="city" />
 
             {/* 2. AMBIENT LIGHT: Lowered to prevent flattening the model */}
-            <ambientLight intensity={0.2} />
+            {/* <ambientLight intensity={0.2} /> */}
 
             {/* 3. KEY LIGHT: Placed to the side to create highlights on the text edges */}
             {/* <spotLight
@@ -288,16 +297,17 @@ export function SectionTwo({
             {/* 4. RIM LIGHT: Placed behind to define the silhouette of the glass */}
             <directionalLight
               position={[-10, 5, -5]}
-              intensity={1.5} 
+              intensity={1.5}
               color="#ffffff"
             />
 
             {/* 5. FILL LIGHT: A warm light from the front to pop the orange color */}
             <pointLight position={[0, 2, 5]} intensity={1} color="#ff8844" />
 
+            <Environment preset="city" />
             <Model
-              scale={2.6}
-              modelPath="/images/SilverVerticalTube.compressed2.glb"
+              scale={1}
+              modelPath="/images/OrangeSkinBottle-2.glb"
               position={[0, 0, 0]} // Lowered slightly to center
             // rotation={[0, 0.4, 0]}
             />
