@@ -78,7 +78,7 @@ export function TwoColumnSection({
       ref={sectionRef}
       className="relative min-h-screen flex items-center bg-black text-white overflow-hidden snap-start"
     >
-      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-black pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-transparent pointer-events-none" />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto w-full py-16">
         {/* Left Column */}
         <div ref={leftColRef} className="text-center space-y-6">
