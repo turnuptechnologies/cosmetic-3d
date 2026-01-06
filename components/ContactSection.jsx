@@ -90,12 +90,12 @@ export function ContactSection() {
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Type *</label>
             {/* Added name prop - Ensure your CustomDropdown uses this for a hidden input */}
-            <CustomDropdown name="projectType" dropdownValue={dropdownValue} />
+            <CustomDropdown name="projectType" dropdownValue={dropdownValue} label="Select Product Type"/>
           </div>
 
           <div>
             <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Budget Range *</label>
-            <CustomDropdown name="budgetRange" dropdownValue={dropdownValue2} />
+            <CustomDropdown name="budgetRange" dropdownValue={dropdownValue2} label="Select Product Budget" />
           </div>
 
           <div className="md:col-span-2">

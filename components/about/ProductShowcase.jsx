@@ -153,7 +153,7 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                             {/* Arrow Button – Mobile only */}
                             <button
                                 onClick={scrollDown}
-                                className="absolute bottom-4 left-1/2 -translate-x-1/2 
+                                className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 
                                            text-white animate-bounce p-3 rounded-full 
                                            bg-white/10 hover:bg-white/20 transition-all
                                            z-50 cursor-pointer touch-manipulation

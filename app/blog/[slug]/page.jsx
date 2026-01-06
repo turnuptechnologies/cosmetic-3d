@@ -159,11 +159,11 @@ export default function BlogPostPage() {
     <div className="h-screen bg-black text-white">
       {/* Hero Image Section */}
       <div className="relative w-full h-[600px] md:h-[700px] overflow-hidden">
-        <div className="relative w-full flex justify-center items-center h-[700px] md:h-[700px] overflow-hidden">
+        <div className="relative w-full flex justify-center items-center h-[480px] md:h-[700px] overflow-hidden">
           <Image
             src={imageUrl}
             alt={title}
-            height={700}
+            height={900}
             width={700}
             className="object-cover"
             priority

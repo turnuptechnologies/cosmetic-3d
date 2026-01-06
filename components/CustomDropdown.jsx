@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { ChevronDown, Globe, Smartphone, Zap, Target, ShoppingCart, Briefcase } from "lucide-react"
 
-export function CustomDropdown({ dropdownValue, name }) {
+export function CustomDropdown({ dropdownValue, name, label }) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedType, setSelectedType] = useState(null)
 
@@ -33,7 +33,7 @@ export function CustomDropdown({ dropdownValue, name }) {
           <div className="flex items-center gap-3">
             {SelectedIcon && <SelectedIcon className="h-5 w-5 text-neutral-400" />}
             <span className={selectedProject ? "text-foreground" : "text-muted-foreground"}>
-              {selectedProject ? selectedProject.label : "Select project type"}
+              {label}
             </span>
           </div>
           <ChevronDown

@@ -81,7 +81,7 @@ export function TwoColumnSection({
       <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-transparent pointer-events-none" />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto w-full py-16">
         {/* Left Column */}
-        <div ref={leftColRef} className="text-center space-y-6">
+        <div ref={leftColRef} className="text-center space-y-6 mx-8 md:mx-1">
           <h2 className="text-5xl font-extrabold">{leftColumnData.title}</h2>
           <p className="text-gray-300 max-w-md mx-auto leading-relaxed">
             {leftColumnData.description}
@@ -101,7 +101,7 @@ export function TwoColumnSection({
           <Image src='/images/product5.png' alt='cosmetic' width={100} height={100} className="w-1/2 h-2/2 object-contain"/>
         </div>
         {/* Right Column */}
-        <div ref={rightColRef} className="text-center space-y-6">
+        <div ref={rightColRef} className="text-center space-y-6 mx-8 md:mx-1">
           <h2 className="text-5xl font-extrabold">{rightColumnData.title}</h2>
           <p className="text-gray-300 max-w-md mx-auto leading-relaxed">
             {rightColumnData.description}

@@ -32,13 +32,13 @@ export function JoinForm() {
   ];
 
   return (
-    <section className="w-full bg-black text-white snap-start flex flex-col justify-center py-12 md:py-20 px-4 sm:px-6 mb-6 mt-12">
-      {/* <div className="max-w-6xl mx-auto text-center mb-6 md:mb-4 mt-6 md:mt-10 px-4">
+    <section className="w-full bg-black text-white snap-start flex flex-col justify-center py-12 md:py-18 px-4 sm:px-6 mb-6 mt-12">
+      <div className="max-w-6xl mx-auto text-center mb-6 md:mb-4 mt-6 md:mt-1 px-4">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
-          Let&apos;s Create Something Amazing Together
+          Join Our Network
         </h2>
-        <p className="text-gray-300 text-lg max-w-3xl mx-auto mt-3">Ready to transform your beauty vision into reality? Get in touch with our expert team for a free consultation.</p>
-      </div> */}
+        {/* <p className="text-gray-300 text-lg max-w-3xl mx-auto mt-3">Ready to transform your beauty vision into reality? Get in touch with our expert team for a free consultation.</p> */}
+      </div>
 
       <div className="max-w-6xl w-full mx-auto bg-[#111]/60 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 md:p-10 rounded-2xl shadow-[0_0_40px_rgba(255,20,147,0.15)]">
         {/* <h3 className="text-lg sm:text-xl font-semibold mb-1">Start Your Project - We Will Contact You Very Soon</h3>

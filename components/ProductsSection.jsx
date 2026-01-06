@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useRef, useContext } from 'react'
+import { useEffect, useRef, useContext, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { products } from '../lib/products.js'
 import { ScrollerContext } from '../lib/ScrollerContext'
 import { API_URI, useGetService } from '../lib/getService.js'
 import { extractPlainText, joinParagraphChildren } from '../lib/sanitizeText.js'
+import { ProductModal } from './ProductModal.jsx'
 
 export function ProductsSection() {
   const gridRef = useRef(null);
@@ -113,6 +114,14 @@ export function ProductsSection() {
   // ✅ if layout is empty / no products, return default product array
   const finalProducts = products.length ? products : DEFAULTS.products;
 
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-8 md:px-16 lg:px-24 py-20 snap-start bg-black text-white">
       <div className="text-center  mx-auto mb-16">
@@ -131,6 +140,7 @@ export function ProductsSection() {
         {finalProducts.map((product) => (
           <div
             key={product.id}
+            onClick={() => handleProductClick(product)}
             className="product-card relative rounded-3xl p-8 text-center shadow-2xl cursor-pointer group overflow-visible bg-transparent"
           >
             <div className="absolute inset-0 z-[1] pointer-events-none flex items-start justify-center">
@@ -157,6 +167,11 @@ export function ProductsSection() {
           </div>
         ))}
       </div>
+      <ProductModal
+        isOpen={!!selectedProduct}
+        onClose={closeModal}
+        product={selectedProduct}
+      />
     </section>
   )
 }

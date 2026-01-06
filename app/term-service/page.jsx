@@ -134,13 +134,6 @@ export default function TermService() {
 
                         <div className="bg-[#111]/60 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 rounded-2xl">
                             <h2 className="text-2xl font-semibold mb-4 text-white">{sectionSix?.title}</h2>
-                            <p>
-                                {sectionSix?.description}
-                            </p>
-                        </div>
-
-                        <div className="bg-[#111]/60 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 rounded-2xl">
-                            <h2 className="text-2xl font-semibold mb-4 text-white">{sectionSix?.title}</h2>
                             <p className="mb-4">{sectionSix?.description}</p>
                             <div className="space-y-2">
                                 <p className="flex items-center">
