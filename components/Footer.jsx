@@ -5,9 +5,9 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhoneA
 const Footer = () => {
   return (
    
-    <footer style={{zIndex:'100'}} className="w-full  bg-gradient-to-t from-white/0 via-transparent to-black opacity-90 text-white py-12 relative">
+    <footer style={{zIndex:'100'}} className="w-full  bg-gradient-to-t from-transparent via-transparent to-transparent  text-white py-12 relative">
       {/* Central gradient circle effect */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-black opacity-20 -z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-transparent  -z-10"></div>
 
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12 px-8">
         {/* Left Section */}
