@@ -14,7 +14,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'backend.cosmeticchemist.com',
-        port: '3001',
+        port: '',
         pathname: '/api/media/**',
       },
     ],
