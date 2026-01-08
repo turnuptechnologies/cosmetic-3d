@@ -14,7 +14,6 @@ export function CustomDropdown({ dropdownValue, name, label }) {
 
   const selectedProject = dropdownValue.find((type) => type.value === selectedType)
   const SelectedIcon = selectedProject?.icon
-
   return (
     <div className="relative w-full">
       {/* Dropdown Trigger */}
@@ -33,7 +32,7 @@ export function CustomDropdown({ dropdownValue, name, label }) {
           <div className="flex items-center gap-3">
             {SelectedIcon && <SelectedIcon className="h-5 w-5 text-neutral-400" />}
             <span className={selectedProject ? "text-foreground" : "text-muted-foreground"}>
-              {label}
+              {selectedProject?.label ?? label}
             </span>
           </div>
           <ChevronDown
@@ -49,7 +48,7 @@ export function CustomDropdown({ dropdownValue, name, label }) {
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
 
           {/* Menu Content */}
-          <div className="absolute z-20 w-full mt-2 bg-gradient-to-br from-[#161616] via-[#161616] to-[#161616] border border-neutral-800 rounded-2xl shadow-2xl shadow-neutral-950/80 overflow-hidden animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200">
+          <div className="absolute h-56  z-20 w-full mt-2   overflow-y-scroll bg-gradient-to-br from-[#161616] via-[#161616] to-[#161616] border border-neutral-800 rounded-2xl shadow-2xl shadow-neutral-950/80 overflow-hidden animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200">
             <div className="p-2">
               {dropdownValue.map((type, index) => {
                 const Icon = type.icon
@@ -57,7 +56,7 @@ export function CustomDropdown({ dropdownValue, name, label }) {
                   <button
                     key={type.value}
                     onClick={() => handleSelect(type.value)}
-                    className={`w-full px-4 py-3.5 rounded-xl flex items-center gap-3 text-left transition-all duration-150 hover:bg-neutral-800/60 hover:translate-x-1 focus:outline-none focus:bg-neutral-800/60 animate-in fade-in-0 slide-in-from-left-1 group ${selectedType === type.value ? "bg-neutral-800/80" : ""
+                    className={`w-full px-4  py-3.5 rounded-xl flex items-center gap-3 text-left transition-all duration-150 hover:bg-neutral-800/60 hover:translate-x-1 focus:outline-none focus:bg-neutral-800/60 animate-in fade-in-0 slide-in-from-left-1 group ${selectedType === type.value ? "bg-neutral-800/80" : ""
                       }`}
                     style={{
                       animationDelay: `${index * 30}ms`,

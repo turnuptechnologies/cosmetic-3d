@@ -12,7 +12,7 @@ const Header = () => {
   const DEFAULT_NAV_LINKS = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/service", label: "Service" },
+    { href: "/service", label: "Services" },
     { href: "/blog", label: "Blog" },
     { href: "/faq", label: "FAQ's" },
     // { href: "/contact", label: "Contact" }
