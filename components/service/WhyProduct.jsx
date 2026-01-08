@@ -1,4 +1,4 @@
-// components/service/WhyProduct.jsx
+// components/services/WhyProduct.jsx
 'use client';
 
 import React from 'react';
