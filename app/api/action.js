@@ -21,7 +21,7 @@ export async function sendEmail(prevState, formData) {
 
     try {
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: email,
             to: process.env.EMAIL_USER, // Where you want to receive the contact form info
             replyTo: email,
             subject: `New Contact Form Submission from ${fullName}`,
