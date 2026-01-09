@@ -377,7 +377,7 @@
 //             </div>
 //           </div>
 //           <div
-          
+
 //             className="h-screen bg-no-repeat bg-center bg-contain"
 //             style={{ backgroundImage: "url('/images/11.png')" }}
 //           />
@@ -446,58 +446,122 @@ export function HeroSectionAnimation({
   /* ----------------------------------
      3D MODEL SCROLL ANIMATION
   ---------------------------------- */
+  // useEffect(() => {
+  //   if (!modalRef.current) return;
+  //   const scroller = scrollerRef?.current || window;
+
+  //   // Initial Setup: Center-ish and tilted
+  //   gsap.set(modalRef.current, {
+  //     position: 'fixed',
+  //     top: '50%',
+  //     left: '45%',
+  //     x: '-70%', // Start slightly left of center
+  //     y: '-40%',
+  //     scale: 1.1,
+  //     rotation: 320,
+  //     opacity: 1,
+  //     zIndex: 30,
+  //     width: 550,
+  //     height: 550,
+  //     pointerEvents: 'none', // Shield off by default
+  //   });
+
+  //   const tl = gsap.timeline({
+  //     scrollTrigger: {
+  //       trigger: section1Ref.current,
+  //       scroller: scroller,
+  //       start: "top top",
+  //       endTrigger: section2Ref.current,
+  //       // end: "bottom bottom",
+  //       scrub: 0.8, // Smooth follow
+  //       immediateRender: false,
+  //     }
+  //   });
+
+  //   // Move to Section 2 (Move Right)
+  //   tl.to(modalRef.current, {
+  //     x: '25%',
+  //     y: '-45%',
+  //     rotation: 360,
+  //     scale: 1.2,
+  //     ease: "none",
+  //   })
+  //     // Move to Section 3 (Exit Left/Fade)
+  //     .to(modalRef.current, {
+  //       x: '150%',
+  //       y: '30%',
+  //       opacity: 0,
+  //       scale: 1,
+  //       ease: "none",
+  //     });
+
+  //   return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  // }, [scrollerRef]);
   useEffect(() => {
     if (!modalRef.current) return;
     const scroller = scrollerRef?.current || window;
 
-    // Initial Setup: Center-ish and tilted
-    gsap.set(modalRef.current, {
-      position: 'fixed',
-      top: '50%',
-      left: '45%',
-      x: '-70%', // Start slightly left of center
-      y: '-40%',
-      scale: 1.1,
-      rotation: 320,
-      opacity: 1,
-      zIndex: 30,
-      width: 550,
-      height: 550,
-      pointerEvents: 'none', // Shield off by default
-    });
+    // Create matchMedia instance
+    let mm = gsap.matchMedia();
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section1Ref.current,
-        scroller: scroller,
-        start: "top top",
-        endTrigger: section2Ref.current,
-        // end: "bottom bottom",
-        scrub: 0.8, // Smooth follow
-        immediateRender: false,
-      }
-    });
+    mm.add({
+      // Screen size definitions
+      isLarge: "(min-width: 1537px)", // Desktop / LED
+      isLaptop: "(max-width: 1536px)" // Laptop and smaller
+    }, (context) => {
+      // Extract the condition
+      const { isLarge } = context.conditions;
 
-    // Move to Section 2 (Move Right)
-    tl.to(modalRef.current, {
-      x: '5%',
-      y: '-45%',
-      rotation: 360,
-      scale: 1.2,
-      ease: "none",
-    })
-      // Move to Section 3 (Exit Left/Fade)
-      .to(modalRef.current, {
-        x: '150%',
-        y: '30%',
-        opacity: 0,
-        scale: 1,
-        ease: "none",
+      // Initial Setup
+      gsap.set(modalRef.current, {
+        position: 'fixed',
+        top: '50%',
+        left: '45%',
+        x: '-70%',
+        y: '-40%',
+        scale: 1.1,
+        rotation: 320,
+        opacity: 1,
+        zIndex: 30,
+        width: 550,
+        height: 550,
+        pointerEvents: 'none',
       });
 
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
-  }, [scrollerRef]);
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section1Ref.current,
+          scroller: scroller,
+          start: "top top",
+          endTrigger: section2Ref.current,
+          scrub: 0.8,
+          immediateRender: false,
+        }
+      });
 
+      // Move to Section 2
+      tl.to(modalRef.current, {
+        // Logic: 25% if screen is Large, 5% if Laptop
+        x: isLarge ? '25%' : '5%',
+        y: '-45%',
+        rotation: 360,
+        // Increased scale slightly for laptop to prevent the "small" look
+        scale: isLarge ? 1.3 : 1.2,
+        ease: "none",
+      })
+        // Move to Section 3 (Exit)
+        .to(modalRef.current, {
+          x: '150%',
+          y: '30%',
+          opacity: 0,
+          scale: 1,
+          ease: "none",
+        });
+    });
+
+    // Cleanup: mm.revert() handles killing all scrollTriggers and resets styles
+    return () => mm.revert();
+  }, [scrollerRef]);
   /* ----------------------------------
      UI ENTRANCE (Bottom Content)
   ---------------------------------- */
@@ -530,7 +594,7 @@ export function HeroSectionAnimation({
 
           <Model
             modelPath="/images/OrangeSkinBottle.glb"
-            scale={0.5}
+            scale={0.45}
             position={[0, 0.3, -0.2]}
           />
         </Canvas>
