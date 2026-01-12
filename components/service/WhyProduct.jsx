@@ -221,7 +221,7 @@ const WhyProduct = ({ whyChooseUsSection }) => {
   const { columns = [] } = whyChooseUsSection || {};
 
   return (
-    <section className="w-full py-20 px-4">
+    <section className="w-full py-15 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Why Choose Us</h2>

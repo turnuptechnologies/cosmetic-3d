@@ -195,7 +195,7 @@ export default function BlogPostPage() {
       {/* Content Section */}
       <div className="container mx-auto px-4 py-12 md:py-16 max-w-8xl">
         <div className="prose prose-invert prose-lg max-w-none text-gray-300">
-          <p>Content renderer pending (Lexical JSON).</p>
+          {/* <p>Content renderer pending (Lexical JSON).</p> */}
         </div>
 
         {/* Tags and Share */}

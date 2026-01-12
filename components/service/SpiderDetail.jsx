@@ -35,7 +35,7 @@ export default function SpiderDetail({ processSteps }) {
     <section className="w-full py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto w-full">
         {/* Heading */}
-        <h2 className="text-4xl lg:text-5xl font-bold text-center text-white mb-12 md:mb-16">
+        <h2 className="text-4xl lg:text-5xl font-bold text-center text-white ">
           Process
         </h2>
 

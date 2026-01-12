@@ -605,11 +605,11 @@ export function HeroSectionAnimation({
         <div className="relative w-full h-full">
           <video
             ref={videoRef}
-            style={{ transform: 'rotate(90deg) scale(2.2)' }}
+            style={{ transform: 'rotate(2deg) scale(0.8)' }}
             autoPlay loop muted playsInline
             className="absolute inset-0 w-full h-full object-contain z-0"
           >
-            <source src="/videos/hero-bg.mp4" type="video/mp4" />
+            <source src="/videos/Pink-hero-bg.mp4" type="video/mp4" />
           </video>
           <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent z-5"></div>
         </div>
