@@ -10,10 +10,57 @@ import Loader from '../../../components/Loader';
 import axios from 'axios';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URI || "";
+const getLexicalNodeText = (node) => {
+  if (!node) return "";
+  if (node.type === "text") return node.text || "";
+  if (Array.isArray(node.children)) return node.children.map(getLexicalNodeText).join("");
+  return "";
+};
+
+const extractSectionsFromLexical = (root) => {
+  const children = root?.children || [];
+  const sections = [];
+
+  let current = null;
+
+  for (const node of children) {
+    // Start a new section on each heading
+    if (node.type === "heading") {
+      if (current) sections.push(current);
+
+      current = {
+        tag: node.tag || "heading",
+        heading: getLexicalNodeText(node).trim(),
+        paragraphs: [],
+      };
+      continue;
+    }
+
+    // Attach paragraphs to the current heading (if any)
+    if (node.type === "paragraph") {
+      const text = getLexicalNodeText(node).trim();
+      if (!text) continue;
+
+      // If no heading yet, create an "intro" bucket
+      if (!current) {
+        current = { tag: "intro", heading: "", paragraphs: [] };
+      }
+
+      current.paragraphs.push(text);
+      continue;
+    }
+
+    // Ignore blocks like banners/mediaBlock/etc for this use-case
+  }
+
+  if (current) sections.push(current);
+
+  // Remove empty sections
+  return sections.filter((s) => s.heading || s.paragraphs.length);
+};
 
 
 const withBase = (url) => {
-  console.log("POPOPOPOPOP------url", url)
   if (!url) return null;
   if (url.startsWith("http")) return url;
   return `${API_BASE}${url}`;
@@ -41,16 +88,13 @@ const normalizePost = (post) => {
     hero?.sizes?.og?.url ||
     hero?.sizes?.medium?.url ||
     hero?.url;
-  console.log("POPOPOPOPOP------url", withBase(imageUrl).replace('api', ''))
 
 
   return {
     title: post.title,
     imageUrl: withBase(imageUrl).replace('/api', '') || '/images/product1.png',
     publishedAt: post.publishedAt || post.createdAt,
-    description:
-      post.meta?.description ||
-      extractPlainTextFromLexical(post.content?.root),
+    sections: extractSectionsFromLexical(post.content?.root),
     content: post.content || null,
   };
 };
@@ -132,7 +176,6 @@ export default function BlogPostPage() {
 
   // const rawPost = pageData?.content?.root.children || pageData?.data?.[0] || null;
   const post = normalizePost(pageData);
-  console.log("post------------", post)
 
   if (loading) {
     return (
@@ -146,7 +189,7 @@ export default function BlogPostPage() {
 
   if (!post) return null;
 
-  const { title, cover, createdAt, publishedAt, description, imageUrl } = post;
+  const { title, cover, createdAt, publishedAt, sections, imageUrl } = post;
 
   // const imageUrl = imageUrl
   // cover?.formats?.large?.url ||
@@ -182,11 +225,18 @@ export default function BlogPostPage() {
                 {title}
               </h1>
 
-              {description && (
-                <p className="text-base md:text-lg text-[#FFFFFF] max-w-3xl text-left">
-                  {description}
-                </p>
-              )}
+              {sections.map((sec, i) => (
+                <section key={i} className="mb-6">
+                  {sec.heading && <h2 className="text-2xl font-bold">{sec.heading}</h2>}
+
+                  {sec.paragraphs.map((p, j) => (
+                    <p key={j} className="mt-2 text-base">
+                      {p}
+                    </p>
+                  ))}
+                </section>
+              ))}
+
             </div>
           </div>
         </div>

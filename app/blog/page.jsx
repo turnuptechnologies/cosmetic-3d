@@ -20,7 +20,7 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
       </div>
     );
   }
-  console.log("POSTS--------", posts)
+
   return (
     <div className="bg-black min-h-screen py-24 px-4">
       <div className="container mx-auto max-w-7xl">
