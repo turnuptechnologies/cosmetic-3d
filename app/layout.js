@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import LayoutWrapper from '../components/LayoutWrapper'
 import { LoaderProvider } from '../lib/LoaderContext'
 import PageLoader from './PageLoader'
+import { Sound } from '../components/Sound'
 
 const lato = Lato({
   subsets: ['latin'],
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
         {/* Wrapper determines when to show footer */}
         <div className="flex flex-col min-h-screen">
           <LayoutWrapper>
+            <Sound />
             {/* <LoaderProvider> */}
             {/* <PageLoader> */}
             {children}
