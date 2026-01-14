@@ -3,13 +3,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaRegBookmark } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaRegBookmark, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { FinalSection } from "../../../components/FinalSection";
 import Footer from "../../../components/Footer";
 import Loader from '../../../components/Loader';
 import axios from 'axios';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URI || "";
+
+// --- Helper Functions ---
 const getLexicalNodeText = (node) => {
   if (!node) return "";
   if (node.type === "text") return node.text || "";
@@ -20,45 +22,31 @@ const getLexicalNodeText = (node) => {
 const extractSectionsFromLexical = (root) => {
   const children = root?.children || [];
   const sections = [];
-
   let current = null;
 
   for (const node of children) {
-    // Start a new section on each heading
     if (node.type === "heading") {
       if (current) sections.push(current);
-
       current = {
-        tag: node.tag || "heading",
+        tag: node.tag || "h2",
         heading: getLexicalNodeText(node).trim(),
         paragraphs: [],
       };
       continue;
     }
-
-    // Attach paragraphs to the current heading (if any)
     if (node.type === "paragraph") {
       const text = getLexicalNodeText(node).trim();
       if (!text) continue;
-
-      // If no heading yet, create an "intro" bucket
       if (!current) {
         current = { tag: "intro", heading: "", paragraphs: [] };
       }
-
       current.paragraphs.push(text);
       continue;
     }
-
-    // Ignore blocks like banners/mediaBlock/etc for this use-case
   }
-
   if (current) sections.push(current);
-
-  // Remove empty sections
   return sections.filter((s) => s.heading || s.paragraphs.length);
 };
-
 
 const withBase = (url) => {
   if (!url) return null;
@@ -66,36 +54,19 @@ const withBase = (url) => {
   return `${API_BASE}${url}`;
 };
 
-const extractPlainTextFromLexical = (root) => {
-  if (!root?.children) return "";
-
-  for (const node of root.children) {
-    if (node.type === "paragraph") {
-      return node.children?.map(c => c.text || "").join("").trim();
-    }
-  }
-  return "";
-};
-
 const normalizePost = (post) => {
   if (!post) return null;
-
   const hero = post.heroImage || post.meta?.image;
-
   const imageUrl =
     hero?.sizes?.xlarge?.url ||
     hero?.sizes?.large?.url ||
-    hero?.sizes?.og?.url ||
-    hero?.sizes?.medium?.url ||
     hero?.url;
-
 
   return {
     title: post.title,
-    imageUrl: withBase(imageUrl).replace('/api', '') || '/images/product1.png',
+    imageUrl: imageUrl ? withBase(imageUrl).replace('/api', '') : '/images/product1.png',
     publishedAt: post.publishedAt || post.createdAt,
     sections: extractSectionsFromLexical(post.content?.root),
-    content: post.content || null,
   };
 };
 
@@ -108,169 +79,150 @@ const formatDate = (dateString) => {
   });
 };
 
-const buildPostBySlugEndpoint = (slug) => {
-  const qs = new URLSearchParams({
-    depth: "2",
-    draft: "false",
-    locale: "undefined",
-    trash: "false",
-  });
-
-  // Payload CMS style query:
-  return `/posts/${slug}?depth=2&draft=false&locale=undefined&trash=false`;
-};
-
 export default function BlogPostPage() {
   const params = useParams();
-  const router = useRouter();
-
-  const slugParam = params?.slug;
-  const slug = slugParam;
-
-  const endpoint = useMemo(() => {
-    if (!slug) return null;
-    return buildPostBySlugEndpoint(slug);
-  }, [slug]);
-
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const slug = params?.slug;
+
   useEffect(() => {
-    if (!endpoint) return;
-
-    const controller = new AbortController();
-
+    if (!slug) return;
     const fetchPost = async () => {
       try {
         setLoading(true);
-
-        const res = await axios.get(`${API_BASE}${endpoint}`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          signal: controller.signal, // axios supports AbortController
-          // withCredentials: true, // if your API needs cookies
-        });
-
+        const res = await axios.get(`${API_BASE}/posts/${slug}?depth=2`);
         setPageData(res.data);
       } catch (err) {
-        // Ignore abort/cancel
-        if (
-          err?.name !== 'CanceledError' &&
-          err?.name !== 'AbortError' &&
-          !axios.isCancel(err)
-        ) {
-          console.error("Fetch blog error:", err);
-          setPageData(null);
-          // router.replace('/404');
-        }
+        console.error("Fetch blog error:", err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchPost();
+  }, [slug]);
 
-    return () => controller.abort();
-  }, [endpoint, router]);
-
-
-  // const rawPost = pageData?.content?.root.children || pageData?.data?.[0] || null;
-  const post = normalizePost(pageData);
+  const post = useMemo(() => normalizePost(pageData), [pageData]);
 
   if (loading) {
     return (
       <div className="bg-black min-h-screen flex items-center justify-center">
-        <div className="text-white text-xl">
-          <Loader text={'Loading Blog...'} />
-        </div>
+        <Loader text={'Loading Story...'} />
       </div>
     );
   }
 
   if (!post) return null;
 
-  const { title, cover, createdAt, publishedAt, sections, imageUrl } = post;
-
-  // const imageUrl = imageUrl
-  // cover?.formats?.large?.url ||
-  //   cover?.url ||
-  //   '/images/product1.png';
-
-  const formattedDate = formatDate(publishedAt || createdAt);
+  const { title, sections, imageUrl, publishedAt } = post;
 
   return (
-    <div className="h-screen bg-black text-white">
-      {/* Hero Image Section */}
-      <div className="relative w-full h-[600px] md:h-[700px] overflow-hidden">
-        <div className="relative w-full flex justify-center items-center h-[480px] md:h-[700px] overflow-hidden">
+    <div className="bg-black text-white min-h-screen  font-sans">
+      {/* Hero Section */}
+      <div className="relative w-full h-[80vh] flex items-end">
+        <div className="absolute inset-0">
           <Image
             src={imageUrl}
             alt={title}
-            height={900}
-            width={700}
-            className="object-cover"
+            fill
+            className="object-cover opacity-60"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
         </div>
 
+        <div className="relative  container mx-auto px-6 pb-12 md:pb-20 max-w-5xl">
+          <div className="flex  items-center space-x-3 mb-4 text-amber-100 font-medium tracking-widest uppercase text-xs">
+            <span>Article</span>
+            <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
+            <span>{formatDate(publishedAt)}</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl  font-bold leading-[1.1] tracking-tight mb-4">
+            {title}
+          </h1>
+        </div>
+      </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-end">
-          <div className="w-full px-4 pb-4 md:pb-6 lg:pb-8 xl:pb-6">
-            <div className="mx-auto text-left">
-              <div className="flex items-center space-x-4 text-sm md:text-base">
-                <span className="text-white/80">{formattedDate}</span>
-              </div>
+      {/* Main Content Area */}
+      <main className="container mx-auto px-6 py-12 max-w-5xl">
+        <div className="flex flex-col lg:flex-row gap-12">
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-left text-[#FFFFFF]">
-                {title}
-              </h1>
+          {/* Left Sidebar: Share (Desktop) */}
+          <aside className="hidden lg:block w-16">
+            <div className="sticky top-24 flex flex-col space-y-6 items-center border-r border-white/10 pr-6">
+              <button className="text-gray-400 hover:text-white transition-colors"><FaFacebookF size={20} /></button>
+              <button className="text-gray-400 hover:text-white transition-colors"><FaTwitter size={20} /></button>
+              <button className="text-gray-400 hover:text-white transition-colors"><FaLinkedinIn size={20} /></button>
+              <button className="text-gray-400 hover:text-white transition-colors"><FaRegBookmark size={20} /></button>
+            </div>
+          </aside>
+
+          {/* Article Body */}
+          <article className="flex-1">
+            <div className={`relative transition-all duration-700 ease-in-out overflow-hidden ${!isExpanded ? 'max-h-[600px]' : 'max-h-[5000px]'}`}>
 
               {sections.map((sec, i) => (
-                <section key={i} className="mb-6">
-                  {sec.heading && <h2 className="text-2xl font-bold">{sec.heading}</h2>}
-
+                <section key={i} className="mb-10 group">
+                  {sec.heading && (
+                    <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-white/90 group-first:mt-0 mt-12">
+                      {sec.heading}
+                    </h2>
+                  )}
                   {sec.paragraphs.map((p, j) => (
-                    <p key={j} className="mt-2 text-base">
+                    <p key={j} className="text-lg md:text-xl leading-relaxed text-gray-300 mb-6 font-light">
                       {p}
                     </p>
                   ))}
                 </section>
               ))}
 
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Content Section */}
-      <div className="container mx-auto px-4 py-12 md:py-16 max-w-8xl">
-        <div className="prose prose-invert prose-lg max-w-none text-gray-300">
-          {/* <p>Content renderer pending (Lexical JSON).</p> */}
-        </div>
-
-        {/* Tags and Share */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1.5 text-xs font-medium bg-white/10 rounded-full">Beauty</span>
-              <span className="px-3 py-1.5 text-xs font-medium bg-white/10 rounded-full">Skincare</span>
+              {/* Gradient overlay when collapsed */}
+              {!isExpanded && (
+                <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
+              )}
             </div>
 
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-white/60">Share:</span>
-              <div className="flex space-x-3">
-                <button className="text-white/60 hover:text-white transition-colors"><FaFacebookF size={18} /></button>
-                <button className="text-white/60 hover:text-white transition-colors"><FaTwitter size={18} /></button>
-                <button className="text-white/60 hover:text-white transition-colors"><FaLinkedinIn size={18} /></button>
-                <button className="text-white/60 hover:text-white transition-colors"><FaRegBookmark size={18} /></button>
+            {/* Read More Toggle */}
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="flex items-center space-x-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-pink-500 hover:text-white transition-all active:scale-95"
+              >
+                <span>{isExpanded ? "Show Less" : "Read Full Story"}</span>
+                {isExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+              </button>
+            </div>
+
+            {/* Tags & Mobile Share */}
+            <div className="mt-20 pt-10 border-t border-white/10">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="flex flex-wrap gap-2">
+                  {['Beauty', 'Skincare', 'Wellness'].map(tag => (
+                    <span key={tag} className="px-4 py-1.5 text-xs font-medium bg-white/5 border border-white/10 rounded-full hover:bg-white/10 cursor-pointer transition-colors">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center space-x-6 lg:hidden border-t border-white/10 pt-6 md:border-none md:pt-0">
+                  <span className="text-sm text-gray-500 uppercase tracking-widest">Share</span>
+                  <div className="flex space-x-4">
+                    <FaFacebookF className="text-gray-400 hover:text-white" />
+                    <FaTwitter className="text-gray-400 hover:text-white" />
+                    <FaLinkedinIn className="text-gray-400 hover:text-white" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </article>
         </div>
-      </div>
+      </main>
 
-      <FinalSection />
-      <Footer />
+      <div className="mt-20">
+        <FinalSection />
+        <Footer />
+      </div>
     </div>
   );
 }
