@@ -306,8 +306,8 @@ export function SectionTwo({
 
             <Environment preset="city" />
             <Model
-              scale={1}
-              modelPath="/images/OrangeSkinBottle-2.glb"
+              scale={2}
+              modelPath="/images/serum-2.glb"
               position={[0, 0, 0]} // Lowered slightly to center
             // rotation={[0, 0.4, 0]}
             />

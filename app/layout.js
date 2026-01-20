@@ -20,7 +20,7 @@ const playfairDisplay = Playfair_Display({
 })
 
 export const metadata = {
-  title: 'Cosmetic Chemistry',
+  title: 'Cosmetic Chemist',
   description:
     'Connecting top-tier Cosmetic Chemists and Formulators with innovative brands to create exceptional products',
   icons: {
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
         {/* Wrapper determines when to show footer */}
         <div className="flex flex-col min-h-screen">
           <LayoutWrapper>
-            {/* <Sound /> */}
+            <Sound />
             {/* <LoaderProvider> */}
             {/* <PageLoader> */}
             {children}

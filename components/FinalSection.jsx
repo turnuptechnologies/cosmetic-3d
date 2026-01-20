@@ -175,8 +175,8 @@ export function FinalSection() {
 
               <group position={[0, 0, 0]}>
                 <Model
-                  scale={0.25}
-                  modelPath="/images/GreenBottleC2.glb"
+                  scale={0.75}
+                  modelPath="/images/formula_c2.glb"
                   rotation={[0, 0, 0]}
                   position={[-0.5, 0.8, 0]}
                 />

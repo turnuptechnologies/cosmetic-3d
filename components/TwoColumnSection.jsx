@@ -98,7 +98,7 @@ export function TwoColumnSection({
           </a>
         </div>
         <div ref={leftColRef} className="text-center space-y-6 flex justify-center align-center">
-          <Image src='/images/product5.png' alt='cosmetic' width={100} height={100} className="w-1/2 h-2/2 object-contain"/>
+          <Image src='/images/serum_facail.png' alt='cosmetic' width={100} height={100} className="w-1/2 h-2/2 object-contain"/>
         </div>
         {/* Right Column */}
         <div ref={rightColRef} className="text-center space-y-6 mx-8 md:mx-1">

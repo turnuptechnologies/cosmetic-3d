@@ -593,9 +593,9 @@ export function HeroSectionAnimation({
           <Environment preset="city" />
 
           <Model
-            modelPath="/images/OrangeSkinBottle.glb"
-            scale={0.45}
-            position={[0, 0.3, -0.2]}
+            modelPath="/images/serum.glb"
+            scale={1}
+            position={[0, 0.7, -0.2]}
           />
         </Canvas>
       </div>
@@ -653,7 +653,7 @@ export function HeroSectionAnimation({
         </div>
 
         {/* Bottom Right Title */}
-        <div ref={bottomRightRef} className="absolute bottom-16 right-10 z-30">
+        <div ref={bottomRightRef} className="absolute bottom-38 sm:bottom-38 md:bottom-41 right-10 z-30">
           <h2 className="text-3xl md:text-5xl font-light tracking-wide text-white">{title}</h2>
         </div>
       </section>

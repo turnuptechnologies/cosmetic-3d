@@ -76,7 +76,7 @@ export function Sound() {
     <>
       <audio 
         ref={audioRef} 
-        src="/sound/sound.mp3" 
+        src="/sound/birth-of-new-galaxy.mp3" 
         loop 
         preload="auto"
         playsInline

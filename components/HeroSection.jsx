@@ -189,8 +189,8 @@ export function HeroSection(
             />
 
             <Model
-              scale={1}
-              modelPath="/images/OrangeSkinBottle.glb"
+              scale={2}
+              modelPath="/images/serum.glb"
               position={[0, 0, 0]}
             />
           </Canvas>
@@ -254,7 +254,7 @@ export function HeroSection(
           </button>
         </div>
       </div>
-      <div ref={bottomRightRef} className="absolute bottom-88 sm:bottom-24 right-4 sm:right-8 md:right-10 lg:right-20 z-40">
+      <div ref={bottomRightRef} className="absolute bottom-98  right-4 sm:right-8 md:right-10 lg:right-20 z-40">
         <h2
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white font-light tracking-wide text-center sm:text-right"
         >
