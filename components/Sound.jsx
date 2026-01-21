@@ -1,74 +1,55 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import AudioWave from "../components/AudioWave";
 
 export function Sound() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
   const audioRef = useRef(null);
+  const hasInteracted = useRef(false);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    
-    const handleCanPlay = () => {
-      console.log("Audio is ready, waiting for user interaction...");
-    };
+    const handleFirstInteraction = (e) => {
+      // If clicking the button itself, don't trigger the global 'first play'
+      if (e.target.closest(".sound-btn")) return;
 
-    const startAudio = () => {
-      if (audio && !hasInteracted) {
-        setHasInteracted(true);
-        audio.volume = 0.5;
-        audio.play()
+      if (!hasInteracted.current && audioRef.current) {
+        audioRef.current.volume = 0.2;
+        audioRef.current.play()
           .then(() => {
             setIsPlaying(true);
-            console.log("Audio started successfully!");
+            hasInteracted.current = true;
+            removeListeners();
           })
-          .catch((error) => {
-            console.log("Play failed:", error);
-          });
+          .catch(() => {});
       }
     };
 
-    if (audio) {
-      audio.addEventListener('canplay', handleCanPlay);
-      
-      // Listen for ANY user interaction
-      const interactions = [
-        'click', 'keydown', 'touchstart', 'mousedown', 
-        'scroll', 'mousemove', 'wheel', 'pointerdown'
-      ];
-      
-      interactions.forEach(event => {
-        document.addEventListener(event, startAudio, { once: true });
-      });
+    const removeListeners = () => {
+      ["mousedown", "keydown", "touchstart"].forEach(ev => 
+        document.removeEventListener(ev, handleFirstInteraction)
+      );
+    };
 
-      return () => {
-        audio.removeEventListener('canplay', handleCanPlay);
-        interactions.forEach(event => {
-          document.removeEventListener(event, startAudio);
-        });
-      };
-    }
-  }, [hasInteracted]);
+    ["mousedown", "keydown", "touchstart"].forEach(ev => 
+      document.addEventListener(ev, handleFirstInteraction)
+    );
 
-  const toggleSound = () => {
-    const audio = audioRef.current;
-    if (audio) {
-      if (isPlaying) {
-        audio.pause();
-        setIsPlaying(false);
-      } else {
-        audio.volume = 0.5;
-        audio.play()
-          .then(() => {
-            setIsPlaying(true);
-            setHasInteracted(true);
-          })
-          .catch((error) => {
-            console.log("Play failed:", error);
-          });
-      }
+    return removeListeners;
+  }, []);
+
+  const toggleSound = (e) => {
+    e.stopPropagation(); // Stops the global listener from fighting with this button
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.volume = 0.2;
+      audioRef.current.play();
+      setIsPlaying(true);
+      hasInteracted.current = true;
     }
   };
 
@@ -78,40 +59,20 @@ export function Sound() {
         ref={audioRef} 
         src="/sound/birth-of-new-galaxy.mp3" 
         loop 
-        preload="auto"
-        playsInline
-        muted={false}
       />
       
-      {/* Sound Toggle Button */}
       <button
         onClick={toggleSound}
-        className="fixed bottom-6 right-6 z-50 p-3 bg-black/80 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-black/90 transition-all duration-300 hover:scale-110 shadow-lg group"
-        aria-label={isPlaying ? "Mute sound" : "Unmute sound"}
+        className="sound-btn fixed bottom-8 right-8 z-50 flex items-center gap-3 px-4 py-2 bg-black/80 backdrop-blur-md border border-white/10 rounded-full text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl group"
       >
-        {isPlaying ? (
-          <Volume2 
-            size={20} 
-            className="group-hover:text-pink-400 transition-colors duration-300" 
-          />
-        ) : (
-          <VolumeX 
-            size={20} 
-            className="group-hover:text-pink-400 transition-colors duration-300" 
-          />
-        )}
+        <AudioWave isPlaying={isPlaying} />
         
-        {/* Show prompt when not playing */}
-        {!isPlaying && !hasInteracted && (
-          <span className="absolute -top-12 right-0 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
-            Click anywhere to enable sound
+        {/* <div className="flex flex-col items-start leading-none pr-1">
+          <span className="text-[9px] font-bold tracking-[0.2em] uppercase opacity-40">Audio</span>
+          <span className="text-[11px] font-bold tracking-widest uppercase group-hover:text-green-400 transition-colors">
+            {isPlaying ? "On" : "Off"}
           </span>
-        )}
-        
-        {/* Pulse animation when playing */}
-        {isPlaying && (
-          <span className="absolute inset-0 rounded-full border-2 border-pink-400/30 animate-ping" />
-        )}
+        </div> */}
       </button>
     </>
   );
