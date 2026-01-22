@@ -132,7 +132,7 @@ export function HeroSectionAnimation({
   }, []);
 
   return (
-    <main className='scroll-smooth bg-black overflow-x-hidden' style={{ zIndex: -9999, pointerEvents: 'all' }}>
+    <main className='scroll-smooth bg-black no-scrollbar overflow-x-hidden' style={{ zIndex: -9999, pointerEvents: 'all' }}>
 
       {/* ================= 3D MODEL CONTAINER ================= */}
       <div ref={modalRef} className="will-change-transform" style={{ pointerEvents: 'none' }}>
@@ -144,7 +144,7 @@ export function HeroSectionAnimation({
           {/* <Environment preset="city" /> */}
 
           <Model
-            modelPath="/images/serum.glb"
+            modelPath="/BlueBottle.glb"
             scale={1.8}
             position={[0, 0.7, -0.2]}
           />
