@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -36,7 +37,7 @@ const Footer = () => {
               target="_blank"
               className="text-white hover:text-pink-500"
             >
-              <FaTwitter size={24} />
+              <FaXTwitter size={24} />
             </a>
             <a
               href="https://www.linkedin.com/company/cosmetic-chemist-labs/"
@@ -45,13 +46,13 @@ const Footer = () => {
             >
               <FaLinkedinIn size={24} />
             </a>
-            <a
+            {/* <a
               href="https://x.com/COSMETICLABSx"
               target="_blank"
               className="text-white hover:text-pink-500"
             >
               <FaInstagram size={24} />
-            </a>
+            </a> */}
           </div>
         </div>
 
