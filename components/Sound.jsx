@@ -14,7 +14,7 @@ export function Sound() {
       if (e.target.closest(".sound-btn")) return;
 
       if (!hasInteracted.current && audioRef.current) {
-        audioRef.current.volume = 0.2;
+        audioRef.current.volume = 0.1;
         audioRef.current.play()
           .then(() => {
             setIsPlaying(true);
@@ -46,7 +46,7 @@ export function Sound() {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.volume = 0.2;
+      audioRef.current.volume = 0.1;
       audioRef.current.play();
       setIsPlaying(true);
       hasInteracted.current = true;

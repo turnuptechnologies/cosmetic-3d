@@ -26,7 +26,7 @@ const Footer = () => {
           </p>
           <div className="flex justify-center md:justify-start gap-6">
             <a
-              href="https://facebook.com/"
+              href="https://www.facebook.com/cosmeticchemistlabs"
               target="_blank"
               className="text-white hover:text-pink-500"
             >

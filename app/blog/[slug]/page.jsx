@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaRegBookmark, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaXTwitter } from "react-icons/fa6";
 import { FinalSection } from "../../../components/FinalSection";
 import Footer from "../../../components/Footer";
 import Loader from '../../../components/Loader';
@@ -118,7 +119,7 @@ export default function BlogPostPage() {
   const { title, sections, imageUrl, publishedAt } = post;
 
   return (
-    <div className="bg-black text-white min-h-screen  font-sans">
+    <div className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar text-white font-sans">
       {/* Hero Section */}
       <div className="relative w-full h-[80vh] flex items-end">
         <div className="absolute inset-0">
@@ -151,9 +152,27 @@ export default function BlogPostPage() {
           {/* Left Sidebar: Share (Desktop) */}
           <aside className="hidden lg:block w-16">
             <div className="sticky top-24 flex flex-col space-y-6 items-center border-r border-white/10 pr-6">
-              <button className="text-gray-400 hover:text-white transition-colors"><FaFacebookF size={20} /></button>
-              <button className="text-gray-400 hover:text-white transition-colors"><FaTwitter size={20} /></button>
-              <button className="text-gray-400 hover:text-white transition-colors"><FaLinkedinIn size={20} /></button>
+              <a
+                href="https://www.facebook.com/cosmeticchemistlabs"
+                target="_blank"
+                className="text-white hover:text-pink-500"
+              >
+                <button className="text-gray-400 hover:text-white transition-colors"><FaFacebookF size={20} /></button>
+              </a>
+              <a
+                href="https://x.com/COSMETICLABSx"
+                target="_blank"
+                className="text-white hover:text-pink-500"
+              >
+                <button className="text-gray-400 hover:text-white transition-colors"><FaXTwitter size={20} /></button>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/cosmetic-chemist-labs/"
+                target="_blank"
+                className="text-white hover:text-pink-500"
+              >
+                <button className="text-gray-400 hover:text-white transition-colors"><FaLinkedinIn size={20} /></button>
+              </a>
               <button className="text-gray-400 hover:text-white transition-colors"><FaRegBookmark size={20} /></button>
             </div>
           </aside>
@@ -219,10 +238,10 @@ export default function BlogPostPage() {
         </div>
       </main>
 
-      <div className="mt-20">
+      {/* <div className="mt-20"> */}
         <FinalSection />
         <Footer />
-      </div>
+      {/* </div> */}
     </div>
   );
 }
