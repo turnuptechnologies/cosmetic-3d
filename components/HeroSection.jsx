@@ -190,7 +190,7 @@ export function HeroSection(
 
             <Model
               scale={2}
-              modelPath="/images/serum.glb"
+              modelPath="/images/green_hero.glb"
               position={[0, 0, 0]}
             />
           </Canvas>

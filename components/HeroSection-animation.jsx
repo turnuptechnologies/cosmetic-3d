@@ -144,7 +144,7 @@ export function HeroSectionAnimation({
           {/* <Environment preset="city" /> */}
 
           <Model
-            modelPath="/BlueBottle.glb"
+            modelPath="/images/green_hero.glb"
             scale={1.8}
             position={[0, 0.7, -0.2]}
           />
