@@ -43,6 +43,18 @@ const Header = () => {
     document.body.style.overflow = !isMenuOpen ? "hidden" : "";
   };
 
+  const handleNavigation = (href) => {
+    if (href == "/") {
+      if (typeof window !== 'undefined' && window.location.pathname === "/") {
+        window.location.reload();
+      } else {
+        router.push(href);
+      }
+    } else {
+      router.push(href);
+    }
+  };
+
   // ✅ keep your logic, just add fallback to defaults if missing/empty
   const apiNavLinks = (data?.navItems ?? [])
     .slice(0, -1)
@@ -76,7 +88,14 @@ const Header = () => {
      style={{zIndex:'1000'}}
      className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/90 py-3' : 'bg-black/40 py-4 md:py-6'}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition z-50">
+        <Link 
+          href="/" 
+          className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition z-50"
+          onClick={(e) => {
+            e.preventDefault();
+            handleNavigation("/");
+          }}
+        >
           <Image
             width={isScrolled ? 100 : 130}
             height={isScrolled ? 100 : 130}
@@ -93,6 +112,10 @@ const Header = () => {
               key={link.href}
               href={link.href}
               className="hover:text-white transition-colors duration-200"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigation(link.href);
+              }}
             >
               {link.label}
             </Link>
@@ -158,6 +181,7 @@ const Header = () => {
               href={link.href}
               className="text-white/80 hover:text-white transition-colors duration-200"
               onClick={() => {
+                handleNavigation(link.href);
                 setIsMenuOpen(false);
                 document.body.style.overflow = '';
               }}
