@@ -1,12 +1,7 @@
-import { buildMetadata, getPage, PAGE_IDS } from '../../lib/seo';
+import { getRouteMetadata } from '../../lib/seo';
 
-export async function generateMetadata() {
-  const page = await getPage(PAGE_IDS.services);
-  return buildMetadata({
-    meta: page?.meta,
-    title: 'Cosmetic Formulation & Manufacturing Services',
-    path: '/services',
-  });
+export function generateMetadata() {
+  return getRouteMetadata('/services');
 }
 
 export default function Layout({ children }) {

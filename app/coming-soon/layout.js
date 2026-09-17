@@ -1,6 +1,8 @@
-import { buildMetadata } from '../../lib/seo';
+import { getRouteMetadata } from '../../lib/seo';
 
-export const metadata = buildMetadata({ title: 'Coming Soon', path: '/coming-soon', noIndex: true });
+export function generateMetadata() {
+  return getRouteMetadata('/coming-soon');
+}
 
 export default function Layout({ children }) {
   return children;

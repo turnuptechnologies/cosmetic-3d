@@ -1,12 +1,7 @@
-import { buildMetadata, getPage, PAGE_IDS } from '../../lib/seo';
+import { getRouteMetadata } from '../../lib/seo';
 
-export async function generateMetadata() {
-  const page = await getPage(PAGE_IDS.about);
-  return buildMetadata({
-    meta: page?.meta,
-    title: 'About Our Cosmetic Chemistry Lab',
-    path: '/about',
-  });
+export function generateMetadata() {
+  return getRouteMetadata('/about');
 }
 
 export default function Layout({ children }) {
