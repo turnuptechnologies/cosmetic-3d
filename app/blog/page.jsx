@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Pagination from '../../components/Pagination';
 import { FinalSection } from "../../components/FinalSection";
 import Footer from "../../components/Footer";
@@ -14,7 +15,7 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
     return (
       <div className="text-center p-12">
         <h2 className="text-2xl font-bold mb-4">No Posts Found</h2>
-        <p className="text-gray-600">
+        <p className="text-gray-400">
           Could not connect to the blog API. Please ensure the API is running correctly.
         </p>
       </div>
@@ -46,12 +47,13 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
                 : '');
 
             return (
-              <Link href={`/blog/${post.id}`} key={post.id}>
+              <Link href={`/blog/${post.slug || post.id}`} key={post.id}>
                 <div className="bg-black border h-full border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all duration-300 group">
                   <div className="relative h-64 overflow-hidden">
                     <img
                       src={coverImage}
-                      alt={post.title}
+                      alt=""
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
@@ -83,10 +85,11 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
         {/* Load More */}
         {hasNextPage && (
           <div className="flex justify-center mt-12">
-            <Link href={`/blog?page=${currentPage + 1}`}>
-              <button className="px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition-colors duration-300">
-                Load More
-              </button>
+            <Link
+              href={`/blog?page=${currentPage + 1}`}
+              className="px-8 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              Load More
             </Link>
           </div>
         )}
@@ -102,9 +105,19 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
   );
 }
 
-export default function BlogPage({ searchParams }) {
+export default function BlogPage() {
+  // useSearchParams needs a Suspense boundary for static rendering
+  return (
+    <Suspense fallback={<Loader text={'Loading Blogs...'} />}>
+      <BlogPageContent />
+    </Suspense>
+  );
+}
+
+function BlogPageContent() {
   // ✅ get page from URL
-  const currentPage = Number(searchParams || 1);
+  const searchParams = useSearchParams();
+  const currentPage = Math.max(1, Number(searchParams.get('page')) || 1);
   const limit = 9; // cards per page
 
   // ✅ send pagination params to API

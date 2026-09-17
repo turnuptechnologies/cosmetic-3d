@@ -368,7 +368,7 @@ export default function ProductDetailPage() {
       <Header />
 
       {/* MAIN SCROLL + SNAP CONTAINER */}
-      <main
+      <div
         ref={mainRef}
         className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black no-scrollbar scroll-smooth"
       >
@@ -859,7 +859,7 @@ export default function ProductDetailPage() {
             </footer>
           </div>
         </div>
-      </main>
+      </div>
     </>
   )
 }

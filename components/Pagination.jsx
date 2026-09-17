@@ -14,6 +14,7 @@ export default function Pagination({ pageCount, currentPage }) {
         <Link
           key={i}
           href={`/blog?page=${i}`}
+          aria-current={currentPage === i ? 'page' : undefined}
           className={`px-4 py-2 mx-1 rounded-full ${
             currentPage === i ? 'bg-black text-white' : 'bg-transparent text-pink-400  hover:text-pink-500 border-1'
           }`}
@@ -26,7 +27,7 @@ export default function Pagination({ pageCount, currentPage }) {
   };
 
   return (
-    <div className="flex justify-center items-center mt-12">
+    <nav aria-label="Blog pagination" className="flex justify-center items-center mt-12">
       <Link
         href={`/blog?page=${Math.max(1, currentPage - 1)}`}
         className={`px-4 py-2 mx-1 rounded-md ${
@@ -48,6 +49,6 @@ export default function Pagination({ pageCount, currentPage }) {
       >
         Next
       </Link>
-    </div>
+    </nav>
   );
 }

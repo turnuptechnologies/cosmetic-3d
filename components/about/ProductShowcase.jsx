@@ -6,10 +6,11 @@ import { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Model from '../../components/model';
 import { OrbitControls } from '@react-three/drei';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+const MotionLink = motion.create(Link);
 
 export default function ProductShowcase({ imageSide = 'left', label, title, description, modal, modalScale, modalPosition = [0, 0, 0], rotation = [0, Math.PI / 8, 0] }) {
-    const router = useRouter();
     const scrollDown = (e) => {
         e.preventDefault();
         // Get the next section element
@@ -200,14 +201,14 @@ export default function ProductShowcase({ imageSide = 'left', label, title, desc
                             <p className="text-gray-300 text-base md:text-lg mb-8 max-w-2xl">
                                 {description}
                             </p>
-                            <motion.button
+                            <MotionLink
+                                href="/contact"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 cursor-pointer"
-                                onClick={() => router.push('/contact')}
+                                className="inline-block bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 cursor-pointer"
                             >
                                 Learn More
-                            </motion.button>
+                            </MotionLink>
                         </motion.div>
                     </div>
                 </div>

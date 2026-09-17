@@ -12,6 +12,8 @@ export function Sound() {
     const handleFirstInteraction = (e) => {
       // If clicking the button itself, don't trigger the global 'first play'
       if (e.target.closest(".sound-btn")) return;
+      // Never start music while someone is filling in a form
+      if (e.target.closest("input, textarea, select, [contenteditable]")) return;
 
       if (!hasInteracted.current && audioRef.current) {
         audioRef.current.volume = 0.1;
@@ -26,12 +28,13 @@ export function Sound() {
     };
 
     const removeListeners = () => {
-      ["mousedown", "keydown", "touchstart"].forEach(ev => 
+      ["mousedown", "touchstart"].forEach(ev => 
         document.removeEventListener(ev, handleFirstInteraction)
       );
     };
 
-    ["mousedown", "keydown", "touchstart"].forEach(ev => 
+    // Keyboard users aren't opted in by pressing keys; they can use the toggle button
+    ["mousedown", "touchstart"].forEach(ev => 
       document.addEventListener(ev, handleFirstInteraction)
     );
 
@@ -47,7 +50,7 @@ export function Sound() {
       setIsPlaying(false);
     } else {
       audioRef.current.volume = 0.1;
-      audioRef.current.play();
+      audioRef.current.play().catch(() => setIsPlaying(false));
       setIsPlaying(true);
       hasInteracted.current = true;
     }
@@ -62,7 +65,10 @@ export function Sound() {
       />
       
       <button
+        type="button"
         onClick={toggleSound}
+        aria-label={isPlaying ? "Pause background music" : "Play background music"}
+        aria-pressed={isPlaying}
         className="sound-btn fixed bottom-8 right-8 z-50 flex items-center gap-3 px-4 py-2 bg-black/80 backdrop-blur-md border border-white/10 rounded-full text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl group"
       >
         <AudioWave isPlaying={isPlaying} />

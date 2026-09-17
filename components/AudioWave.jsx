@@ -7,6 +7,7 @@ const AudioWave = ({ isPlaying }) => {
   return (
     <div className="flex items-center justify-center" style={{ width: '32px', height: '32px' }}>
       <svg
+        aria-hidden="true"
         viewBox="0 0 50 38.05"
         className="w-full h-full"
         style={{ overflow: 'visible' }}

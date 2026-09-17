@@ -171,7 +171,7 @@ export default function ServicePage() {
   // ...rest of your component render (use sectionOne, sectionTwo, processSteps)
 
   return (
-    <main className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar pt-20" style={{ scrollBehavior: "smooth" }}>
+    <div className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar pt-20" style={{ scrollBehavior: "smooth" }}>
       <ProductDetailSection side="right" content={sectionOne} />
       <ProductDetailSectiontwo side="left" content={sectionTwo} />
       <SpiderDetail processSteps={processSteps} />
@@ -179,6 +179,6 @@ export default function ServicePage() {
       <ProductsSection />
       <FinalSection />
       <Footer />
-    </main>
+    </div>
   );
 }

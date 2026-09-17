@@ -41,9 +41,9 @@ export default function Model({ modelPath, scale = 0.5, position = [0, 0, 0], ro
   }, [scale])
 
   // Idle rotation
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.013
+      groupRef.current.rotation.y += 0.78 * delta // ~0.013 per frame at 60fps
     }
   })
 

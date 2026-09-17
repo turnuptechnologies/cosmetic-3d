@@ -7,7 +7,7 @@ import Model from './model';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export function SectionThree({
   title = "We are your",
@@ -18,7 +18,6 @@ export function SectionThree({
 Not only that but we are also passionate about design and branding and love to help brands out with that.
 We guarantee you've never come across a more well-rounded team of experts than at CosmeticChemist.com.`
 }) {
-  const router = useRouter();
 
   const sectionRef = useRef(null);
   const leftContentRef = useRef(null);
@@ -162,12 +161,12 @@ We guarantee you've never come across a more well-rounded team of experts than a
             ))}
 
 
-          <button
-            onClick={() => router.push('/contact')}
-            className="px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300"
           >
             {ctaLabel}
-          </button>
+          </Link>
         </div>
       </div>
     </section>

@@ -12,18 +12,18 @@ const Header = () => {
   const DEFAULT_NAV_LINKS = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/service", label: "Services" },
-    { href: "/blog", label: "Blog" },
+    { href: "/services", label: "Services" },
+    { href: "/blog", label: "Blogs" },
     { href: "/faq", label: "FAQ's" },
     // { href: "/contact", label: "Contact" }
   ];
 
   // ✅ Default CTA (since your API expects last navItem as CTA)
-  const DEFAULT_CTA = { href: "/faq", label: "FAQ's", newTab: false };
+  const DEFAULT_CTA = { href: "/contact", label: "Contact", newTab: false };
 
   const router = useRouter();
 
-  const { data, loading } = useGetService(
+  const { data } = useGetService(
     "/globals/header?depth=2&draft=false&locale=undefined&trash=false"
   );
 
@@ -31,16 +31,33 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+    // Pages scroll inside their own containers, so listen in the capture phase to catch every scroll
+    const handleScroll = (e) => {
+      const target = e.target === document ? document.scrollingElement : e.target;
+      setIsScrolled((target?.scrollTop ?? window.scrollY) > 10);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    document.addEventListener("scroll", handleScroll, true);
+    return () => document.removeEventListener("scroll", handleScroll, true);
   }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     document.body.style.overflow = !isMenuOpen ? "hidden" : "";
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = "";
+  };
+
+  // Let the browser handle ctrl/cmd/shift/middle clicks and new-tab links
+  const isPlainClick = (e) =>
+    !(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey);
+
+  const handleLinkClick = (e, link) => {
+    if (link.newTab || !isPlainClick(e)) return;
+    e.preventDefault();
+    handleNavigation(link.href);
   };
 
   const handleNavigation = (href) => {
@@ -79,10 +96,6 @@ const Header = () => {
     }
     : DEFAULT_CTA;
 
-  if (loading) return null; // ya skeleton
-
-  // ...rest of your component render
-
   return (
     <header 
      style={{zIndex:'1000'}}
@@ -91,10 +104,8 @@ const Header = () => {
         <Link 
           href="/" 
           className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition z-50"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNavigation("/");
-          }}
+          aria-label="Cosmetic Chemist home"
+          onClick={(e) => handleLinkClick(e, { href: "/" })}
         >
           <Image
             width={isScrolled ? 100 : 130}
@@ -106,16 +117,15 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6 lg:gap-8 text-white/80 text-sm ">
+        <nav aria-label="Main" className="hidden md:flex gap-6 lg:gap-8 text-white/80 text-sm ">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              target={link.newTab ? "_blank" : undefined}
+              rel={link.newTab ? "noopener noreferrer" : undefined}
               className="hover:text-white transition-colors duration-200"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavigation(link.href);
-              }}
+              onClick={(e) => handleLinkClick(e, link)}
             >
               {link.label}
             </Link>
@@ -125,10 +135,10 @@ const Header = () => {
         <div className="flex items-center gap-4 ">
           < div className="hidden md:flex">
             {ctaLink &&
-              <button
-                onClick={() => {
-                  router.push(ctaLink?.href);
-                }}
+              <Link
+                href={ctaLink.href}
+                target={ctaLink.newTab ? "_blank" : undefined}
+                rel={ctaLink.newTab ? "noopener noreferrer" : undefined}
                 className="group cursor-pointer flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3  bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
               >
                 <span>{ctaLink?.label}</span>
@@ -137,6 +147,7 @@ const Header = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                   animate={{ x: [0, 4, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
@@ -147,21 +158,23 @@ const Header = () => {
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </motion.svg>
-              </button>}
+              </Link>}
           </div>
 
           {/* Mobile menu button */}
           <button
             onClick={toggleMenu}
             className={`md:hidden text-white/80 hover:text-white focus:outline-none ${isMenuOpen ? 'z-50' : ''}`}
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
             )}
@@ -171,19 +184,23 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       <div
+        id="mobile-menu"
+        inert={!isMenuOpen}
+        aria-hidden={!isMenuOpen}
         className={`fixed inset-0 bg-black/40 backdrop-blur-md z-40 transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           } md:hidden pt-24`}
       >
-        <nav className="flex flex-col space-y-4 text-xl text-center mt-16">
+        <nav aria-label="Mobile" className="flex flex-col space-y-4 text-xl text-center mt-16">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              target={link.newTab ? "_blank" : undefined}
+              rel={link.newTab ? "noopener noreferrer" : undefined}
               className="text-white/80 hover:text-white transition-colors duration-200"
-              onClick={() => {
-                handleNavigation(link.href);
-                setIsMenuOpen(false);
-                document.body.style.overflow = '';
+              onClick={(e) => {
+                handleLinkClick(e, link);
+                closeMenu();
               }}
             >
               {link.label}
@@ -193,18 +210,18 @@ const Header = () => {
             <BlogSearchPopup />
           </div> */}
           <div className="mx-4">
-            <button
-              onClick={() => {
-                router.push('/contact');
-              }}
+            <Link
+              href={ctaLink.href}
+              onClick={closeMenu}
               className="group cursor-pointer flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3  bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
             >
-              <span>Contact</span>
+              <span>{ctaLink.label}</span>
               <motion.svg
                 className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
@@ -215,7 +232,7 @@ const Header = () => {
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </motion.svg>
-            </button>
+            </Link>
           </div>
         </nav>
       </div>

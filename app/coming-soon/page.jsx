@@ -56,7 +56,7 @@ export default function ComingSoon() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-4"> 
 
-      <main className="text-center max-w-4xl mx-auto mt-22">
+      <div className="text-center max-w-4xl mx-auto mt-22">
         <h1 className="text-4xl md:text-6xl font-bold pb-8 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600">
           Coming Soon
         </h1>
@@ -78,7 +78,7 @@ export default function ComingSoon() {
         <div className="mt-8">
           <p className="text-lg mb-6 text-gray-400">Be the first to know when we launch</p>
         </div>
-      </main>
+      </div>
 
 
     </div>

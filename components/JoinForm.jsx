@@ -1,14 +1,16 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useId } from "react";
 import { CustomDropdown } from "./CustomDropdown";
 import { sendEmail } from "../app/api/action";
+import { FormConsentNote } from "./FormConsentNote";
 const initialState = {
   success: false,
   message: "",
 };
 
 export function JoinForm() {
+  const idPrefix = useId();
   // 1. Initialize the hook
   const [state, formAction, isPending] = useActionState(sendEmail, initialState);
     
@@ -48,9 +50,11 @@ export function JoinForm() {
         <form action={formAction} className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
 
           <div>
-            <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Full Name *</label>
+            <label htmlFor={`${idPrefix}-fullName`} className="text-xs sm:text-sm mb-1 sm:mb-2 block">Full Name *</label>
             <input
+              id={`${idPrefix}-fullName`}
               name="fullName" // Added name
+              autoComplete="name"
               required
               className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
               placeholder="Your name"
@@ -58,9 +62,11 @@ export function JoinForm() {
           </div>
 
           <div>
-            <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Email Address *</label>
+            <label htmlFor={`${idPrefix}-email`} className="text-xs sm:text-sm mb-1 sm:mb-2 block">Email Address *</label>
             <input
+              id={`${idPrefix}-email`}
               name="email" // Added name
+              autoComplete="email"
               type="email"
               required
               className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
@@ -69,18 +75,22 @@ export function JoinForm() {
           </div>
 
           <div>
-            <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Company Name</label>
+            <label htmlFor={`${idPrefix}-companyName`} className="text-xs sm:text-sm mb-1 sm:mb-2 block">Company Name</label>
             <input
+              id={`${idPrefix}-companyName`}
               name="companyName" // Added name
+              autoComplete="organization"
               className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
               placeholder="Your company (optional)"
             />
           </div>
 
           <div>
-            <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Phone Number</label>
+            <label htmlFor={`${idPrefix}-phoneNumber`} className="text-xs sm:text-sm mb-1 sm:mb-2 block">Phone Number</label>
             <input
+              id={`${idPrefix}-phoneNumber`}
               name="phoneNumber" // Added name
+              autoComplete="tel"
               type="tel"
               className="w-full text-sm sm:text-base bg-[#FFFFFF0D] border border-white/10 rounded-full px-4 py-2 sm:py-2.5 outline-none focus:border-pink-500 transition"
               placeholder="+1 (___) ___-____"
@@ -99,8 +109,9 @@ export function JoinForm() {
           </div> */}
 
           <div className="md:col-span-2">
-            <label className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Details *</label>
+            <label htmlFor={`${idPrefix}-projectDetails`} className="text-xs sm:text-sm mb-1 sm:mb-2 block">Project Details *</label>
             <textarea
+              id={`${idPrefix}-projectDetails`}
               name="projectDetails" // Added name
               required
               rows={4}
@@ -121,11 +132,15 @@ export function JoinForm() {
             </button>
 
             {/* 4. Display Feedback */}
-            {state.message && (
-              <p className={`mt-4 text-center text-sm ${state.success ? "text-green-400" : "text-red-400"}`}>
-                {state.message}
-              </p>
-            )}
+            <div role="status" aria-live="polite">
+              {state.message && (
+                <p className={`mt-4 text-center text-sm ${state.success ? "text-green-400" : "text-red-400"}`}>
+                  {state.message}
+                </p>
+              )}
+            </div>
+
+            <FormConsentNote />
           </div>
         </form>
       </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFacebookF, FaLinkedinIn, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
+import CookieSettingsButton from './CookieSettingsButton';
 
 const Footer = () => {
   return (
@@ -28,23 +29,29 @@ const Footer = () => {
             <a
               href="https://www.facebook.com/cosmeticchemistlabs"
               target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Cosmetic Chemist on Facebook"
               className="text-white hover:text-pink-500"
             >
-              <FaFacebookF  size={24} />
+              <FaFacebookF  size={24} aria-hidden="true" />
             </a>
             <a
               href="https://x.com/COSMETICLABSx"
               target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Cosmetic Chemist on X"
               className="text-white hover:text-pink-500"
             >
-              <FaXTwitter size={24} />
+              <FaXTwitter size={24} aria-hidden="true" />
             </a>
             <a
               href="https://www.linkedin.com/company/cosmetic-chemist-labs/"
               target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Cosmetic Chemist on LinkedIn"
               className="text-white hover:text-pink-500"
             >
-              <FaLinkedinIn size={24} />
+              <FaLinkedinIn size={24} aria-hidden="true" />
             </a>
             {/* <a
               href="https://x.com/COSMETICLABSx"
@@ -58,7 +65,7 @@ const Footer = () => {
 
         {/* Middle Section (Quick Links) */}
         <div className="w-full md:w-1/4 mb-6 md:mb-0">
-          <h4 className="text-lg font-semibold mb-4 font-light">Quick Links</h4>
+          <h2 className="text-lg font-semibold mb-4 font-light">Quick Links</h2>
           <ul className="space-y-2 font-light">
             <li><a href="/" className="text-white hover:text-pink-500">Home</a></li>
             <li><a href="/about" className="text-white hover:text-pink-500">About Us</a></li>
@@ -68,7 +75,7 @@ const Footer = () => {
 
         {/* Right Section (Info Links) */}
         <div className="w-full md:w-1/4">
-          <h4 className="text-lg font-semibold mb-4 font-light">Info Links</h4>
+          <h2 className="text-lg font-semibold mb-4 font-light">Info Links</h2>
           <ul className="space-y-2 font-light">
             <li><a href="/blog" className="text-white hover:text-pink-500">Blog</a></li>
             <li><a href="/contact" className="text-white hover:text-pink-500">Contact</a></li>
@@ -78,13 +85,13 @@ const Footer = () => {
 {/*  */}
         {/* Contact Section */}
         <div className="w-full md:w-1/4">
-          <h4 className="text-lg font-semibold mb-4 font-light">Contact</h4>
+          <h2 className="text-lg font-semibold mb-4 font-light">Contact</h2>
           <p className="mb-2 font-light">
             <a
               href="mailto:sales@cosmeticchemist.com"
               className="text-white hover:text-pink-500 flex items-center gap-2"
             >
-              <FaEnvelope size={20} /> sales@cosmeticchemist.com
+              <FaEnvelope size={20} aria-hidden="true" /> sales@cosmeticchemist.com
             </a>
           </p>
           <p className="mb-2 font-light">
@@ -92,11 +99,11 @@ const Footer = () => {
               href="tel:+18016973001"
               className="text-white hover:text-pink-500 flex items-center gap-2"
             >
-             <FaPhoneAlt size={20} /> +1 (801) 697-3001
+             <FaPhoneAlt size={20} aria-hidden="true" /> +1 (801) 697-3001
             </a>
           </p>
           <p className="mb-2 font-light flex items-center gap-2">
-            <FaMapMarkerAlt size={20} /> Salt Lake City, UT 84106
+            <FaMapMarkerAlt size={20} aria-hidden="true" /> Salt Lake City, UT 84106
           </p>
         </div>
       </div>
@@ -106,10 +113,11 @@ const Footer = () => {
         <p className="text-sm font-light">
           &copy; {new Date().getFullYear()} Cosmetic Chemist Labs. All Rights Reserved.
         </p>
-        <div className="flex gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           <a href="/privacy-policy" className="hover:text-white transition text-sm font-light">Privacy Policy</a>
           <a href="/term-service" className="hover:text-white transition text-sm font-light">Terms of Service</a>
           <a href="/cookie-policy" className="hover:text-white transition text-sm font-light">Cookie Policy</a>
+          <CookieSettingsButton className="hover:text-white transition text-sm font-light" />
         </div>
       </div>
     </footer>

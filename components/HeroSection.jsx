@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import Model from './model';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export function HeroSection(
   {
@@ -17,7 +17,6 @@ export function HeroSection(
     // modelPath = "/images/Pink_Conditioner.glb",
   }
 ) {
-  const router = useRouter();
   const [modelScale, setModelScale] = useState(1.4);
   const bottomLeftRef = useRef(null);
   const bottomRightRef = useRef(null);
@@ -81,6 +80,7 @@ export function HeroSection(
     <section className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black mb-10">
       <div className="relative w-full h-full">
         <video
+          aria-hidden="true"
           style={{ transform: 'rotate(2deg) scale(1.56)' }}
           autoPlay
           loop
@@ -230,9 +230,9 @@ export function HeroSection(
           {description}
         </p>
         <div className="flex justify-center sm:justify-start">
-          <button
+          <Link
+            href="/contact"
             className="group flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-[#FF4F7A] to-pink-600 text-white rounded-full font-semibold text-sm sm:text-base hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-300 w-full sm:w-auto justify-center"
-            onClick={() => router.push('/contact')}
           >
             <span>{ctaLabel}</span>
             <div className="bg-white rounded-full p-1 inline-flex items-center justify-center shadow">
@@ -241,6 +241,7 @@ export function HeroSection(
               fill="none"
               stroke="#ff4f7a" 
               viewBox="0 0 24 24"
+              aria-hidden="true"
               style={{ rotate: -35 }}
             >
               <path
@@ -251,7 +252,7 @@ export function HeroSection(
               />
             </motion.svg>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
       <div ref={bottomRightRef} className="absolute bottom-98  right-4 sm:right-8 md:right-10 lg:right-20 z-40">

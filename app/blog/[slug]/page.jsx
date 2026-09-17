@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaRegBookmark, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaFacebookF, FaLinkedinIn, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
 import { FinalSection } from "../../../components/FinalSection";
 import Footer from "../../../components/Footer";
@@ -11,6 +11,12 @@ import Loader from '../../../components/Loader';
 import axios from 'axios';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URI || "";
+
+const SOCIAL_LINKS = [
+  { href: "https://www.facebook.com/cosmeticchemistlabs", label: "Cosmetic Chemist on Facebook", Icon: FaFacebookF },
+  { href: "https://x.com/COSMETICLABSx", label: "Cosmetic Chemist on X", Icon: FaXTwitter },
+  { href: "https://www.linkedin.com/company/cosmetic-chemist-labs/", label: "Cosmetic Chemist on LinkedIn", Icon: FaLinkedinIn },
+];
 
 // --- Helper Functions ---
 const getLexicalNodeText = (node) => {
@@ -93,8 +99,16 @@ export default function BlogPostPage() {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${API_BASE}/posts/${slug}?depth=2`);
-        setPageData(res.data);
+        // Posts are linked by slug; numeric IDs are still supported for old links
+        if (/^d+$/.test(slug)) {
+          const res = await axios.get(`${API_BASE}/posts/${slug}?depth=2`);
+          setPageData(res.data);
+        } else {
+          const res = await axios.get(`${API_BASE}/posts`, {
+            params: { 'where[slug][equals]': slug, depth: 2, limit: 1 },
+          });
+          setPageData(res.data?.docs?.[0] ?? null);
+        }
       } catch (err) {
         console.error("Fetch blog error:", err);
       } finally {
@@ -146,40 +160,30 @@ export default function BlogPostPage() {
       </div>
 
       {/* Main Content Area */}
-      <main className="container mx-auto px-6 py-12 max-w-5xl">
+      <div className="container mx-auto px-6 py-12 max-w-5xl">
         <div className="flex flex-col lg:flex-row gap-12">
 
           {/* Left Sidebar: Share (Desktop) */}
           <aside className="hidden lg:block w-16">
             <div className="sticky top-24 flex flex-col space-y-6 items-center border-r border-white/10 pr-6">
-              <a
-                href="https://www.facebook.com/cosmeticchemistlabs"
-                target="_blank"
-                className="text-white hover:text-pink-500"
-              >
-                <button className="text-gray-400 hover:text-white transition-colors"><FaFacebookF size={20} /></button>
-              </a>
-              <a
-                href="https://x.com/COSMETICLABSx"
-                target="_blank"
-                className="text-white hover:text-pink-500"
-              >
-                <button className="text-gray-400 hover:text-white transition-colors"><FaXTwitter size={20} /></button>
-              </a>
-              <a
-                href="https://www.linkedin.com/company/cosmetic-chemist-labs/"
-                target="_blank"
-                className="text-white hover:text-pink-500"
-              >
-                <button className="text-gray-400 hover:text-white transition-colors"><FaLinkedinIn size={20} /></button>
-              </a>
-              <button className="text-gray-400 hover:text-white transition-colors"><FaRegBookmark size={20} /></button>
+              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <Icon size={20} aria-hidden="true" />
+                </a>
+              ))}
             </div>
           </aside>
 
           {/* Article Body */}
           <article className="flex-1">
-            <div className={`relative transition-all duration-700 ease-in-out overflow-hidden ${!isExpanded ? 'max-h-[600px]' : 'max-h-[5000px]'}`}>
+            <div className={`relative transition-all duration-700 ease-in-out overflow-hidden ${!isExpanded ? 'max-h-[600px]' : 'max-h-none'}`}>
 
               {sections.map((sec, i) => (
                 <section key={i} className="mb-10 group">
@@ -206,10 +210,11 @@ export default function BlogPostPage() {
             <div className="flex justify-center mt-8">
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
+                aria-expanded={isExpanded}
                 className="flex items-center space-x-2 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-pink-500 hover:text-white transition-all active:scale-95"
               >
                 <span>{isExpanded ? "Show Less" : "Read Full Story"}</span>
-                {isExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+                {isExpanded ? <FaChevronUp size={14} aria-hidden="true" /> : <FaChevronDown size={14} aria-hidden="true" />}
               </button>
             </div>
 
@@ -218,25 +223,34 @@ export default function BlogPostPage() {
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="flex flex-wrap gap-2">
                   {['Beauty', 'Skincare', 'Wellness'].map(tag => (
-                    <span key={tag} className="px-4 py-1.5 text-xs font-medium bg-white/5 border border-white/10 rounded-full hover:bg-white/10 cursor-pointer transition-colors">
+                    <span key={tag} className="px-4 py-1.5 text-xs font-medium bg-white/5 border border-white/10 rounded-full">
                       {tag}
                     </span>
                   ))}
                 </div>
 
                 <div className="flex items-center space-x-6 lg:hidden border-t border-white/10 pt-6 md:border-none md:pt-0">
-                  <span className="text-sm text-gray-500 uppercase tracking-widest">Share</span>
+                  <span className="text-sm text-gray-400 uppercase tracking-widest">Follow Us</span>
                   <div className="flex space-x-4">
-                    <FaFacebookF className="text-gray-400 hover:text-white" />
-                    <FaTwitter className="text-gray-400 hover:text-white" />
-                    <FaLinkedinIn className="text-gray-400 hover:text-white" />
+                    {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                      <a
+                        key={href}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={label}
+                        className="text-gray-400 hover:text-white"
+                      >
+                        <Icon aria-hidden="true" />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
           </article>
         </div>
-      </main>
+      </div>
 
       {/* <div className="mt-20"> */}
         <FinalSection />

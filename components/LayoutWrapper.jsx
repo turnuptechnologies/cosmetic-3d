@@ -10,7 +10,7 @@ export default function LayoutWrapper({ children }) {
 
   return (
     <>
-      <main className="flex-grow">{children}</main>
+      <main id="main-content" tabIndex={-1} className="flex-grow outline-none">{children}</main>
       {/* {!hideFooter && <Footer />} */}
     </>
   )
