@@ -11,7 +11,7 @@ const Header = () => {
   // ✅ Default nav items (same as your commented object)
   const DEFAULT_NAV_LINKS = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
+    { href: "/about-us", label: "About" },
     { href: "/services", label: "Services" },
     { href: "/blog", label: "Blogs" },
     { href: "/faq", label: "FAQ's" },
