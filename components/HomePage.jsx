@@ -15,7 +15,8 @@ import { ContactSection } from './ContactSection';
 import Footer from './Footer';
 import { useGetService } from '../lib/getService';
 import Loader from './Loader';
-import { extractPlainText, joinParagraphChildren } from '../lib/sanitizeText';
+import { extractPlainText, extractRichText } from '../lib/sanitizeText';
+import RichText from './RichText';
 
 export default function HomePage() {
   const mainRef = useRef(null);
@@ -88,8 +89,10 @@ export default function HomePage() {
       ?.find((node) => node.type === "heading")
       ?.children?.[0]?.text || DEFAULTS.heroHeading;
 
-  const heroDescription =
-    extractPlainText(hero?.richText, ["paragraph"]) || DEFAULTS.heroDescription;
+  // Rendered inline (marks + links preserved) inside the hero's existing <p>
+  const heroDescription = (
+    <RichText nodes={extractRichText(hero?.richText, ["paragraph"])} inline fallback={DEFAULTS.heroDescription} />
+  );
 
   const heroImage = {
     url: hero?.media?.url || DEFAULTS.heroImage.url,
@@ -116,11 +119,10 @@ export default function HomePage() {
       ?.find((c) => c.type === "heading")
       ?.children?.find((c) => c.type === "text")?.text || DEFAULTS.whatWeDoTitle;
 
-  const whatWeDoDescription =
-    joinParagraphChildren(
-      whatWeDoRichText?.root?.children?.find((c) => c.type === "paragraph")
-        ?.children
-    ) || DEFAULTS.whatWeDoDescription;
+  const whatWeDoParagraph = whatWeDoRichText?.root?.children?.find((c) => c.type === "paragraph");
+  const whatWeDoDescription = (
+    <RichText nodes={whatWeDoParagraph ? [whatWeDoParagraph] : null} inline fallback={DEFAULTS.whatWeDoDescription} />
+  );
 
   const whatWeDoFeatures =
     (whatWeDoRichText?.root?.children ?? []).reduce((acc, node, index, arr) => {
@@ -130,12 +132,14 @@ export default function HomePage() {
       ) {
         const descriptionNode = arr[index + 1];
         const title = node.children?.[0]?.text || "";
-        const description = joinParagraphChildren(descriptionNode?.children) || "";
+        const description = (
+          <RichText nodes={descriptionNode ? [descriptionNode] : null} inline fallback="Default feature description." />
+        );
 
         // keep logic same, just ensure fallback happens at the end
         acc.push({
           title: title || "Default Feature",
-          description: description || "Default feature description.",
+          description,
         });
       }
       return acc;

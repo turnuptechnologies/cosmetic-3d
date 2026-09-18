@@ -8,7 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { products } from '../lib/products.js'
 import { ScrollerContext } from '../lib/ScrollerContext'
 import { API_URI, useGetService } from '../lib/getService.js'
-import { extractPlainText, joinParagraphChildren } from '../lib/sanitizeText.js'
+import { extractPlainText, extractRichText } from '../lib/sanitizeText.js'
+import RichText from './RichText'
 import { ProductModal } from './ProductModal.jsx'
 
 export function ProductsSection() {
@@ -77,10 +78,10 @@ export function ProductsSection() {
     heroData?.find((child) => child.tag === "h2")?.children?.[0]?.text ||
     DEFAULTS.heroTitle;
 
-  const heroDescription =
-    extractPlainText(pageData?.hero?.richText, ["paragraph"]) ||
-    heroData?.find((child) => child.type === "paragraph")?.children?.[0]?.text ||
-    DEFAULTS.heroDescription;
+  // Rendered inline (marks + links preserved) inside the existing <p>
+  const heroDescription = (
+    <RichText nodes={extractRichText(pageData?.hero?.richText, ["paragraph"])} inline fallback={DEFAULTS.heroDescription} />
+  );
 
   // Extracting products/media (keep your logic, just make it safe + add fallbacks)
   const products =

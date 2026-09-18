@@ -10,7 +10,8 @@ import { FinalSection } from "../../components/FinalSection";
 import Footer from "../../components/Footer";
 import { useGetService } from "../../lib/getService";
 import Loader from "../../components/Loader";
-import { extractPlainText } from "../../lib/sanitizeText";
+import { extractPlainText, extractRichText, getLexicalNodeText, resolveLexicalLink } from "../../lib/sanitizeText";
+import RichText from "../../components/RichText";
 
 export default function AboutPage() {
   const containerRef = useRef(null);
@@ -20,20 +21,14 @@ export default function AboutPage() {
     "/pages/8?depth=2&draft=false&locale=undefined&trash=false"
   );
 
-  const extractTextFromRichText = (richText) => {
-    if (!richText?.root?.children) return "";
-    return extractPlainText(richText, ['paragraph'])
-    // .flatMap(node => node.children || [])
-    // .map(child => child.text)
-    // .filter(Boolean)
-    // .join(" ");
-  };
   const pageTitle = pageData?.title || "Default Title";
 
   // Extract hero section
   const heroSection = pageData?.hero?.richText?.root?.children || [];
   const heroTitle = heroSection.find(child => child.tag === "h1")?.children[0]?.text || "Default Hero Title";
-  const heroDescription = heroSection.find(child => child.type === "paragraph")?.children[0]?.text || "Default Hero Description";
+  const heroDescription = (
+    <RichText nodes={extractRichText(pageData?.hero?.richText, ["paragraph"])} inline fallback="Default Hero Description" />
+  );
 
   // Extract layout blocks
   const layoutBlocks = pageData?.layout?.[0]?.columns || [];
@@ -45,9 +40,10 @@ export default function AboutPage() {
     const columnTitle = col.richText?.root?.children.find(child => child.tag === "h2")?.children[0]?.text || "Default Column Title";
     const columnSubtitle = extractPlainText(col.richText, ['heading']).replace(columnTitle, '')
     //  col.richText?.root?.children.find(child => child.tag === "h4")?.children[0]?.text || "Default Column Subtitle";
-    const columnDescription = extractTextFromRichText(col.richText)
-      //  col.richText?.root?.children.find(child => child.type === "paragraph")?.children[0]?.text
-      || "Default Column Description";
+    // Rendered inline (marks + links preserved) inside the component's existing <p>
+    const columnDescription = (
+      <RichText nodes={extractRichText(col.richText, ["paragraph"])} inline fallback="Default Column Description" />
+    );
     const image = "/images/default-image.png"; // Set default or dynamically extract from data if available
     return { columnTitle, columnSubtitle, columnDescription, image };
     // });
@@ -73,19 +69,29 @@ export default function AboutPage() {
   const heading = extractPlainText(layoutBlocksCTASection[0]?.richText, ['heading'])
     //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.tag === "h4")?.children[0]?.text 
     || "Join the elite casre shaping the future."; // Default value if not found
-  const brandLink = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "link")?.fields?.url || "https://CosmeticChemist.com"; // Default URL if not found
-  const brandName = layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "link")?.children[0]?.text || "CosmeticChemist.com"; // Default brand name if not found
-  const tagline = extractPlainText(layoutBlocksCTASection[0]?.richText, ['paragraph'])
-    //  layoutBlocksCTASection[0]?.richText?.root?.children?.find(child => child.type === "paragraph" && child.children[0]?.text === "Where chemistry meets destiny.")?.children[0]?.text 
-    || "Where chemistry meets destiny."; // Default tagline if not found
+  // The brand link is inline inside one of the paragraphs; the other paragraphs form the tagline
+  const ctaParagraphs = extractRichText(layoutBlocksCTASection[0]?.richText, ["paragraph"]) || [];
+  const isLinkNode = (child) => child?.type === "link" || child?.type === "autolink";
+  const brandParagraph = ctaParagraphs.find((p) => p.children?.some(isLinkNode));
+  const brandNode = brandParagraph?.children?.find(isLinkNode);
+  const brandLink = resolveLexicalLink(brandNode?.fields).href || "https://CosmeticChemist.com"; // Default URL if not found
+  const brandName = getLexicalNodeText(brandNode).trim() || "CosmeticChemist.com"; // Default brand name if not found
+  const taglineParagraphs = ctaParagraphs.filter((p) => p !== brandParagraph);
+  const tagline = (
+    <RichText nodes={taglineParagraphs.length ? taglineParagraphs : null} inline fallback="Where chemistry meets destiny." />
+  );
 
   const layoutBlocksExcellenceSection = pageData?.layout?.[2]?.columns || [];
   const excellenceHeading = extractPlainText(layoutBlocksExcellenceSection[0]?.richText, ['heading'])
     //  layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.tag === "h2")?.children[0]?.text 
     || "Cosmetic Chemistry Excellence";
-  const excellenceParagraph = extractPlainText(layoutBlocksExcellenceSection[0]?.richText, ['paragraph'])
-    // layoutBlocksExcellenceSection[0]?.richText?.root?.children?.find(child => child.type === "paragraph")?.children[0]?.text 
-    || "Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces.";
+  const excellenceParagraph = (
+    <RichText
+      nodes={extractRichText(layoutBlocksExcellenceSection[0]?.richText, ["paragraph"])}
+      inline
+      fallback="Elevate your beauty brand with our cutting-edge cosmetic chemistry lab, mastering formulations across skincare, hair care, oral care, cosmetics, personal care, and beyond. We craft innovative, safe, sustainable solutions from concept sketches to market-ready masterpieces."
+    />
+  );
 
 
   const imageSides = ["left", "right", "left", "right"];
