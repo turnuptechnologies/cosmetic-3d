@@ -9,8 +9,19 @@ import { FinalSection } from "../../../components/FinalSection";
 import Footer from "../../../components/Footer";
 import Loader from '../../../components/Loader';
 import axios from 'axios';
+import RichText from '../../../components/RichText';
+import { getLexicalNodeText } from '../../../lib/sanitizeText';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URI || "";
+
+// Classes the article body used before rich text; lists/quotes get matching styling
+const ARTICLE_BODY_CLASSES = {
+  p: "text-lg md:text-xl leading-relaxed text-gray-300 mb-6 font-light",
+  ul: "list-disc pl-6 mb-6 space-y-2 text-lg md:text-xl leading-relaxed text-gray-300 font-light",
+  ol: "list-decimal pl-6 mb-6 space-y-2 text-lg md:text-xl leading-relaxed text-gray-300 font-light",
+  blockquote: "border-l-2 border-pink-500 pl-6 mb-6 text-lg md:text-xl leading-relaxed text-gray-300 italic font-light",
+  hr: "border-white/10 my-10",
+};
 
 const SOCIAL_LINKS = [
   { href: "https://www.facebook.com/cosmeticchemistlabs", label: "Cosmetic Chemist on Facebook", Icon: FaFacebookF },
@@ -19,13 +30,8 @@ const SOCIAL_LINKS = [
 ];
 
 // --- Helper Functions ---
-const getLexicalNodeText = (node) => {
-  if (!node) return "";
-  if (node.type === "text") return node.text || "";
-  if (Array.isArray(node.children)) return node.children.map(getLexicalNodeText).join("");
-  return "";
-};
-
+// Splits the article into heading-led sections. Body nodes are kept as raw
+// Lexical nodes so <RichText> can render links, marks and lists.
 const extractSectionsFromLexical = (root) => {
   const children = root?.children || [];
   const sections = [];
@@ -37,22 +43,20 @@ const extractSectionsFromLexical = (root) => {
       current = {
         tag: node.tag || "h2",
         heading: getLexicalNodeText(node).trim(),
-        paragraphs: [],
+        headingNode: node,
+        blocks: [],
       };
       continue;
     }
-    if (node.type === "paragraph") {
-      const text = getLexicalNodeText(node).trim();
-      if (!text) continue;
-      if (!current) {
-        current = { tag: "intro", heading: "", paragraphs: [] };
-      }
-      current.paragraphs.push(text);
-      continue;
+    // Empty paragraphs are editor spacing; the <p> margin already handles that
+    if (node.type === "paragraph" && !getLexicalNodeText(node).trim()) continue;
+    if (!current) {
+      current = { tag: "intro", heading: "", headingNode: null, blocks: [] };
     }
+    current.blocks.push(node);
   }
   if (current) sections.push(current);
-  return sections.filter((s) => s.heading || s.paragraphs.length);
+  return sections.filter((s) => s.heading || s.blocks.length);
 };
 
 const withBase = (url) => {
@@ -189,14 +193,10 @@ export default function BlogPostPage() {
                 <section key={i} className="mb-10 group">
                   {sec.heading && (
                     <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-white/90 group-first:mt-0 mt-12">
-                      {sec.heading}
+                      <RichText nodes={[sec.headingNode]} inline fallback={sec.heading} />
                     </h2>
                   )}
-                  {sec.paragraphs.map((p, j) => (
-                    <p key={j} className="text-lg md:text-xl leading-relaxed text-gray-300 mb-6 font-light">
-                      {p}
-                    </p>
-                  ))}
+                  <RichText nodes={sec.blocks} classNames={ARTICLE_BODY_CLASSES} />
                 </section>
               ))}
 
