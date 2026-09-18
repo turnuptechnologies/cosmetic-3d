@@ -9,7 +9,7 @@ export async function GET() {
   const pages = [
     ['Home', '/', 'Overview of our cosmetic chemistry R&D lab and contract manufacturing'],
     ['Services', '/services', 'Formulation, product development and manufacturing services'],
-    ['About', '/about', 'Our team of cosmetic chemists and formulators'],
+    ['About', '/about-us', 'Our team of cosmetic chemists and formulators'],
     ['FAQ', '/faq', 'Common questions about formulation, timelines and manufacturing'],
     ['Contact', '/contact', 'Start a project or request a free consultation'],
     ['Join Our Network', '/join', 'For cosmetic chemists and formulators who want to join our network'],

@@ -6,7 +6,7 @@ import Footer from './Footer'
 export default function LayoutWrapper({ children }) {
   const pathname = usePathname()
 
-  const hideFooter = pathname === '/' || pathname.startsWith('/products')|| pathname.startsWith('/about') || pathname.startsWith('/services')
+  const hideFooter = pathname === '/' || pathname.startsWith('/products')|| pathname.startsWith('/about-us') || pathname.startsWith('/services')
 
   return (
     <>

@@ -19,6 +19,12 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // The About page moved to /about-us; keep old links and search rankings working
+      { source: '/about', destination: '/about-us', permanent: true },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);

@@ -5,7 +5,7 @@ export const revalidate = 3600;
 const STATIC_ROUTES = [
   { path: '/', priority: 1, changeFrequency: 'weekly' },
   { path: '/services', priority: 0.9, changeFrequency: 'monthly' },
-  { path: '/about', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/about-us', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.8, changeFrequency: 'yearly' },
   { path: '/blog', priority: 0.8, changeFrequency: 'weekly' },
   { path: '/faq', priority: 0.7, changeFrequency: 'monthly' },
