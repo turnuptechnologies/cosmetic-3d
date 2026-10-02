@@ -2,6 +2,7 @@
 
 This is a full-stack Next.js and Strapi application for viewing cosmetic products in 3D.
 
+
 ## Project Structure
 
 - `frontend/`: The Next.js frontend.
