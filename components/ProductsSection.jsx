@@ -17,7 +17,7 @@ export function ProductsSection() {
   const scrollerRef = useContext(ScrollerContext);
 
   const { data: pageData, loading } = useGetService(
-    "/pages/9?depth=2&draft=false&locale=undefined&trash=false"
+    "/pages/21?depth=2&draft=false&locale=undefined&trash=false"
   );
 
   // ✅ Defaults (only used when API data is missing)
