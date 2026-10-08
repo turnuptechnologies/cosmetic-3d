@@ -1,5 +1,6 @@
 import { Lato, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import './globals.css'
 import Header from '../components/Header'
 import LayoutWrapper from '../components/LayoutWrapper'
@@ -122,6 +123,12 @@ export default function RootLayout({ children }) {
 
         <CookieConsent />
         <Analytics />
+        {/* UserWay accessibility widget */}
+        <Script
+          src="https://cdn.userway.org/widget.js"
+          data-account="YcvRipONor"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )
