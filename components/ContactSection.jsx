@@ -1,9 +1,10 @@
 "use client";
 
-import { useActionState, useId } from "react";
+import { useActionState, useEffect, useId, useRef, useState } from "react";
 import { CustomDropdown } from "./CustomDropdown";
 import { sendEmail } from "../app/api/action";
 import { FormConsentNote } from "./FormConsentNote";
+import { Recaptcha } from "./Recaptcha";
 const initialState = {
   success: false,
   message: "",
@@ -13,6 +14,14 @@ export function ContactSection() {
   const idPrefix = useId();
   // 1. Initialize the hook
   const [state, formAction, isPending] = useActionState(sendEmail, initialState);
+
+  // reCAPTCHA token: the submit button stays disabled until it is solved; the server re-verifies it
+  const recaptchaRef = useRef(null);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  // Tokens are single-use, so start a fresh challenge after every submission (success or failure)
+  useEffect(() => {
+    recaptchaRef.current?.reset();
+  }, [state]);
     
   const dropdownValue = [
     { value: "skin-care", label: "Skin Care" },
@@ -122,11 +131,12 @@ export function ContactSection() {
 
           {/* 3. Handling Submit State */}
           <div className="md:col-span-2">
+            <Recaptcha ref={recaptchaRef} onChange={setCaptchaToken} />
             <button
               type="submit"
-              disabled={isPending}
+              disabled={isPending || !captchaToken}
               className={`mt-4 w-full transition text-white py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium 
-                ${isPending ? "bg-gray-600 cursor-not-allowed" : "bg-pink-500 hover:bg-pink-600"}`}
+                ${isPending || !captchaToken ? "bg-gray-600 cursor-not-allowed" : "bg-pink-500 hover:bg-pink-600"}`}
             >
               {isPending ? "Sending..." : "Send Message"}
             </button>
