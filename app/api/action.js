@@ -1,5 +1,7 @@
 'use server'
 import nodemailer from "nodemailer";
+import { headers } from "next/headers";
+import { RECAPTCHA_MESSAGES, verifyRecaptcha } from "../../lib/recaptcha";
 
 // Form values are user input: escape before putting them into the email HTML
 const escapeHtml = (value) =>
@@ -8,6 +10,16 @@ const escapeHtml = (value) =>
     })[c]);
 
 export async function sendEmail(prevState, formData) {
+    // Verify with Google before doing anything else; the token is checked here, never trusted from the client
+    const forwardedFor = (await headers()).get("x-forwarded-for");
+    const captcha = await verifyRecaptcha(
+        formData.get("g-recaptcha-response"),
+        forwardedFor?.split(",")[0]?.trim()
+    );
+    if (!captcha.ok) {
+        return { success: false, message: RECAPTCHA_MESSAGES[captcha.reason] };
+    }
+
     const fullName = formData.get("fullName");
     const email = formData.get("email");
     const company = formData.get("companyName");
