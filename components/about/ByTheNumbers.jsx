@@ -1,83 +1,62 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
+// "5000+" -> { number: 5000, decimals: 0, suffix: "+" }; null when the value doesn't start with a number
+const parseStat = (value) => {
+  const match = String(value ?? '').match(/^(\d[\d,]*(?:\.\d+)?)([\s\S]*)$/);
+  if (!match) return null;
+  return {
+    number: parseFloat(match[1].replace(/,/g, '')),
+    decimals: (match[1].split('.')[1] || '').length,
+    suffix: match[2],
+  };
+};
+
+// Explicit locale so the server and the browser always produce the same text
+const formatNumber = (n, decimals) =>
+  n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
+// The real value is what is rendered (server HTML, no-JS, crawlers, reduced motion).
+// The count-up only runs in the browser, after the card scrolls into view.
 const AnimatedNumber = ({ value }) => {
-  const [displayValue, setDisplayValue] = useState(0);
+  const stat = parseStat(value);
+  const [animatedValue, setAnimatedValue] = useState(null); // null = show the real value
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const reduceMotion = useReducedMotion();
 
-  // Extract numeric value and suffix
-  const numericMatch = value.match(/^(\d+)/);
-  const numericValue = numericMatch ? parseInt(numericMatch[1]) : 0;
-  const suffix = value.replace(/^\d+/, '');
+  const target = stat?.number;
+  const decimals = stat?.decimals ?? 0;
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || reduceMotion || target === undefined) return;
 
     const duration = 2000; // 2 seconds
     const startTime = performance.now();
-    const startValue = 0;
-    const endValue = numericValue;
+    let frame;
 
     const animate = (currentTime) => {
-      const elapsedTime = currentTime - startTime;
-      const progress = Math.min(elapsedTime / duration, 1);
-
-      // Ease-out function
-      const easeOutProgress = 1 - Math.pow(1 - progress, 3);
-
-      const currentValue = Math.floor(easeOutProgress * (endValue - startValue) + startValue);
-      setDisplayValue(currentValue);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out
+      const factor = Math.pow(10, decimals);
+      setAnimatedValue(progress < 1 ? Math.floor(eased * target * factor) / factor : null);
+      if (progress < 1) frame = requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(animate);
-  }, [isInView, numericValue]);
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [isInView, reduceMotion, target, decimals]);
+
+  if (!stat) return <span ref={ref}>{value}</span>;
 
   return (
     <span ref={ref}>
-      {displayValue.toLocaleString()}{suffix}
+      {formatNumber(animatedValue ?? stat.number, stat.decimals)}{stat.suffix}
     </span>
   );
 };
-
-const stats = [
-  {
-    value: '30+',
-    title: 'Years Combined Experience',
-    description: 'Decades of industry expertise'
-  },
-  {
-    value: '500+',
-    title: 'Products Formulated',
-    description: 'Innovative formulations created'
-  },
-  {
-    value: '100+',
-    title: 'Expert Chemists',
-    description: 'In our curated network'
-  },
-  {
-    value: '50+',
-    title: 'Partner Brands',
-    description: 'From indie to global leaders'
-  },
-  {
-    value: '250K',
-    title: 'Document Library',
-    description: 'Comprehensive resources'
-  },
-  {
-    value: '100%',
-    title: 'Regulatory Compliance',
-    description: 'Global standards met'
-  }
-];
 
 export default function ByTheNumbers({ stats, heading, paragraph }) {
   return (
