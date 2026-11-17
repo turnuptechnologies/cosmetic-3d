@@ -21,6 +21,30 @@ import {
   JsonLd,
 } from '../lib/seo'
 
+const GTM_ID = 'GTM-W83V8D9N'
+
+// Google Tag Manager bootstrap. Consent Mode defaults analytics to denied (granted only if the
+// visitor already accepted, using the key CookieConsent stores), so Google tags honour the banner;
+// CookieConsent sends the 'consent update' when the visitor chooses. Production only, so local
+// and preview builds don't pollute the live container.
+const gtmBootstrap = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  var analyticsConsent = 'denied';
+  try { if (localStorage.getItem('cc-cookie-consent') === 'granted') analyticsConsent = 'granted'; } catch (e) {}
+  gtag('consent', 'default', {
+    analytics_storage: analyticsConsent,
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+  j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','${GTM_ID}');
+`
+
 const lato = Lato({
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -93,6 +117,11 @@ const websiteJsonLd = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {process.env.NODE_ENV === 'production' && (
+          <script dangerouslySetInnerHTML={{ __html: gtmBootstrap }} />
+        )}
+      </head>
       <body
         className={`${lato.variable} ${playfairDisplay.variable} font-sans bg-black`}
       >
