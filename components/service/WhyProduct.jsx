@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { Canvas } from '@react-three/fiber';
+import { SafeCanvas as Canvas } from '../SafeCanvas';
 import Model from '../../components/model';
 import Image from 'next/image';
 import { Environment, OrbitControls } from '@react-three/drei';

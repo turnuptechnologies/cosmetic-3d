@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { SafeCanvas as Canvas } from '../SafeCanvas';
 import Model from '../../components/model';
 import { OrbitControls } from '@react-three/drei';
 import Link from 'next/link';

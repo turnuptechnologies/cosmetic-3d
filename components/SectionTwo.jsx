@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useContext } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { SafeCanvas as Canvas } from './SafeCanvas';
 import { Environment, OrbitControls } from '@react-three/drei';
 import { FlaskConical, Lightbulb } from 'lucide-react';
 import Model from './model';
@@ -304,7 +304,7 @@ export function SectionTwo({
             {/* 5. FILL LIGHT: A warm light from the front to pop the orange color */}
             <pointLight position={[0, 2, 5]} intensity={1} color="#ff8844" />
 
-            <Environment preset="city" />
+            <Environment files="/hdr/potsdamer_platz_1k.hdr" />
             <Model
               scale={2}
               modelPath="/images/green_hero.glb"
