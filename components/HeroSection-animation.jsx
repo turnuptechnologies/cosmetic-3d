@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useContext } from 'react';
-import { SafeCanvas as Canvas } from './SafeCanvas';
-import Model from './model';
+import { lazyScene } from './LazyScene';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
-import { Environment, OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Link from 'next/link';
+
+const HeroDesktopScene = lazyScene(() => import('./scenes/HeroDesktopScene'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -135,32 +135,21 @@ export function HeroSectionAnimation({
 
       {/* ================= 3D MODEL CONTAINER ================= */}
       <div ref={modalRef} className="will-change-transform" style={{ pointerEvents: 'none' }} aria-hidden="true">
-        <Canvas shadows style={{ pointerEvents: 'none' }}>
-          {/* <PerspectiveCamera makeDefault position={[15, 0, 0]} fov={20} /> */}
-          <ambientLight intensity={0.4} />
-          <directionalLight position={[8, 8, 10]} intensity={1.8} />
-          {/* <OrbitControls enableZoom={false} enablePan={false} /> */}
-          {/* <Environment preset="city" /> */}
-
-          <Model
-            modelPath="/images/green_hero.glb"
-            scale={1.8}
-            position={[0, 0.7, -0.2]}
-          />
-        </Canvas>
+        <HeroDesktopScene style={{ pointerEvents: 'none' }} />
       </div>
 
       {/* ================= SECTION 1 ================= */}
       <section ref={section1Ref} className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black mb-10">
         <div className="relative w-full h-full">
           <video
+            poster="/videos/hero-pink-poster.webp"
             ref={videoRef}
             aria-hidden="true"
             style={{ transform: 'rotate(2deg) scale(0.8)' }}
             autoPlay loop muted playsInline
             className="absolute inset-0 w-full h-full object-contain z-0"
           >
-            <source src="/videos/Pink-hero-bg.mp4" type="video/mp4" />
+            <source src="/videos/hero-pink-1280.mp4" type="video/mp4" />
           </video>
           <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent z-5"></div>
         </div>
@@ -236,7 +225,7 @@ export function HeroSectionAnimation({
               ))}
             </div>
           </div>
-          <div aria-hidden="true" className="h-screen bg-no-repeat bg-center bg-contain opacity-50 lg:opacity-100" style={{ backgroundImage: "url('/images/11.png')" }} />
+          <div aria-hidden="true" className="h-screen bg-no-repeat bg-center bg-contain opacity-50 lg:opacity-100" style={{ backgroundImage: "url('/images/11.webp')" }} />
         </div>
       </section>
 

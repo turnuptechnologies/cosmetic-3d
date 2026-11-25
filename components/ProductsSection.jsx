@@ -29,7 +29,7 @@ export function ProductsSection() {
         id: "default-1",
         name: "Product Name",
         description: "No Description",
-        imagePath: "/images/product5.png",
+        imagePath: "/images/product5.webp",
       },
     ],
   };

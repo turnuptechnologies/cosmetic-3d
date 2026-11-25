@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useContext } from 'react';
-import { SafeCanvas as Canvas } from './SafeCanvas';
-import Model from './model';
+import { lazyScene } from './LazyScene';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollerContext } from '../lib/ScrollerContext';
 import { motion, useAnimation } from 'framer-motion';
-import { Environment } from '@react-three/drei';
+
+const FinalScene = lazyScene(() => import('./scenes/FinalScene'));
 
 export function FinalSection() {
   const controls = useAnimation();
@@ -156,32 +156,7 @@ export function FinalSection() {
               camera={{ position: [0, 0, 10], fov: 10 }}
               style={{ transform: 'rotate(-15deg) scale(1.15)' }}
             > */}
-            <Canvas
-              // dpr={window.devicePixelRatio}
-              camera={{ position: [0, 0, 15], fov: 15 }}
-              gl={{ antialias: true, powerPreference: "high-performance" }}
-              style={{ width: "100%", height: "100%", transform: "rotate(-15deg) scale(1.15)" }}
-            >
-              <ambientLight intensity={0.6} />
-
-              {/* Key directional light to highlight front label */}
-              <directionalLight position={[5, 8, 10]} intensity={2.5} />
-
-              {/* Fill light to soften shadows */}
-              <directionalLight position={[-5, 4, 8]} intensity={1.8} />
-
-              {/* Rim light to make edges pop */}
-              <directionalLight position={[0, 6, -10]} intensity={2.0} />
-
-              <group position={[0, 0, 0]}>
-                <Model
-                  scale={0.75}
-                  modelPath="/images/formula_c2.glb"
-                  rotation={[0, 0, 0]}
-                  position={[-0.5, 0.8, 0]}
-                />
-              </group>
-            </Canvas>
+            <FinalScene style={{ width: "100%", height: "100%", transform: "rotate(-15deg) scale(1.15)" }} />
 
 
           </div>

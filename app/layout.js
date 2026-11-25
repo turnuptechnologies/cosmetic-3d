@@ -156,7 +156,7 @@ export default function RootLayout({ children }) {
         <Script
           src="https://cdn.userway.org/widget.js"
           data-account="YcvRipONor"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </body>
     </html>

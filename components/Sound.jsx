@@ -61,6 +61,7 @@ export function Sound() {
       <audio 
         ref={audioRef} 
         src="/sound/birth-of-new-galaxy.mp3" 
+        preload="none"
         loop 
       />
       

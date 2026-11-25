@@ -150,7 +150,7 @@ export function ProductDetailSection({ side, model, content }) {
                     >
                         <div className="w-full h-full flex items-center justify-center">
                             <Image
-                                src="/images/night-jar.png"
+                                src="/images/night-jar.webp"
                                 alt="Cosmetic Product"
                                 width={300}
                                 height={400}
@@ -259,7 +259,7 @@ export function ProductDetailSectiontwo({ side, model, content }) {
 >
     <div className="w-full h-full flex items-center justify-center">
         <Image 
-            src="/images/white-tube.png" 
+            src="/images/white-tube.webp" 
             alt="Cosmetic Product" 
             width={300}
             height={400}

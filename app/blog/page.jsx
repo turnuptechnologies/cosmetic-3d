@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Suspense, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Pagination from '../../components/Pagination';
@@ -28,7 +29,7 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">Blogs</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => {
+          {posts.map((post, index) => {
             const coverImage = post.cover?.formats?.medium?.url
               ? post.cover.formats.medium.url
               : post.cover?.url
@@ -50,11 +51,13 @@ function BlogList({ currentPage, posts, hasNextPage, totalPages }) {
               <Link href={`/blog/${post.slug || post.id}`} key={post.id}>
                 <div className="bg-black border h-full border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all duration-300 group">
                   <div className="relative h-64 overflow-hidden">
-                    <img
+                    <Image
                       src={coverImage}
                       alt=""
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      priority={index < 3}
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
 

@@ -16,15 +16,14 @@ import Footer from './Footer';
 import { useGetService } from '../lib/getService';
 import Loader from './Loader';
 import { extractPlainText, extractRichText } from '../lib/sanitizeText';
+import { HOME_ENDPOINT } from '../lib/cmsPage';
 import RichText from './RichText';
 
-export default function HomePage() {
+export default function HomePage({ initialData }) {
   const mainRef = useRef(null);
   useSnapScroll(mainRef);
 
-  const { data: pageData, loading } = useGetService(
-    "/pages/4?depth=2&draft=false&locale=undefined&trash=false"
-  );
+  const { data: pageData, loading } = useGetService(HOME_ENDPOINT, initialData);
 
   // null until measured, so phones never mount the desktop hero (video + 3D model) first
   const [isMobile, setIsMobile] = useState(null);
@@ -232,7 +231,14 @@ export default function HomePage() {
   return (
     <ScrollerContext.Provider value={mainRef}>
       <div ref={mainRef} className="w-full bg-black overflow-x-hidden h-screen overflow-scroll no-scrollbar">
-        {isMobile === null ? null : isMobile ? (
+        {isMobile === null ? (
+          // Until the screen size is measured, keep the hero's height and expose its text in the
+          // server-rendered HTML (the media-heavy hero itself mounts once we know which one to show)
+          <section className="relative h-screen w-full bg-black mb-10">
+            <h1 className="sr-only">{heroHeading}</h1>
+            <p className="sr-only">{heroDescription}</p>
+          </section>
+        ) : isMobile ? (
           // Mobile view
           <>
             <HeroSection
