@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { SafeCanvas as Canvas } from './SafeCanvas';
 import Model from './model';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';

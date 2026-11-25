@@ -32,7 +32,7 @@ const nextConfig = {
       },
       {
         source: '/blog/why-the-right-cosmetic-chemist-is-the-cornerstone-of-a-successful-beauty-brand',
-        destination: '/blog/cosmetic-chemist-for-beauty-brand-success',
+        destination: '/blog/cosmetic-chemist-for-beauty-brands',
         statusCode: 301,
       },
     ];

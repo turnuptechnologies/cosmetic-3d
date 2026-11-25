@@ -1,5 +1,5 @@
 'use client';
-import { Canvas } from '@react-three/fiber';
+import { SafeCanvas as Canvas } from './SafeCanvas';
 import Model from '../components/model';
 import { useRef } from 'react';
 import * as THREE from 'three';

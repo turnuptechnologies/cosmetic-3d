@@ -1,4 +1,4 @@
-import { Canvas } from '@react-three/fiber';
+import { SafeCanvas as Canvas } from '../SafeCanvas';
 import Model from '../../components/model';
 import { Environment, OrbitControls } from '@react-three/drei';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useContext } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { SafeCanvas as Canvas } from './SafeCanvas';
 import { OrbitControls, Environment } from '@react-three/drei';
 import Model from './model';
 import gsap from 'gsap';
@@ -124,7 +124,7 @@ We guarantee you've never come across a more well-rounded team of experts than a
               intensity={0.5}
             />
 
-            <Environment preset="city" />
+            <Environment files="/hdr/potsdamer_platz_1k.hdr" />
             <Model
               modelPath="/images/SilverVerticalTube.compressed.glb"
               scale={1.5}
