@@ -53,24 +53,43 @@ export const Recaptcha = forwardRef(function Recaptcha({ onChange }, ref) {
     const container = containerRef.current;
     let cancelled = false;
 
-    loadRecaptcha()
-      .then((grecaptcha) => {
-        if (cancelled || !container) return;
-        widgetId.current = grecaptcha.render(container, {
-          sitekey: SITE_KEY,
-          theme: "dark",
-          callback: (token) => onChangeRef.current?.(token),
-          "expired-callback": () => onChangeRef.current?.(null),
-          "error-callback": () => onChangeRef.current?.(null),
+    const start = () =>
+      loadRecaptcha()
+        .then((grecaptcha) => {
+          if (cancelled || !container) return;
+          widgetId.current = grecaptcha.render(container, {
+            sitekey: SITE_KEY,
+            theme: "dark",
+            callback: (token) => onChangeRef.current?.(token),
+            "expired-callback": () => onChangeRef.current?.(null),
+            "error-callback": () => onChangeRef.current?.(null),
+          });
+          setStatus("ready");
+        })
+        .catch(() => {
+          if (!cancelled) setStatus("error");
         });
-        setStatus("ready");
-      })
-      .catch(() => {
-        if (!cancelled) setStatus("error");
-      });
+
+    // The form sits far down the page: don't download and run Google's script (~350 KB)
+    // until it is about to be scrolled into view
+    let observer;
+    if (typeof IntersectionObserver === "undefined") {
+      start();
+    } else {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+          start();
+        },
+        { rootMargin: "800px" }
+      );
+      observer.observe(container);
+    }
 
     return () => {
       cancelled = true;
+      observer?.disconnect();
       widgetId.current = null;
       container?.replaceChildren(); // lets React strict mode / remounts render a fresh widget
     };

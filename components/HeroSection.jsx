@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { SafeCanvas as Canvas } from './SafeCanvas';
-import Model from './model';
+import { lazyScene } from './LazyScene';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+
+const HeroMobileScene = lazyScene(() => import('./scenes/HeroMobileScene'));
 
 export function HeroSection(
   {
@@ -80,6 +81,7 @@ export function HeroSection(
     <section className="relative h-screen w-full snap-start flex items-center justify-center overflow-hidden bg-black mb-10">
       <div className="relative w-full h-full">
         <video
+          poster="/videos/hero-pink-poster.webp"
           aria-hidden="true"
           style={{ transform: 'rotate(2deg) scale(1.56)' }}
           autoPlay
@@ -88,7 +90,7 @@ export function HeroSection(
           playsInline
           className="absolute inset-0 w-full h-full object-contain z-0"
         >
-          <source src="/videos/Pink-hero-bg.mp4" type="video/mp4" />
+          <source src="/videos/hero-pink-1280.mp4" type="video/mp4" />
         </video>
         <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent z-5"></div>
       </div>
@@ -167,33 +169,7 @@ export function HeroSection(
               rotation={[0, 0.4, 0]}
             />
           </Canvas> */}
-          <Canvas
-            // dpr={window.devicePixelRatio}
-            camera={{ position: [0, 3, 12], fov: 35 }}
-            style={{ width: "100%", height: "100%" }}
-            gl={{ antialias: true, powerPreference: "high-performance" }}
-          >
-            <ambientLight intensity={0.8} />
-
-            <directionalLight position={[5, 10, 10]} intensity={2.5} />
-            <directionalLight position={[-5, 8, 5]} intensity={2.0} />
-            <directionalLight position={[0, 12, -5]} intensity={2.2} />
-
-            <spotLight
-              position={[0, 12, 5]}
-              angle={0.3}
-              penumbra={0.8}
-              intensity={3.5}
-              color="#ffffff"
-              castShadow={false}
-            />
-
-            <Model
-              scale={2}
-              modelPath="/images/green_hero.glb"
-              position={[0, 0, 0]}
-            />
-          </Canvas>
+          <HeroMobileScene style={{ width: "100%", height: "100%" }} />
 
 
         </div>

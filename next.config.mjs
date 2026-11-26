@@ -19,6 +19,15 @@ const nextConfig = {
       },
     ],
   },
+  // Static media in /public is otherwise served with max-age=0, so returning visitors re-validate
+  // every video, image and model. Replace a file under a NEW filename to bust this cache.
+  async headers() {
+    const cache = [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }];
+    return ['videos', 'images', 'hdr', 'fonts', 'sound'].map((dir) => ({
+      source: `/${dir}/:path*`,
+      headers: cache,
+    }));
+  },
   async redirects() {
     return [
       // The About page moved to /about-us; keep old links and search rankings working

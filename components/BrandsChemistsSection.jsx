@@ -40,7 +40,7 @@ export function BrandsChemistsSection() {
         {/* CENTER BOTTLE — Always centered */}
         <div className="flex justify-center col-span-1">
           <Image
-            src="/images/product5.png"
+            src="/images/product5.webp"
             width={430}
             height={680}
             alt="Product Bottle"
